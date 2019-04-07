@@ -21,11 +21,6 @@ module.exports = (env, argv) => {
     devtool: isDevelopment ? 'source-map' : 'none',
 
     resolve: {
-      // modules: [
-      //   "node_modules",
-      //   path.resolve(__dirname, "app/webpacks"),
-      // ],
-
       extensions: ['.ts', '.tsx', '.js', '.jsx', '.scss', '.css'],
     },
 
@@ -77,6 +72,10 @@ module.exports = (env, argv) => {
               },
             },
           ],
+        },
+        {
+          test: /\.(ts|tsx)$/,
+          loader: 'ts-loader',
         },
       ],
     },
