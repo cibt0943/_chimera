@@ -4,9 +4,10 @@ html
     title chimera
     = csrf_meta_tags
     = csp_meta_tag
-    = stylesheet_link_tag asset_bundle_path 'main.css'
+    = stylesheet_pack_tag 'common'
     = yield :stylesheet
   body
     = yield
-    = javascript_include_tag asset_bundle_path 'main.js'
+    = javascript_pack_tag 'vendor'
+    = javascript_pack_tag 'common'
     = yield :javascript

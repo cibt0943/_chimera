@@ -1,4 +1,11 @@
 Rails.application.routes.draw do
-  # ルート
-  root 'sample#show'
+  shallow do
+    scope module: :gui do
+      # ルート
+      root 'dashboard#show'
+
+      # todo
+      resources :todos
+    end
+  end
 end

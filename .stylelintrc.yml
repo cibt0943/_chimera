@@ -12,3 +12,4 @@ rules:
     - custom-properties
     - declarations
   order/properties-alphabetical-order: true
+  no-empty-source: null
