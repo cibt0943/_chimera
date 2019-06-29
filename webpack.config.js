@@ -9,7 +9,7 @@ module.exports = (env, argv) => {
   const isDevelopment = argv.mode === 'development'
 
   const entries = {}
-  glob.sync('./app/frontend/pages/*/*.tsx').forEach(function(e) {
+  glob.sync('./app/frontend/entries/*/index.{ts,tsx}').forEach(function(e) {
     // {key:value}の連想配列を生成
     // entries[path.basename(e, '.tsx')] = e
     entries[path.basename(path.dirname(e))] = e
@@ -29,6 +29,8 @@ module.exports = (env, argv) => {
     devtool: isDevelopment ? 'source-map' : 'none',
 
     resolve: {
+      modules: ['node_modules', path.resolve(__dirname, 'app/frontend')],
+
       extensions: ['.ts', '.tsx', '.js', '.jsx', '.scss', '.css'],
     },
 
@@ -48,7 +50,7 @@ module.exports = (env, argv) => {
               loader: 'css-loader',
               options: {
                 // CSS内のurl()メソッドの取り込み
-                url: false,
+                // url: false,
                 // ソースマップの作成
                 sourceMap: isDevelopment,
                 // Sass+PostCSSの場合は2を指定
@@ -83,8 +85,47 @@ module.exports = (env, argv) => {
         },
         {
           test: /\.(ts|tsx)$/,
-          loader: 'ts-loader',
+          use: [
+            {
+              loader: 'ts-loader',
+            },
+          ],
         },
+        {
+          test: /\.(jpe|png|gif|svg|ico)$/,
+          use: [
+            {
+              loader: 'url-loader',
+              options: {
+                limit: 10000,
+                name: 'images/[name].[ext]',
+              },
+            },
+          ],
+        },
+        {
+          test: /\.(eot|ttf|woff|woff2)$/,
+          use: [
+            {
+              loader: 'url-loader',
+              options: {
+                limit: 10000,
+                name: 'fonts/[name].[ext]',
+              },
+            },
+          ],
+        },
+        // {
+        //   test: /\.(png|jpg|gif|svg|eot|ttf|woff|woff2)$/,
+        //   use: [
+        //     {
+        //       loader: 'file-loader',
+        //       options: {
+        //         name: './[name].[ext]',
+        //       },
+        //     }
+        //   ],
+        // },
       ],
     },
 
