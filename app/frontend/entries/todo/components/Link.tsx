@@ -6,7 +6,7 @@ interface IProps {
   onClick: () => void
 }
 
-const link: React.FC<IProps> = (props: IProps) => {
+const Link: React.FC<IProps> = props => {
   const { active, children, onClick } = props
 
   return (
@@ -16,4 +16,4 @@ const link: React.FC<IProps> = (props: IProps) => {
   )
 }
 
-export default link
+export default Link

@@ -1,12 +1,13 @@
 import { Dispatch } from 'redux'
 import { connect } from 'react-redux'
+import { ITodoState } from '../types'
 import { ITodoAction, addTask } from '../actions'
 import AddTask from '../components/AddTask'
 
-/* connect するコンポーネントが必要としている Store を受け取る Props の型 */
-const mapStateToProps = () => {}
+const mapStateToProps = (state: ITodoState) => {
+  return state
+}
 
-/* connect するコンポーネントが必要としている Dispatch を受け取る Props の型 */
 const mapDispatchToProps = (dispatch: Dispatch<ITodoAction>) => {
   return {
     onSubmit: (text: string) => {

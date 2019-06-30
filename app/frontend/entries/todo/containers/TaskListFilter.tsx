@@ -1,5 +1,5 @@
-import { connect } from 'react-redux'
 import { Dispatch } from 'redux'
+import { connect } from 'react-redux'
 import { ITodoAction, setVisibilityFilter } from '../actions'
 import { ITodoState } from '../types'
 import Link from '../components/Link'

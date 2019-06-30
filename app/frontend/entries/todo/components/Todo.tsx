@@ -1,16 +1,17 @@
 import * as React from 'react'
+import { Container } from 'semantic-ui-react'
 import AddTask from '../containers/AddTask'
 import VisibleTaskList from '../containers/VisibleTaskList'
 import Footer from './Footer'
 
-const app: React.FC = () => {
+const Todo: React.FC = () => {
   return (
-    <div>
+    <Container text={true}>
       <AddTask />
       <VisibleTaskList />
       <Footer />
-    </div>
+    </Container>
   )
 }
 
-export default app
+export default Todo

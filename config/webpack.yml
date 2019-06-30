@@ -1,13 +1,12 @@
 default: &default
   public_root_path: public
   output_path: packs
-
-development:
-  <<: *default
-
   dev_server:
     host: 0.0.0.0
     port: 8080
+
+development:
+  <<: *default
 
 production:
   <<: *default

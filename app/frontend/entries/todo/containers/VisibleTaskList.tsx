@@ -9,10 +9,10 @@ const mapStateToProps = (state: ITodoState) => {
     switch (state.visibilityFilter) {
       case EnumVisibilityFilter.SHOW_ALL:
         return state.taskList
-      case EnumVisibilityFilter.SHOW_COMPLETED:
-        return state.taskList.filter(e => e.completed)
       case EnumVisibilityFilter.SHOW_ACTIVE:
         return state.taskList.filter(e => !e.completed)
+      case EnumVisibilityFilter.SHOW_COMPLETED:
+        return state.taskList.filter(e => e.completed)
       default:
         throw new Error('Unknown filter.')
     }

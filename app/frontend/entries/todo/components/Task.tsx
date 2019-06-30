@@ -5,7 +5,7 @@ interface IProps extends ITask {
   onClick: () => void
 }
 
-const task: React.FC<IProps> = (props: IProps) => {
+const Task: React.FC<IProps> = props => {
   const { id, completed, text, onClick } = props
 
   const renderToggleBtn = (id: number) => <button onClick={onClick}>toggle</button>
@@ -18,7 +18,7 @@ const task: React.FC<IProps> = (props: IProps) => {
   )
 }
 
-export default task
+export default Task
 
 // import * as React from 'react'
 // import { deleteTask, toggleTask } from '../actions'

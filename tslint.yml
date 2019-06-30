@@ -14,3 +14,6 @@ rules:
   prettier:
     - true
     - .prettierrc.yml
+  variable-name:
+    - true
+    - allow-pascal-case

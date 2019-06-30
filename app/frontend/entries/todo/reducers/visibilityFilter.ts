@@ -1,7 +1,7 @@
 import { EnumVisibilityFilter } from '../types'
 import * as actions from '../actions'
 
-const initialState: string = EnumVisibilityFilter.SHOW_COMPLETED
+const initialState: string = EnumVisibilityFilter.SHOW_ACTIVE
 
 const visibilityFilter = (state: string = initialState, action: actions.ITodoAction) => {
   switch (action.type) {

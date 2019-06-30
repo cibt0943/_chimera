@@ -4,10 +4,13 @@ html
     title chimera
     = csrf_meta_tags
     = csp_meta_tag
+    = stylesheet_pack_tag 'vendor'
     = stylesheet_pack_tag 'common'
+    / = stylesheet_pack_tag 'app'
     = yield :stylesheet
   body
     = yield
     = javascript_pack_tag 'vendor'
     = javascript_pack_tag 'common'
+    / = javascript_pack_tag 'app'
     = yield :javascript
