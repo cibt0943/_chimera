@@ -1,7 +1,7 @@
 import { Dispatch } from 'redux'
 import { connect } from 'react-redux'
 import { ITodoState, EnumVisibilityFilter } from '../types'
-import { ITodoAction, toggleTask } from '../actions'
+import { toggleTask } from '../actions'
 import TaskList from '../components/TaskList'
 
 const mapStateToProps = (state: ITodoState) => {
@@ -22,7 +22,7 @@ const mapStateToProps = (state: ITodoState) => {
   }
 }
 
-const mapDispatchToProps = (dispatch: Dispatch<ITodoAction>) => {
+const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
     toggleTask: (id: number) => {
       dispatch(toggleTask({ id }))

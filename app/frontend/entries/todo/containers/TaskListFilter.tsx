@@ -1,6 +1,6 @@
 import { Dispatch } from 'redux'
 import { connect } from 'react-redux'
-import { ITodoAction, setVisibilityFilter } from '../actions'
+import { setVisibilityFilter } from '../actions'
 import { ITodoState } from '../types'
 import Link from '../components/Link'
 
@@ -14,7 +14,7 @@ const mapStateToProps = (state: ITodoState, ownProps: OwnProps) => {
   }
 }
 
-const mapDispatchToProps = (dispatch: Dispatch<ITodoAction>, ownProps: OwnProps) => {
+const mapDispatchToProps = (dispatch: Dispatch, ownProps: OwnProps) => {
   return {
     onClick: () => {
       dispatch(setVisibilityFilter({ filter: ownProps.filter }))

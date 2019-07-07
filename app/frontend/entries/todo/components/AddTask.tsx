@@ -1,13 +1,13 @@
 import * as React from 'react'
-import { Modal, Input, Button } from 'semantic-ui-react'
-import ModalDialog from 'common/components/ModalDialog'
+import { Modal, Form, Input, Button } from 'semantic-ui-react'
+import ModalDialog from 'common/containers/ModalDialog'
 
 interface IProps {
   onSubmit: (text: string) => void
+  showModal: (id: number) => void
 }
 
 interface IState {
-  isModalOpen: boolean
   text: string
 }
 
@@ -16,19 +16,13 @@ export default class AddTask extends React.Component<IProps, IState> {
     super(props)
 
     this.state = {
-      isModalOpen: false,
       text: '',
     }
-
-    this.handleOpenModal = this.handleOpenModal.bind(this)
-    this.handleCloseModal = this.handleCloseModal.bind(this)
   }
 
   private handleChange(event: React.ChangeEvent<HTMLInputElement>) {
     event.preventDefault()
-    this.setState({
-      text: event.target.value,
-    })
+    this.setState({ text: event.target.value })
   }
 
   private handleSubmit(event: React.FormEvent<HTMLFormElement>) {
@@ -36,37 +30,33 @@ export default class AddTask extends React.Component<IProps, IState> {
     const text = this.state.text.trim()
     if (text === '') return
     this.props.onSubmit(text)
-    this.setState({ text: '' })
-  }
-
-  private handleOpenModal() {
-    this.setState({ isModalOpen: true })
-  }
-
-  private handleCloseModal() {
-    this.setState({ isModalOpen: false })
+    // this.setState({ text: '' })
   }
 
   public render() {
     return (
       <div>
-        <Button onClick={this.handleOpenModal}>タスクを追加</Button>
-        <ModalDialog open={this.state.isModalOpen} onClose={this.handleCloseModal}>
+        <Button onClick={e => this.props.showModal(1)}>タスクを追加</Button>
+        <ModalDialog modalId={1}>
           <Modal.Header>タスクを追加</Modal.Header>
           <Modal.Content>
-            <form
+            <Form
               onSubmit={e => {
                 this.handleSubmit(e)
               }}
             >
-              <Input
-                onChange={e => {
-                  this.handleChange(e)
-                }}
-                value={this.state.text}
-              />
-              <Button type={'submit'}>Add Todo</Button>
-            </form>
+              <Form.Field>
+                <Input
+                  focus={true}
+                  fluid={true}
+                  onChange={e => {
+                    this.handleChange(e)
+                  }}
+                  value={this.state.text}
+                />
+              </Form.Field>
+              <Button type="submit">追加する</Button>
+            </Form>
           </Modal.Content>
         </ModalDialog>
       </div>

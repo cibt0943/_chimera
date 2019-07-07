@@ -2,7 +2,6 @@ import * as React from 'react'
 
 interface IProps {
   active: boolean
-  children: React.ReactNode
   onClick: () => void
 }
 
