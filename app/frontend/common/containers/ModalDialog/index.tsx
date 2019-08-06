@@ -5,7 +5,7 @@ import { addModal, setVisibilityModal } from 'common/actions/modalDialog'
 import ModalDialog from 'common/components/ModalDialog'
 
 interface OwnProps {
-  modalId: number
+  modalId: string
 }
 
 const mapStateToProps = (state: IModalState, ownProps: OwnProps) => {
@@ -14,10 +14,10 @@ const mapStateToProps = (state: IModalState, ownProps: OwnProps) => {
 
 const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
-    addModal: (id: number, visible: boolean) => {
+    addModal: (id: string, visible: boolean) => {
       dispatch(addModal({ id, visible }))
     },
-    hideModal: (id: number) => {
+    hideModal: (id: string) => {
       dispatch(setVisibilityModal({ id, visible: false }))
     },
   }

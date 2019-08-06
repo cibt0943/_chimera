@@ -3,10 +3,10 @@ import { Modal } from 'semantic-ui-react'
 import { IModalListHash } from 'common/types/modalDialog'
 
 interface IProps {
-  modalId: number
+  modalId: string
   modalListHash: IModalListHash
-  addModal: (id: number, visible: boolean) => void
-  hideModal: (id: number) => void
+  addModal: (id: string, visible: boolean) => void
+  hideModal: (id: string) => void
 }
 
 export default class ModalDialog extends React.Component<IProps> {

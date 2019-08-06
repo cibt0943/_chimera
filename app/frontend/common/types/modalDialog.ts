@@ -1,10 +1,10 @@
 export interface IModal {
-  id: number
+  id: string
   visible: boolean
 }
 
 export interface IModalListHash {
-  [key: number]: IModal
+  [key: string]: IModal
 }
 
 /* stateの型を定義する。 */

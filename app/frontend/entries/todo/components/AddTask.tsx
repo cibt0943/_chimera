@@ -4,7 +4,7 @@ import ModalDialog from 'common/containers/ModalDialog'
 
 interface IProps {
   onSubmit: (text: string) => void
-  showModal: (id: number) => void
+  showModal: (id: string) => void
 }
 
 interface IState {
@@ -36,8 +36,8 @@ export default class AddTask extends React.Component<IProps, IState> {
   public render() {
     return (
       <div>
-        <Button onClick={e => this.props.showModal(1)}>タスクを追加</Button>
-        <ModalDialog modalId={1}>
+        <Button onClick={e => this.props.showModal('todo_add')}>タスクを追加</Button>
+        <ModalDialog modalId="todo_add">
           <Modal.Header>タスクを追加</Modal.Header>
           <Modal.Content>
             <Form

@@ -14,7 +14,7 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
     onSubmit: (text: string) => {
       dispatch(addTask({ text }))
     },
-    showModal: (id: number) => {
+    showModal: (id: string) => {
       dispatch(setVisibilityModal({ id, visible: true }))
     },
   }

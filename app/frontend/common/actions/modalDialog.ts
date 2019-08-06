@@ -14,12 +14,12 @@ export enum ActionTypes {
  */
 
 export type AddModalPayload = {
-  id: number
+  id: string
   visible: boolean
 }
 
 export type SetVisibilityModalPayload = {
-  id: number
+  id: string
   visible: boolean
 }
 
