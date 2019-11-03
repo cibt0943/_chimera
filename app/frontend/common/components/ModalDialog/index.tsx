@@ -7,6 +7,7 @@ interface IProps {
   modalListHash: IModalListHash
   addModal: (id: string, visible: boolean) => void
   hideModal: (id: string) => void
+  children: React.ReactNode
 }
 
 export default class ModalDialog extends React.Component<IProps> {

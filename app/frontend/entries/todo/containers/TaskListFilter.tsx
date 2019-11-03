@@ -6,6 +6,7 @@ import Link from '../components/Link'
 
 interface OwnProps {
   filter: string
+  children: React.ReactNode
 }
 
 const mapStateToProps = (state: ITodoState, ownProps: OwnProps) => {

@@ -55,7 +55,9 @@ export default class AddTask extends React.Component<IProps, IState> {
                   value={this.state.text}
                 />
               </Form.Field>
-              <Button type="submit">追加する</Button>
+              <Button positive={true} type="submit">
+                追加する
+              </Button>
             </Form>
           </Modal.Content>
         </ModalDialog>
