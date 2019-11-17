@@ -23,7 +23,4 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
   }
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(ModalDialog)
+export default connect(mapStateToProps, mapDispatchToProps)(ModalDialog)

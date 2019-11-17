@@ -30,7 +30,4 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
   }
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(TaskList)
+export default connect(mapStateToProps, mapDispatchToProps)(TaskList)

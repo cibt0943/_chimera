@@ -21,7 +21,4 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
 }
 
 /* ReduxのStore由来のデータとDispatcherをPropsに格納して、Todoに渡す。 */
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(AddTask)
+export default connect(mapStateToProps, mapDispatchToProps)(AddTask)
