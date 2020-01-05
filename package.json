@@ -5,9 +5,9 @@
     "start": "webpack-dev-server --mode development --progress --colors",
     "dev": "webpack --mode development --progress --colors",
     "build": "webpack --mode production --progress --colors",
-    "format:css": "prettier-stylelint --quiet --write './app/frontend/**/*.{css,scss}'",
-    "stylelint": "stylelint --fix './app/frontend/**/*.{css,scss}'",
-    "tslint": "tslint --project ./ --fix './app/frontend/**/*.{ts,tsx}'",
+    "format:css": "prettier-stylelint --quiet --write './frontend/**/*.{css,scss}'",
+    "stylelint": "stylelint --fix './frontend/**/*.{css,scss}'",
+    "tslint": "tslint --project ./ --fix './frontend/**/*.{ts,tsx}'",
     "precommit": "lint-staged"
   },
   "husky": {

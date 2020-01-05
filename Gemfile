@@ -52,9 +52,6 @@ group :development, :test do
 
   # テスト用データの生成
   gem 'factory_bot_rails'
-
-  # webpack-dev-serverへプロキシ
-  gem 'rack-proxy'
 end
 
 group :development do

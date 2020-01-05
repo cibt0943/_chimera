@@ -8,17 +8,17 @@ const glob = require('glob')
 module.exports = (env, argv) => {
   const isDevelopment = argv.mode === 'development'
 
-  const entries = {}
-  glob.sync('./app/frontend/entries/*/index.{ts,tsx}').forEach(function(e) {
+  const pages = {}
+  glob.sync('./frontend/pages/*/index.{ts,tsx}').forEach(function(e) {
     // {key:value}の連想配列を生成
-    // entries[path.basename(e, '.tsx')] = e
-    entries[path.basename(path.dirname(e))] = e
+    // pages[path.basename(e, '.tsx')] = e
+    pages[path.basename(path.dirname(e))] = e
   })
 
   const config = jsYaml.safeLoad(fs.readFileSync('config/webpack.yml', 'utf-8'))[argv.mode]
 
   return {
-    entry: entries,
+    entry: pages,
 
     output: {
       filename: '[name]-[hash].js',
@@ -29,7 +29,7 @@ module.exports = (env, argv) => {
     devtool: isDevelopment ? 'source-map' : 'none',
 
     resolve: {
-      modules: ['node_modules', path.resolve(__dirname, 'app/frontend')],
+      modules: ['node_modules', path.resolve(__dirname, 'frontend')],
 
       extensions: ['.ts', '.tsx', '.js', '.jsx', '.scss', '.css'],
     },
@@ -166,6 +166,8 @@ module.exports = (env, argv) => {
       publicPath: `/${config.output_path}/`,
       // contentBase: 公開するリソースのルートディレクトリ。未指定の場合はカレントディレクトリが起点になる。
       contentBase: path.resolve(__dirname, config.public_root_path, config.output_path),
+      // watchContentBase: コンテンツの変更監視をする
+      // watchContentBase: true,
       host: config.dev_server.host,
       // port: ポート番号。未指定の場合は8080が初期値になる。
       port: config.dev_server.port,

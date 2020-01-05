@@ -22,6 +22,7 @@ module EnvVariable
     api: 'api',
     db: 'db',
     cache: 'cache',
+    cdn: 'cdn',
   }.freeze
 
   PROTOCOL = case Rails.env
