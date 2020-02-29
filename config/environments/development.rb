@@ -53,8 +53,10 @@ Rails.application.configure do
   # routes, locales, etc. This feature depends on the listen gem.
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
-  # rack proxy
-  config.middleware.use RackProxy::DevServerProxy, ssl_verify_node: true
+  # Rails 6.0からDNS Rebuilding Attack攻撃から守るために、指定されたホストからしかアクセスを受けつない仕様
+  config.hosts << ".#{EnvVariable::AP_SERVER_GLOBAL_DOMAIN}"
 
-  config.hosts << '.tamechimera.com'
+  # assetの配信元
+  webpack = config.x.webpack.deep_symbolize_keys
+  config.asset_host = "//#{webpack[:dev_server][:host]}:#{webpack[:dev_server][:port]}"
 end

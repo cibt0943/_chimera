@@ -30,3 +30,7 @@
 
 # Ignore public
 /public/packs
+
+# Ignore env setting
+/.env
+/.env.*

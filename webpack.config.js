@@ -3,14 +3,22 @@ const fs = require('fs')
 const jsYaml = require('js-yaml')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const ManifestPlugin = require('webpack-manifest-plugin')
+const glob = require('glob')
 
 module.exports = (env, argv) => {
   const isDevelopment = argv.mode === 'development'
 
+  const pages = {}
+  glob.sync('./frontend/pages/*/index.{ts,tsx}').forEach(function(e) {
+    // {key:value}の連想配列を生成
+    // pages[path.basename(e, '.tsx')] = e
+    pages[path.basename(path.dirname(e))] = e
+  })
+
   const config = jsYaml.safeLoad(fs.readFileSync('config/webpack.yml', 'utf-8'))[argv.mode]
 
   return {
-    entry: './app/frontend/app.ts',
+    entry: pages,
 
     output: {
       filename: '[name]-[hash].js',
@@ -21,6 +29,8 @@ module.exports = (env, argv) => {
     devtool: isDevelopment ? 'source-map' : 'none',
 
     resolve: {
+      modules: ['node_modules', path.resolve(__dirname, 'frontend')],
+
       extensions: ['.ts', '.tsx', '.js', '.jsx', '.scss', '.css'],
     },
 
@@ -40,7 +50,7 @@ module.exports = (env, argv) => {
               loader: 'css-loader',
               options: {
                 // CSS内のurl()メソッドの取り込み
-                url: false,
+                // url: false,
                 // ソースマップの作成
                 sourceMap: isDevelopment,
                 // Sass+PostCSSの場合は2を指定
@@ -75,8 +85,47 @@ module.exports = (env, argv) => {
         },
         {
           test: /\.(ts|tsx)$/,
-          loader: 'ts-loader',
+          use: [
+            {
+              loader: 'ts-loader',
+            },
+          ],
         },
+        {
+          test: /\.(jpe|png|gif|svg|ico)$/,
+          use: [
+            {
+              loader: 'url-loader',
+              options: {
+                limit: 10000,
+                name: 'images/[name].[ext]',
+              },
+            },
+          ],
+        },
+        {
+          test: /\.(eot|ttf|woff|woff2)$/,
+          use: [
+            {
+              loader: 'url-loader',
+              options: {
+                limit: 10000,
+                name: 'fonts/[name].[ext]',
+              },
+            },
+          ],
+        },
+        // {
+        //   test: /\.(png|jpg|gif|svg|eot|ttf|woff|woff2)$/,
+        //   use: [
+        //     {
+        //       loader: 'file-loader',
+        //       options: {
+        //         name: './[name].[ext]',
+        //       },
+        //     }
+        //   ],
+        // },
       ],
     },
 
@@ -92,12 +141,33 @@ module.exports = (env, argv) => {
       }),
     ],
 
+    optimization: {
+      splitChunks: {
+        cacheGroups: {
+          common: {
+            test: /common/,
+            chunks: 'initial',
+            name: 'common',
+            enforce: true,
+          },
+          vendor: {
+            test: /node_modules/,
+            chunks: 'initial',
+            name: 'vendor',
+            enforce: true,
+          },
+        },
+      },
+    },
+
     // Configuration for dev server
     devServer: {
       // publicPath: プロダクトにて実際にJSへアクセスする際のパスと同様になるように指定
       publicPath: `/${config.output_path}/`,
       // contentBase: 公開するリソースのルートディレクトリ。未指定の場合はカレントディレクトリが起点になる。
       contentBase: path.resolve(__dirname, config.public_root_path, config.output_path),
+      // watchContentBase: コンテンツの変更監視をする
+      // watchContentBase: true,
       host: config.dev_server.host,
       // port: ポート番号。未指定の場合は8080が初期値になる。
       port: config.dev_server.port,
@@ -108,6 +178,11 @@ module.exports = (env, argv) => {
       disableHostCheck: true,
       headers: {
         'Access-Control-Allow-Origin': '*',
+      },
+      // vagrantだとファイルシステムの違いから変更を検知できないらしいのでポーリングする
+      watchOptions: {
+        aggregateTimeout: 300,
+        poll: 3000,
       },
     },
   }

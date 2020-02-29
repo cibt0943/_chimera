@@ -33,6 +33,9 @@ gem 'redis-rails'
 # Seed Data
 gem 'seed-fu'
 
+# env
+gem 'dotenv-rails'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
@@ -52,9 +55,6 @@ group :development, :test do
 
   # テスト用データの生成
   gem 'factory_bot_rails'
-
-  # webpack-dev-serverへプロキシ
-  gem 'rack-proxy'
 end
 
 group :development do

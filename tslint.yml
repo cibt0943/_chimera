@@ -10,6 +10,10 @@ rulesDirectory:
 rules:
   import-name: false
   no-consecutive-blank-lines: false
+  jsx-no-lambda: false
   prettier:
     - true
     - .prettierrc.yml
+  variable-name:
+    - true
+    - allow-pascal-case

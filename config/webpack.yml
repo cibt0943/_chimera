@@ -1,13 +1,12 @@
 default: &default
   public_root_path: public
-  output_path: packs
+  output_path: assets
+  dev_server:
+    host: tamechimera.com
+    port: 8080
 
 development:
   <<: *default
-
-  dev_server:
-    host: 0.0.0.0
-    port: 8080
 
 production:
   <<: *default
