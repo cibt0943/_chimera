@@ -1,24 +1,19 @@
 import { Dispatch } from 'redux'
 import { connect } from 'react-redux'
-import { ITodoState } from '../types'
 import { addTask } from '../actions'
 import { setVisibilityModal } from 'common/actions/modalDialog'
-import AddTask from '../components/AddTask'
+import AddTask, { IDispatch } from '../components/AddTask'
 
-const mapStateToProps = (state: ITodoState) => {
-  return state
-}
-
-const mapDispatchToProps = (dispatch: Dispatch) => {
+const mapDispatchToProps = (dispatch: Dispatch): IDispatch => {
   return {
-    onSubmit: (text: string) => {
+    onSubmit: (text: string): void => {
       dispatch(addTask({ text }))
     },
-    showModal: (id: string) => {
+    showModal: (id: string): void => {
       dispatch(setVisibilityModal({ id, visible: true }))
     },
   }
 }
 
 /* ReduxのStore由来のデータとDispatcherをPropsに格納して、Todoに渡す。 */
-export default connect(mapStateToProps, mapDispatchToProps)(AddTask)
+export default connect(null, mapDispatchToProps)(AddTask)

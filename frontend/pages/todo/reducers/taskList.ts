@@ -2,7 +2,7 @@ import { ITask, ITaskList } from '../types'
 import * as actions from '../actions'
 
 const initialState: ITaskList = []
-let nextId: number = 0
+let nextId = 0
 
 /* todoを作成 */
 const buildTask = (payload: actions.AddTaskPayload): ITask => {

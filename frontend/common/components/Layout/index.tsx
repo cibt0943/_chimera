@@ -4,8 +4,8 @@ import './style'
 import * as React from 'react'
 import Header from './Header'
 
-const Layout = (WrappedComponent: React.FC) => {
-  return () => {
+const Layout = (WrappedComponent: React.FC): Function => {
+  const LayoutComponent = (): React.ReactElement => {
     return (
       <React.Fragment>
         <Header />
@@ -15,6 +15,7 @@ const Layout = (WrappedComponent: React.FC) => {
       </React.Fragment>
     )
   }
+  return LayoutComponent
 }
 
 export default Layout
