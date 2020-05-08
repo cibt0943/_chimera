@@ -2,7 +2,7 @@
   - stylelint --fix
   - git add
 "./app/frontend/**/*.{ts,tsx}":
-  - tslint --fix
+  - eslint --fix
   - git add
 "*.js":
   - prettier --write

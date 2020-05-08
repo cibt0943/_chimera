@@ -2,14 +2,16 @@ import * as React from 'react'
 import { Modal, Form, Input, Button } from 'semantic-ui-react'
 import ModalDialog from 'common/containers/ModalDialog'
 
-interface IProps {
+export interface IState {
+  text: string
+}
+
+export interface IDispatch {
   onSubmit: (text: string) => void
   showModal: (id: string) => void
 }
 
-interface IState {
-  text: string
-}
+type IProps = IDispatch
 
 export default class AddTask extends React.Component<IProps, IState> {
   constructor(props: IProps) {
@@ -20,12 +22,12 @@ export default class AddTask extends React.Component<IProps, IState> {
     }
   }
 
-  private handleChange(event: React.ChangeEvent<HTMLInputElement>) {
+  private handleChange(event: React.ChangeEvent<HTMLInputElement>): void {
     event.preventDefault()
     this.setState({ text: event.target.value })
   }
 
-  private handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+  private handleSubmit(event: React.FormEvent<HTMLFormElement>): void {
     event.preventDefault()
     const text = this.state.text.trim()
     if (text === '') return
@@ -33,24 +35,24 @@ export default class AddTask extends React.Component<IProps, IState> {
     // this.setState({ text: '' })
   }
 
-  public render() {
+  public render(): React.ReactElement {
     return (
       <div>
-        <Button onClick={e => this.props.showModal('todo_add')}>タスクを追加</Button>
+        <Button onClick={(): void => this.props.showModal('todo_add')}>タスクを追加</Button>
         <ModalDialog modalId="todo_add">
           <Modal.Header>タスクを追加</Modal.Header>
           <Modal.Content>
             <Form
-              onSubmit={e => {
-                this.handleSubmit(e)
+              onSubmit={(event: React.FormEvent<HTMLFormElement>): void => {
+                this.handleSubmit(event)
               }}
             >
               <Form.Field>
                 <Input
                   focus={true}
                   fluid={true}
-                  onChange={e => {
-                    this.handleChange(e)
+                  onChange={(event: React.ChangeEvent<HTMLInputElement>): void => {
+                    this.handleChange(event)
                   }}
                   value={this.state.text}
                 />

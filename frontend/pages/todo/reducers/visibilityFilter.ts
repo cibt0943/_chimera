@@ -3,7 +3,7 @@ import * as actions from '../actions'
 
 const initialState: string = EnumVisibilityFilter.SHOW_ACTIVE
 
-const visibilityFilter = (state: string = initialState, action: actions.ITodoAction) => {
+const visibilityFilter = (state: string = initialState, action: actions.ITodoAction): string => {
   switch (action.type) {
     case actions.ActionTypes.SET_VISIBILITY_FILTER:
       return action.payload.filter

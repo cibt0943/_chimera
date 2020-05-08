@@ -6,8 +6,8 @@ export enum EnumVisibilityFilter {
 
 export interface ITask {
   id: number
-  completed: boolean
   text: string
+  completed: boolean
 }
 
 export type ITaskList = ITask[]

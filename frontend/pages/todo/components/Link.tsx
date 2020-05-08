@@ -1,9 +1,14 @@
 import * as React from 'react'
 
-interface IProps {
+export interface IStateByProps {
   active: boolean
+}
+
+export interface IDispatchByProps {
   onClick: () => void
 }
+
+type IProps = IStateByProps & IDispatchByProps
 
 const Link: React.FC<IProps> = props => {
   const { active, children, onClick } = props

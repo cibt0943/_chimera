@@ -2,13 +2,20 @@ import * as React from 'react'
 import { Modal } from 'semantic-ui-react'
 import { IModalListHash } from 'common/types/modalDialog'
 
-interface IProps {
-  modalId: string
+export interface IStateByProps {
   modalListHash: IModalListHash
+}
+
+export interface IDispatchByProps {
   addModal: (id: string, visible: boolean) => void
   hideModal: (id: string) => void
-  children: React.ReactNode
 }
+
+type IProps = IStateByProps &
+  IDispatchByProps & {
+    modalId: string
+    children: React.ReactNode
+  }
 
 export default class ModalDialog extends React.Component<IProps> {
   constructor(props: IProps) {
@@ -18,16 +25,18 @@ export default class ModalDialog extends React.Component<IProps> {
     this.handleClose = this.handleClose.bind(this)
   }
 
-  private handleClose() {
+  private handleClose(): void {
     this.props.hideModal(this.props.modalId)
   }
 
-  public render() {
+  public render(): React.ReactElement {
     const { modalId, modalListHash, children } = this.props
 
     const modal = modalListHash[modalId]
 
-    if (!modal) return ''
+    if (!modal) {
+      return <React.Fragment />
+    }
 
     return (
       <Modal open={modal.visible} onClose={this.handleClose}>
