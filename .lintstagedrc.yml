@@ -1,7 +1,7 @@
 "./app/frontend/**/*.{css,scss}":
   - stylelint --fix
   - git add
-"./app/frontend/**/*.{ts,tsx}":
+"./app/frontend/**/*.{js, jsx, ts,tsx}":
   - eslint --fix
   - git add
 "*.js":

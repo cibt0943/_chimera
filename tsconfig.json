@@ -1,26 +1,54 @@
 {
   "compilerOptions": {
+    "target": "es5",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "jsx": "react",
-    "lib": ["es2018", "dom"],
-    "module": "es6",
-    "moduleResolution": "node",
-    "noImplicitAny": true,
-    "noImplicitReturns": true,
-    "noUnusedLocals": true,
-    "removeComments": true,
-    "sourceMap": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
     "strict": true,
-    "strictNullChecks": true,
-    "target": "es5"
+    "forceConsistentCasingInFileNames": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    // "noEmit": true,
+    "jsx": "react"
   },
-  "exclude": [
-    "**/*.spec.ts",
-    "node_modules",
-    "vendor",
-    "public"
-  ],
-  "compileOnSave": false
+  "include": [
+    "frontend"
+  ]
 }
+
+// 昔の設定
+// {
+//   "compilerOptions": {
+//     "allowJs": true,
+//     "emitDecoratorMetadata": true,
+//     "experimentalDecorators": true,
+//     "jsx": "react",
+//     "lib": ["es2018", "dom"],
+//     "module": "es6",
+//     "moduleResolution": "node",
+//     "noImplicitAny": true,
+//     "noImplicitReturns": true,
+//     "noUnusedLocals": true,
+//     "removeComments": true,
+//     "sourceMap": true,
+//     "strict": true,
+//     "strictNullChecks": true,
+//     "target": "es5"
+//   },
+//   "exclude": [
+//     "**/*.spec.ts",
+//     "node_modules",
+//     "vendor",
+//     "public"
+//   ],
+//   "compileOnSave": false
+// }
+
