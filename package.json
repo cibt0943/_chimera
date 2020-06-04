@@ -1,5 +1,6 @@
 {
   "name": "chimera",
+  "version": "0.1.0",
   "private": true,
   "scripts": {
     "start": "webpack-dev-server --mode development --progress --colors",
