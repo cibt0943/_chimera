@@ -10,14 +10,10 @@ export interface IDispatchByProps {
 
 type IProps = IStateByProps & IDispatchByProps
 
-const Link: React.FC<IProps> = props => {
-  const { active, children, onClick } = props
-
-  return (
-    <button onClick={onClick} disabled={active}>
-      {children}
-    </button>
-  )
-}
+const Link: React.FC<IProps> = ({ active, children, onClick }) => (
+  <button onClick={onClick} disabled={active}>
+    {children}
+  </button>
+)
 
 export default Link

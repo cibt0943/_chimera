@@ -89,7 +89,3 @@ group :development do
   # 言語ファイル(ja.yml)生成
   gem 'i18n_generators'
 end
-
-
-# Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]

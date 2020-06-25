@@ -2,7 +2,7 @@ import * as React from 'react'
 import TaskListFilter from '../containers/TaskListFilter'
 import { EnumVisibilityFilter } from '../types'
 
-const Footer: React.FC = () => {
+const TaskFilter: React.FC = () => {
   return (
     <div>
       <span>Show: </span>
@@ -13,4 +13,4 @@ const Footer: React.FC = () => {
   )
 }
 
-export default Footer
+export default TaskFilter

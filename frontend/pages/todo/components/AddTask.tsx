@@ -32,14 +32,14 @@ export default class AddTask extends React.Component<IProps, IState> {
     const text = this.state.text.trim()
     if (text === '') return
     this.props.onSubmit(text)
-    // this.setState({ text: '' })
+    this.setState({ text: '' })
   }
 
   public render(): React.ReactElement {
     return (
       <div>
-        <Button onClick={(): void => this.props.showModal('todo_add')}>タスクを追加</Button>
-        <ModalDialog modalId="todo_add">
+        <Button onClick={(): void => this.props.showModal('add_todo')}>タスクを追加</Button>
+        <ModalDialog modalId="add_todo">
           <Modal.Header>タスクを追加</Modal.Header>
           <Modal.Content>
             <Form

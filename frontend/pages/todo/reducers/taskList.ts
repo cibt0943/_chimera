@@ -30,11 +30,11 @@ const toggleTask = (taskList: ITaskList, payload: actions.ToggleTaskPayload): IT
 
 const taskList = (state: ITaskList = initialState, action: actions.ITodoAction): ITaskList => {
   switch (action.type) {
-    case actions.ActionTypes.ADD_TASK:
+    case actions.ActionType.ADD_TASK:
       return state.concat(buildTask(action.payload))
-    case actions.ActionTypes.DELETE_TASK:
+    case actions.ActionType.DELETE_TASK:
       return deleteTask(state, action.payload)
-    case actions.ActionTypes.TOGGLE_TASK:
+    case actions.ActionType.TOGGLE_TASK:
       return toggleTask(state, action.payload)
     default:
       return state

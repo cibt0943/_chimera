@@ -4,9 +4,9 @@ import { Action } from 'redux'
  * action types
  */
 
-export enum ActionTypes {
-  ADD_MODAL = '@@modalDialog/ADD_MODAL',
-  SET_VISIBILITY_MODAL = '@@modalDialog/SET_VISIBILITY_MODAL',
+export enum ActionType {
+  ADD_MODAL = '@@MODALDIALOG/ADD_MODAL',
+  SET_VISIBILITY_MODAL = '@@MODALDIALOG/SET_VISIBILITY_MODAL',
 }
 
 /*
@@ -28,12 +28,12 @@ export type SetVisibilityModalPayload = {
  */
 
 export interface IAddModalAction extends Action {
-  type: ActionTypes.ADD_MODAL
+  type: ActionType.ADD_MODAL
   payload: AddModalPayload
 }
 
 export interface ISetVisibilityModalAction extends Action {
-  type: ActionTypes.SET_VISIBILITY_MODAL
+  type: ActionType.SET_VISIBILITY_MODAL
   payload: SetVisibilityModalPayload
 }
 
@@ -45,10 +45,10 @@ export type IModalAction = IAddModalAction | ISetVisibilityModalAction
 
 export const addModal = (payload: AddModalPayload): IAddModalAction => ({
   payload,
-  type: ActionTypes.ADD_MODAL,
+  type: ActionType.ADD_MODAL,
 })
 
 export const setVisibilityModal = (payload: SetVisibilityModalPayload): ISetVisibilityModalAction => ({
   payload,
-  type: ActionTypes.SET_VISIBILITY_MODAL,
+  type: ActionType.SET_VISIBILITY_MODAL,
 })

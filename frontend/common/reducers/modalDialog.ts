@@ -15,12 +15,12 @@ const modalListHash = (state: IModalListHash = initialState, action: actions.IMo
   const payload = action.payload
 
   switch (action.type) {
-    case actions.ActionTypes.ADD_MODAL:
+    case actions.ActionType.ADD_MODAL:
       return {
         ...state,
         [payload.id]: buildModal(payload),
       }
-    case actions.ActionTypes.SET_VISIBILITY_MODAL:
+    case actions.ActionType.SET_VISIBILITY_MODAL:
       return {
         ...state,
         [payload.id]: { ...state[payload.id], visible: payload.visible },

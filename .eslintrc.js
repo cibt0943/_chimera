@@ -33,7 +33,7 @@ module.exports = {
   root: true,
   rules: {
     // 'space-before-function-paren': "off",
-    // 'react/prop-types': 0,
+    'react/prop-types': 'off',
   },
   // settings: {
   //   react: {
