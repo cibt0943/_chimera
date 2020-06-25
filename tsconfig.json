@@ -17,11 +17,9 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     // "noEmit": true,
-    "jsx": "react"
+    "jsx": "react",
+    "baseUrl": "./frontend",
   },
-  "include": [
-    "frontend"
-  ]
 }
 
 // 昔の設定

@@ -8,12 +8,10 @@ interface IProps extends ITask {
 const Task: React.FC<IProps> = props => {
   const { completed, text, onClick } = props
 
-  const renderToggleBtn = (): React.ReactElement => <button onClick={onClick}>toggle</button>
-
   return (
     <li style={{ textDecoration: completed ? 'line-through' : 'none' }}>
       {text}
-      {renderToggleBtn()}
+      <button onClick={onClick}>toggle</button>
     </li>
   )
 }
