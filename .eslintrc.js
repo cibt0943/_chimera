@@ -11,8 +11,8 @@ module.exports = {
     'plugin:@typescript-eslint/eslint-recommended',
     // TypeScriptで推奨されるものをONにする設定
     'plugin:@typescript-eslint/recommended',
-    'prettier/@typescript-eslint',
     'plugin:prettier/recommended',
+    'prettier/@typescript-eslint',
     'prettier/react',
   ],
   globals: {
@@ -27,7 +27,6 @@ module.exports = {
   },
   plugins: [
     '@typescript-eslint',
-    'prettier',
     'react',
   ],
   root: true,
@@ -35,13 +34,4 @@ module.exports = {
     // 'space-before-function-paren': "off",
     'react/prop-types': 'off',
   },
-  // settings: {
-  //   react: {
-  //     // pragma: "React", // Pragma to use, default to "React"
-  //     version: "detect",  // React version. "detect" automatically picks the version you have installed.
-  //                         // You can also use `16.0`, `16.3`, etc, if you want to override the detected value.
-  //                         // default to latest and warns if missing
-  //                         // It will default to "detect" in the future
-  //   },
-  // },
 }
