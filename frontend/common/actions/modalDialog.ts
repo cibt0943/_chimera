@@ -6,7 +6,8 @@ import { Action } from 'redux'
 
 export enum ActionType {
   ADD_MODAL = '@@MODALDIALOG/ADD_MODAL',
-  SET_VISIBILITY_MODAL = '@@MODALDIALOG/SET_VISIBILITY_MODAL',
+  SHOW_MODAL = '@@MODALDIALOG/SHOW_MODAL',
+  HIDE_MODAL = '@@MODALDIALOG/HIDE_MODAL',
 }
 
 /*
@@ -18,9 +19,12 @@ export type AddModalPayload = {
   visible: boolean
 }
 
-export type SetVisibilityModalPayload = {
+export type ShowModalPayload = {
   id: string
-  visible: boolean
+}
+
+export type HideModalPayload = {
+  id: string
 }
 
 /*
@@ -32,23 +36,33 @@ export interface IAddModalAction extends Action {
   payload: AddModalPayload
 }
 
-export interface ISetVisibilityModalAction extends Action {
-  type: ActionType.SET_VISIBILITY_MODAL
-  payload: SetVisibilityModalPayload
+export interface IShowModalAction extends Action {
+  type: ActionType.SHOW_MODAL
+  payload: ShowModalPayload
 }
 
-export type IModalAction = IAddModalAction | ISetVisibilityModalAction
+export interface IHideModalAction extends Action {
+  type: ActionType.HIDE_MODAL
+  payload: HideModalPayload
+}
+
+export type IModalAction = IAddModalAction | IShowModalAction | IHideModalAction
 
 /*
  * action creators
  */
 
 export const addModal = (payload: AddModalPayload): IAddModalAction => ({
-  payload,
   type: ActionType.ADD_MODAL,
+  payload,
 })
 
-export const setVisibilityModal = (payload: SetVisibilityModalPayload): ISetVisibilityModalAction => ({
+export const showModal = (payload: ShowModalPayload): IShowModalAction => ({
+  type: ActionType.SHOW_MODAL,
   payload,
-  type: ActionType.SET_VISIBILITY_MODAL,
+})
+
+export const hideModal = (payload: HideModalPayload): IHideModalAction => ({
+  type: ActionType.HIDE_MODAL,
+  payload,
 })

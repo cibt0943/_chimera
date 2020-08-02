@@ -18,12 +18,28 @@ const modalListHash = (state: IModalListHash = initialState, action: actions.IMo
     case actions.ActionType.ADD_MODAL:
       return {
         ...state,
-        [payload.id]: buildModal(payload),
+        // ↓ここのキャストをどうにかしたい
+        [payload.id]: buildModal(payload as actions.AddModalPayload),
       }
-    case actions.ActionType.SET_VISIBILITY_MODAL:
+    case actions.ActionType.SHOW_MODAL:
+      // このチェックを行わなければ下記の部分で勝手に追加されちゃうので動くけど、
+      // ADD_MODALをライブサイクルの中で行いたいのでデバッグコードとして置いておく
+      // if (!state[payload.id]) return state
+
       return {
         ...state,
-        [payload.id]: { ...state[payload.id], visible: payload.visible },
+        [payload.id]: {
+          ...state[payload.id],
+          visible: true,
+        },
+      }
+    case actions.ActionType.HIDE_MODAL:
+      return {
+        ...state,
+        [payload.id]: {
+          ...state[payload.id],
+          visible: false,
+        },
       }
     default:
       return state

@@ -1,69 +1,58 @@
-import * as React from 'react'
+import React from 'react'
+import { useDispatch } from 'react-redux'
 import { Modal, Form, Input, Button } from 'semantic-ui-react'
+import { showModal } from 'common/actions/modalDialog'
 import ModalDialog from 'common/containers/ModalDialog'
 
-export interface IState {
-  text: string
-}
-
-export interface IDispatch {
+interface IProps {
   onSubmit: (text: string) => void
-  showModal: (id: string) => void
 }
 
-type IProps = IDispatch
+const AddTask: React.FC<IProps> = props => {
+  const { onSubmit } = props
 
-export default class AddTask extends React.Component<IProps, IState> {
-  constructor(props: IProps) {
-    super(props)
+  const [text, setText] = React.useState<string>('')
 
-    this.state = {
-      text: '',
-    }
-  }
-
-  private handleChange(event: React.ChangeEvent<HTMLInputElement>): void {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.preventDefault()
-    this.setState({ text: event.target.value })
+    setText(event.target.value)
   }
 
-  private handleSubmit(event: React.FormEvent<HTMLFormElement>): void {
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    const text = this.state.text.trim()
-    if (text === '') return
-    this.props.onSubmit(text)
-    this.setState({ text: '' })
+    if (!text.trim()) return
+    onSubmit(text)
   }
 
-  public render(): React.ReactElement {
-    return (
-      <div>
-        <Button onClick={(): void => this.props.showModal('add_todo')}>タスクを追加</Button>
-        <ModalDialog modalId="add_todo">
-          <Modal.Header>タスクを追加</Modal.Header>
-          <Modal.Content>
-            <Form
-              onSubmit={(event: React.FormEvent<HTMLFormElement>): void => {
-                this.handleSubmit(event)
-              }}
-            >
-              <Form.Field>
-                <Input
-                  focus={true}
-                  fluid={true}
-                  onChange={(event: React.ChangeEvent<HTMLInputElement>): void => {
-                    this.handleChange(event)
-                  }}
-                  value={this.state.text}
-                />
-              </Form.Field>
-              <Button positive={true} type="submit">
-                追加する
-              </Button>
-            </Form>
-          </Modal.Content>
-        </ModalDialog>
-      </div>
-    )
+  const modalId = 'add_todo'
+
+  const dispatch = useDispatch()
+  const handleAddClick = (event: React.MouseEvent<HTMLElement>) => {
+    event.preventDefault()
+    setText('')
+    dispatch(showModal({ id: modalId }))
   }
+
+  return (
+    <div>
+      <Button onClick={handleAddClick}>タスクを追加</Button>
+      <ModalDialog modalId={modalId}>
+        <Modal.Header>タスクを追加</Modal.Header>
+        <Modal.Content scrolling>
+          <Form id="addTask" onSubmit={handleSubmit}>
+            <Form.Field>
+              <Input focus fluid onChange={handleChange} value={text} />
+            </Form.Field>
+          </Form>
+        </Modal.Content>
+        <Modal.Actions>
+          <Button positive={true} type="submit" form="addTask">
+            追加する
+          </Button>
+        </Modal.Actions>
+      </ModalDialog>
+    </div>
+  )
 }
+
+export default AddTask

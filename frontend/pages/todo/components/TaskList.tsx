@@ -1,16 +1,11 @@
-import * as React from 'react'
+import React from 'react'
 import { ITaskList } from '../types'
 import Task from './Task'
 
-export interface IStateByProps {
+interface IProps {
   taskList: ITaskList
-}
-
-export interface IDispatchByProps {
   toggleTask: (id: number) => void
 }
-
-type IProps = IStateByProps & IDispatchByProps
 
 const TaskList: React.FC<IProps> = props => {
   const { taskList, toggleTask } = props

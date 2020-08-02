@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React from 'react'
 import TaskListFilter from '../containers/TaskListFilter'
 import { EnumVisibilityFilter } from '../types'
 

@@ -2,13 +2,19 @@ import { ITask, ITaskList } from '../types'
 import * as actions from '../actions'
 
 const initialState: ITaskList = []
-let nextId = 0
+
+const idGenarater = ((init = 0) => {
+  let id = init
+  return () => {
+    return id++
+  }
+})()
 
 /* todoを作成 */
 const buildTask = (payload: actions.AddTaskPayload): ITask => {
   return {
     text: payload.text,
-    id: nextId += 1,
+    id: idGenarater(),
     completed: false,
   }
 }

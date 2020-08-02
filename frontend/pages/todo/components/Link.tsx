@@ -1,16 +1,12 @@
-import * as React from 'react'
+import React from 'react'
 
-export interface IStateByProps {
+interface IProps {
   active: boolean
-}
-
-export interface IDispatchByProps {
   onClick: () => void
+  children: React.ReactNode
 }
 
-type IProps = IStateByProps & IDispatchByProps
-
-const Link: React.FC<IProps> = ({ active, children, onClick }) => (
+const Link: React.FC<IProps> = ({ active, onClick, children }) => (
   <button onClick={onClick} disabled={active}>
     {children}
   </button>
