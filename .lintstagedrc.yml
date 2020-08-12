@@ -1,9 +1,0 @@
-"./app/frontend/**/*.{css,scss}":
-  - stylelint --fix
-  - git add
-"./app/frontend/**/*.{js, jsx, ts,tsx}":
-  - eslint --fix
-  - git add
-"*.js":
-  - prettier --write
-  - git add

@@ -1,11 +1,10 @@
-_app_dir = '/var/www/rails_app/chimera'
-_tmp_dir = '/var/run/puma/chimera'
+app_dir = '/var/www/rails_app/chimera'
+puma_dir = '/var/run/puma/chimera'
 
-directory _app_dir
-pidfile "#{_tmp_dir}/puma.pid"
-state_path "#{_tmp_dir}/puma.state"
-bind "unix:#{_tmp_dir}/puma.sock"
-
+directory app_dir
+pidfile "#{puma_dir}/puma.pid"
+state_path "#{puma_dir}/puma.state"
+bind "unix:#{puma_dir}/puma.sock"
 
 # Puma can serve each request in a thread from an internal thread pool.
 # The `threads` method setting takes two numbers: a minimum and maximum.
@@ -13,20 +12,20 @@ bind "unix:#{_tmp_dir}/puma.sock"
 # the maximum value specified for Puma. Default is set to 5 threads for minimum
 # and maximum; this matches the default thread size of Active Record.
 #
-max_threads_count = ENV.fetch("RAILS_MAX_THREADS") { 5 }
-min_threads_count = ENV.fetch("RAILS_MIN_THREADS") { max_threads_count }
+max_threads_count = ENV.fetch('RAILS_MAX_THREADS') { 5 }
+min_threads_count = ENV.fetch('RAILS_MIN_THREADS') { max_threads_count }
 threads min_threads_count, max_threads_count
 
 # Specifies the `port` that Puma will listen on to receive requests; default is 3000.
 #
-port        ENV.fetch("PORT") { 3000 }
+port        ENV.fetch('PORT') { 3000 }
 
 # Specifies the `environment` that Puma will run in.
 #
-environment ENV.fetch("RAILS_ENV") { "development" }
+environment ENV.fetch('RAILS_ENV') { 'development' }
 
 # Specifies the `pidfile` that Puma will use.
-pidfile ENV.fetch("PIDFILE") { "tmp/pids/server.pid" }
+pidfile ENV.fetch('PIDFILE') { 'tmp/pids/server.pid' }
 
 # Specifies the number of `workers` to boot in clustered mode.
 # Workers are forked web server processes. If using threads and workers together

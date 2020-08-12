@@ -15,6 +15,11 @@ module.exports = {
     'prettier/@typescript-eslint',
     'prettier/react',
   ],
+  settings: {
+    react: {
+      version: 'detect',
+    },
+  },
   globals: {
   },
   parser: '@typescript-eslint/parser',

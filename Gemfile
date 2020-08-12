@@ -38,14 +38,14 @@ gem 'dotenv-rails'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'byebug', platforms: %i[mri mingw x64_mingw]
 
   ## Add Gem ##
 
   # デバッガ
   gem 'pry-byebug'
-  gem 'pry-rails'
   gem 'pry-doc'
+  gem 'pry-rails'
 
   # N+1問題検出
   gem 'bullet'
@@ -59,8 +59,8 @@ end
 
 group :development do
   # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
-  gem 'web-console'
   gem 'listen'
+  gem 'web-console'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'spring-watcher-listen'
@@ -73,6 +73,7 @@ group :development do
 
   # コーディングルールチェック
   gem 'rubocop', require: false
+  gem 'rubocop-rails', require: false
 
   # ER図の生成
   gem 'rails-erd', require: false
