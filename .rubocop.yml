@@ -1,0 +1,25 @@
+require: rubocop-rails
+
+Rails:
+  Enabled: true
+
+AllCops:
+  TargetRubyVersion: 2.7
+
+  Exclude:
+    - 'db/**/*'
+    - 'tmp/**/*'
+    - 'vendor/**/*'
+    - 'node_modules/**/*'
+
+# 日本語のコメントを許可
+Style/AsciiComments:
+  Enabled: false
+
+#
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+# ドキュメント無しを許可
+Style/Documentation:
+  Enabled: false
