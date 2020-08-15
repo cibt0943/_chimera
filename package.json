@@ -18,9 +18,9 @@
     }
   },
   "lint-staged": {
-    "./frontend/**/*.{css, scss}": "stylelint",
-    "./frontend/**/*.{ts, tsx}": "eslint",
-    "*.{rb, rake}": "bundle exec rubocop"
+    "./frontend/**/*.{css,scss}": "stylelint",
+    "./frontend/**/*.{ts,tsx}": "eslint",
+    "*.{rb,rake}": "bundle exec rubocop"
   },
   "dependencies": {
     "react": "^16.12.0",
