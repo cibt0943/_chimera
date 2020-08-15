@@ -6,6 +6,7 @@ import { Action } from 'redux'
 
 export enum ActionType {
   ADD_MODAL = '@@MODALDIALOG/ADD_MODAL',
+  DELETE_MODAL = '@@MODALDIALOG/DELETE_MODAL',
   SHOW_MODAL = '@@MODALDIALOG/SHOW_MODAL',
   HIDE_MODAL = '@@MODALDIALOG/HIDE_MODAL',
 }
@@ -17,6 +18,10 @@ export enum ActionType {
 export type AddModalPayload = {
   id: string
   visible: boolean
+}
+
+export type DeleteModalPayload = {
+  id: string
 }
 
 export type ShowModalPayload = {
@@ -36,6 +41,11 @@ export interface IAddModalAction extends Action {
   payload: AddModalPayload
 }
 
+export interface IDeleteModalAction extends Action {
+  type: ActionType.DELETE_MODAL
+  payload: DeleteModalPayload
+}
+
 export interface IShowModalAction extends Action {
   type: ActionType.SHOW_MODAL
   payload: ShowModalPayload
@@ -46,7 +56,7 @@ export interface IHideModalAction extends Action {
   payload: HideModalPayload
 }
 
-export type IModalAction = IAddModalAction | IShowModalAction | IHideModalAction
+export type IModalAction = IAddModalAction | IDeleteModalAction | IShowModalAction | IHideModalAction
 
 /*
  * action creators
@@ -54,6 +64,11 @@ export type IModalAction = IAddModalAction | IShowModalAction | IHideModalAction
 
 export const addModal = (payload: AddModalPayload): IAddModalAction => ({
   type: ActionType.ADD_MODAL,
+  payload,
+})
+
+export const deleteModal = (payload: DeleteModalPayload): IDeleteModalAction => ({
+  type: ActionType.DELETE_MODAL,
   payload,
 })
 

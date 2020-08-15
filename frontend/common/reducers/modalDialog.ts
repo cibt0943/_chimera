@@ -21,11 +21,12 @@ const modalListHash = (state: IModalListHash = initialState, action: actions.IMo
         // ↓ここのキャストをどうにかしたい
         [payload.id]: buildModal(payload as actions.AddModalPayload),
       }
+    case actions.ActionType.DELETE_MODAL: {
+      const nextState = { ...state }
+      delete nextState[payload.id]
+      return nextState
+    }
     case actions.ActionType.SHOW_MODAL:
-      // このチェックを行わなければ下記の部分で勝手に追加されちゃうので動くけど、
-      // ADD_MODALをライブサイクルの中で行いたいのでデバッグコードとして置いておく
-      // if (!state[payload.id]) return state
-
       return {
         ...state,
         [payload.id]: {

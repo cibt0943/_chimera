@@ -2,14 +2,14 @@ import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { ITodoState } from '../types'
 import { setVisibilityFilter } from '../actions'
-import Link from '../components/Link'
+import TaskFilterHandle from '../components/TaskFilterHandle'
 
 interface IOwnProps {
   filter: string
   children: React.ReactNode
 }
 
-export default function TaskListFilterContainer(ownProps: IOwnProps): JSX.Element {
+export default function TaskFilterHandleContainer(ownProps: IOwnProps): JSX.Element {
   const stateProps = useSelector((state: ITodoState) => {
     return {
       active: ownProps.filter === state.visibilityFilter,
@@ -24,5 +24,5 @@ export default function TaskListFilterContainer(ownProps: IOwnProps): JSX.Elemen
   }
 
   const _props = { ...stateProps, ...dispatchProps, ...ownProps }
-  return <Link {..._props} />
+  return <TaskFilterHandle {..._props} />
 }

@@ -1,7 +1,7 @@
 import React from 'react'
 import { Container } from 'semantic-ui-react'
 import AddTask from '../containers/AddTask'
-import VisibleTaskList from '../containers/VisibleTaskList'
+import TaskList from '../containers/TaskList'
 import TaskFilter from './TaskFilter'
 
 const Todo: React.FC = () => {
@@ -9,7 +9,7 @@ const Todo: React.FC = () => {
     <Container text={true}>
       <TaskFilter />
       <AddTask />
-      <VisibleTaskList />
+      <TaskList />
     </Container>
   )
 }

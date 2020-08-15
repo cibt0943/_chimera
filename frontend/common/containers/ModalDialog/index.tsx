@@ -1,8 +1,7 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { IModalState } from 'common/types/modalDialog'
-// import { addModal, hideModal } from 'common/actions/modalDialog'
-import { hideModal } from 'common/actions/modalDialog'
+import { addModal, deleteModal, hideModal } from 'common/actions/modalDialog'
 import { Modal } from 'semantic-ui-react'
 
 interface IOwnProps {
@@ -19,7 +18,13 @@ export default function ModalDialogContainer(ownProps: IOwnProps): JSX.Element {
   })
 
   const dispatch = useDispatch()
-  // dispatch(addModal({ id: modalId, visible: false }))
+
+  useEffect(() => {
+    if (!modal) dispatch(addModal({ id: modalId, visible: false }))
+    return () => {
+      dispatch(deleteModal({ id: modalId }))
+    }
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleClose = (): void => {
     dispatch(hideModal({ id: modalId }))
