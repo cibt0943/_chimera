@@ -4,7 +4,7 @@ import { createStore, applyMiddleware } from 'redux'
 import { composeWithDevTools } from 'redux-devtools-extension'
 import { Provider } from 'react-redux'
 import reducers from './reducers'
-import Layout from 'common/components/Layout'
+import Layout from 'common/components/templates/Layout'
 import Todo from './components/Todo'
 
 /* Redux Dev Toolsを有効化する */

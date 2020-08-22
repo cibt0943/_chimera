@@ -1,13 +1,15 @@
-import * as React from 'react'
-import { ITask } from '../types'
+import React from 'react'
 
-interface IProps extends ITask {
+interface IProps {
+  text: string
+  completed: boolean
   onClick: () => void
 }
 
 const Task: React.FC<IProps> = props => {
-  const { completed, text, onClick } = props
+  const { text, completed, onClick } = props
 
+  // console.log('Task')
   return (
     <li style={{ textDecoration: completed ? 'line-through' : 'none' }}>
       {text}

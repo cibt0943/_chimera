@@ -7,6 +7,7 @@ module.exports = {
   extends: [
     'eslint:recommended',
     'plugin:react/recommended',
+    'plugin:react-hooks/recommended',
     // eslint:recommendedの中でTypeScriptに不要なものをOFFにする設定 (TypeScriptの型チェックで事足りているもの)
     'plugin:@typescript-eslint/eslint-recommended',
     // TypeScriptで推奨されるものをONにする設定

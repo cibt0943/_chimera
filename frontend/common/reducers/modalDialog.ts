@@ -18,12 +18,29 @@ const modalListHash = (state: IModalListHash = initialState, action: actions.IMo
     case actions.ActionType.ADD_MODAL:
       return {
         ...state,
-        [payload.id]: buildModal(payload),
+        // ↓ここのキャストをどうにかしたい
+        [payload.id]: buildModal(payload as actions.AddModalPayload),
       }
-    case actions.ActionType.SET_VISIBILITY_MODAL:
+    case actions.ActionType.DELETE_MODAL: {
+      const nextState = { ...state }
+      delete nextState[payload.id]
+      return nextState
+    }
+    case actions.ActionType.SHOW_MODAL:
       return {
         ...state,
-        [payload.id]: { ...state[payload.id], visible: payload.visible },
+        [payload.id]: {
+          ...state[payload.id],
+          visible: true,
+        },
+      }
+    case actions.ActionType.HIDE_MODAL:
+      return {
+        ...state,
+        [payload.id]: {
+          ...state[payload.id],
+          visible: false,
+        },
       }
     default:
       return state

@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React from 'react'
 import { Container, Dropdown, Menu } from 'semantic-ui-react'
 
 const Header: React.FC = () => {

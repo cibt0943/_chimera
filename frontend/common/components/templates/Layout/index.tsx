@@ -1,12 +1,10 @@
 import 'semantic-ui-css/semantic.min.css'
 import './style'
 
-import * as React from 'react'
+import React from 'react'
 import Header from './Header'
 
-interface CallbackType {
-  (): React.ReactElement
-}
+type CallbackType = () => React.ReactElement
 
 const Layout = (WrappedComponent: React.FC): CallbackType => {
   const LayoutComponent = (): React.ReactElement => (
