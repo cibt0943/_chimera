@@ -10,6 +10,7 @@ interface IProps {
 const TaskList: React.FC<IProps> = props => {
   const { taskList, toggleTask } = props
 
+  // console.log('TaskList')
   return (
     <ul>
       {taskList.map(task => (

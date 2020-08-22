@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux'
 import { addTask } from '../actions'
 import AddTask from '../components/AddTask'
 
-export default function AddTaskContainer(): JSX.Element {
+const AddTaskContainer = (): JSX.Element => {
   const dispatch = useDispatch()
   const dispatchProps = {
     onSubmit: (text: string): void => {
@@ -13,3 +13,5 @@ export default function AddTaskContainer(): JSX.Element {
 
   return <AddTask {...dispatchProps} />
 }
+
+export default AddTaskContainer

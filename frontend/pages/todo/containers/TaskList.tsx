@@ -4,7 +4,7 @@ import { ITodoState, EnumVisibilityFilter, ITaskList } from '../types'
 import { toggleTask } from '../actions'
 import TaskList from '../components/TaskList'
 
-export default function TaskListContainer(): JSX.Element {
+const TaskListContainer = (): JSX.Element => {
   const taskSelector = (state: ITodoState) => {
     const filter = (): ITaskList => {
       switch (state.visibilityFilter) {
@@ -32,6 +32,8 @@ export default function TaskListContainer(): JSX.Element {
     },
   }
 
-  const _props = { ...stateProps, ...dispatchProps }
-  return <TaskList {..._props} />
+  const props = { ...stateProps, ...dispatchProps }
+  return <TaskList {...props} />
 }
+
+export default TaskListContainer

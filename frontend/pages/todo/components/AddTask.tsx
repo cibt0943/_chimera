@@ -4,6 +4,12 @@ import { Modal, Form, Input, Button } from 'semantic-ui-react'
 import { showModal } from 'common/actions/modalDialog'
 import ModalDialog from 'common/containers/ModalDialog'
 
+if (process.env.NODE_ENV !== 'production') {
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
+  const whyDidYouRender = require('@welldone-software/why-did-you-render')
+  whyDidYouRender(React)
+}
+
 interface IProps {
   onSubmit: (text: string) => void
 }
@@ -33,6 +39,7 @@ const AddTask: React.FC<IProps> = props => {
     dispatch(showModal({ id: modalId }))
   }
 
+  // console.log('AddTask')
   return (
     <div>
       <Button onClick={handleAddClick}>タスクを追加</Button>

@@ -6,11 +6,16 @@ interface IProps {
   onClick: () => void
 }
 
-const Task: React.FC<IProps> = ({ text, completed, onClick }) => (
-  <li style={{ textDecoration: completed ? 'line-through' : 'none' }}>
-    {text}
-    <button onClick={onClick}>toggle</button>
-  </li>
-)
+const Task: React.FC<IProps> = props => {
+  const { text, completed, onClick } = props
+
+  // console.log('Task')
+  return (
+    <li style={{ textDecoration: completed ? 'line-through' : 'none' }}>
+      {text}
+      <button onClick={onClick}>toggle</button>
+    </li>
+  )
+}
 
 export default Task

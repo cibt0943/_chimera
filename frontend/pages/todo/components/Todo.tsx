@@ -5,6 +5,7 @@ import TaskList from '../containers/TaskList'
 import TaskFilter from './TaskFilter'
 
 const Todo: React.FC = () => {
+  // console.log('Todo')
   return (
     <Container text={true}>
       <TaskFilter />

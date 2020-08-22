@@ -9,7 +9,7 @@ interface IOwnProps {
   children: React.ReactNode
 }
 
-export default function TaskFilterHandleContainer(ownProps: IOwnProps): JSX.Element {
+const TaskFilterHandleCotntainer = (ownProps: IOwnProps): JSX.Element => {
   const stateProps = useSelector((state: ITodoState) => {
     return {
       active: ownProps.filter === state.visibilityFilter,
@@ -23,6 +23,8 @@ export default function TaskFilterHandleContainer(ownProps: IOwnProps): JSX.Elem
     },
   }
 
-  const _props = { ...stateProps, ...dispatchProps, ...ownProps }
-  return <TaskFilterHandle {..._props} />
+  const props = { ...stateProps, ...dispatchProps, ...ownProps }
+  return <TaskFilterHandle {...props} />
 }
+
+export default TaskFilterHandleCotntainer
