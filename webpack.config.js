@@ -9,7 +9,7 @@ module.exports = (env, argv) => {
   const isDevelopment = argv.mode === 'development'
 
   const pages = {}
-  glob.sync('./frontend/pages/*/index.{ts,tsx}').forEach(function(e) {
+  glob.sync('./frontend/pages/*/index.{ts,tsx}').forEach(function (e) {
     // {key:value}の連想配列を生成
     // pages[path.basename(e, '.tsx')] = e
     pages[path.basename(path.dirname(e))] = e

@@ -4,7 +4,6 @@ import TaskFilterHandle from '../containers/TaskFilterHandle'
 import { EnumVisibilityFilter } from '../types'
 
 const TaskFilter: React.FC = () => {
-  // console.log('TaskFilter')
   return (
     <Button.Group>
       <TaskFilterHandle filter={EnumVisibilityFilter.SHOW_ALL}>All</TaskFilterHandle>

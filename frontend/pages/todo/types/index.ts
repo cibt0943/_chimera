@@ -4,16 +4,16 @@ export enum EnumVisibilityFilter {
   SHOW_COMPLETED = 'SHOW_COMPLETED',
 }
 
-export interface ITask {
+export interface Task {
   id: number
   text: string
   completed: boolean
 }
 
-export type ITaskList = ITask[]
+export type TasklList = Task[]
 
 /* stateの型を定義する。 */
-export interface ITodoState {
-  taskList: ITaskList
+export interface TodoState {
+  taskList: TasklList
   visibilityFilter: string
 }

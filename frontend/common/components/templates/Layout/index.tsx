@@ -2,21 +2,15 @@ import 'semantic-ui-css/semantic.min.css'
 import './style'
 
 import React from 'react'
-import Header from './Header'
+import Header from '../Header'
 
-type CallbackType = () => React.ReactElement
-
-const Layout = (WrappedComponent: React.FC): CallbackType => {
-  const LayoutComponent = (): React.ReactElement => (
+const Layout: React.FC = props => {
+  return (
     <>
       <Header />
-      <div className="main">
-        <WrappedComponent />
-      </div>
+      <div className="main">{props.children}</div>
     </>
   )
-
-  return LayoutComponent
 }
 
 export default Layout

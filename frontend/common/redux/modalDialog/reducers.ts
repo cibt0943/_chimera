@@ -1,17 +1,17 @@
-import { IModal, IModalListHash } from 'common/types/modalDialog'
-import * as actions from 'common/actions/modalDialog'
+import { Modal, ModalListHash } from './types'
+import * as actions from './actions'
 
-const initialState: IModalListHash = {}
+const initialState: ModalListHash = {}
 
 /* todoを作成 */
-const buildModal = (payload: actions.AddModalPayload): IModal => {
+const buildModal = (payload: actions.AddModalPayload): Modal => {
   return {
     id: payload.id,
     visible: payload.visible,
   }
 }
 
-const modalListHash = (state: IModalListHash = initialState, action: actions.IModalAction): IModalListHash => {
+const modalListHash = (state: ModalListHash = initialState, action: actions.ModalAction): ModalListHash => {
   const payload = action.payload
 
   switch (action.type) {

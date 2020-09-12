@@ -1,7 +1,7 @@
-import { ITask, ITaskList } from '../types'
+import { Task, TasklList } from '../types'
 import * as actions from '../actions'
 
-const initialState: ITaskList = []
+const initialState: TasklList = []
 
 const idGenarater = ((init = 0) => {
   let id = init
@@ -11,7 +11,7 @@ const idGenarater = ((init = 0) => {
 })()
 
 /* todoを作成 */
-const buildTask = (payload: actions.AddTaskPayload): ITask => {
+const buildTask = (payload: actions.AddTaskPayload): Task => {
   return {
     text: payload.text,
     id: idGenarater(),
@@ -20,12 +20,12 @@ const buildTask = (payload: actions.AddTaskPayload): ITask => {
 }
 
 /* 指定idのtaskを削除 */
-const deleteTask = (taskList: ITaskList, payload: actions.DeleteTaskPayload): ITaskList => {
+const deleteTask = (taskList: TasklList, payload: actions.DeleteTaskPayload): TasklList => {
   return taskList.filter(task => task.id !== payload.id)
 }
 
 /* 指定idのtaskのcompletedを反転 */
-const toggleTask = (taskList: ITaskList, payload: actions.ToggleTaskPayload): ITaskList => {
+const toggleTask = (taskList: TasklList, payload: actions.ToggleTaskPayload): TasklList => {
   return taskList.map(task => {
     if (task.id === payload.id) {
       task.completed = !task.completed
@@ -34,7 +34,7 @@ const toggleTask = (taskList: ITaskList, payload: actions.ToggleTaskPayload): IT
   })
 }
 
-const taskList = (state: ITaskList = initialState, action: actions.ITodoAction): ITaskList => {
+const taskList = (state: TasklList = initialState, action: actions.TodoAction): TasklList => {
   switch (action.type) {
     case actions.ActionType.ADD_TASK:
       return state.concat(buildTask(action.payload))

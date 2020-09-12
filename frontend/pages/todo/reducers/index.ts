@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux'
-import modalListHash from 'common/reducers/modalDialog'
+import modalListHash from 'common/redux/modalDialog/reducers'
 import taskList from './taskList'
 import visibilityFilter from './visibilityFilter'
 

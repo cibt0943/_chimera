@@ -1,30 +1,30 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { ITodoState } from '../types'
+import { TodoState } from '../types'
 import { setVisibilityFilter } from '../actions'
-import TaskFilterHandle from '../components/TaskFilterHandle'
+import Button, { ButtonProps } from 'common/components/atoms/Button/Button'
 
-interface IOwnProps {
+export interface TaskFilterHandleCotntainerProps {
   filter: string
   children: React.ReactNode
 }
 
-const TaskFilterHandleCotntainer = (ownProps: IOwnProps): JSX.Element => {
-  const stateProps = useSelector((state: ITodoState) => {
+const TaskFilterHandleCotntainer: React.FC<TaskFilterHandleCotntainerProps> = props => {
+  const stateProps = useSelector((state: TodoState) => {
     return {
-      active: ownProps.filter === state.visibilityFilter,
+      active: props.filter === state.visibilityFilter,
     }
   })
 
   const dispatch = useDispatch()
   const dispatchProps = {
     onClick: (): void => {
-      dispatch(setVisibilityFilter({ filter: ownProps.filter }))
+      dispatch(setVisibilityFilter({ filter: props.filter }))
     },
   }
 
-  const props = { ...stateProps, ...dispatchProps, ...ownProps }
-  return <TaskFilterHandle {...props} />
+  const buttonProps: ButtonProps = { ...stateProps, ...dispatchProps, ...props }
+  return <Button {...buttonProps} />
 }
 
 export default TaskFilterHandleCotntainer

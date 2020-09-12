@@ -1,12 +1,12 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { ITodoState, EnumVisibilityFilter, ITaskList } from '../types'
+import { TodoState, EnumVisibilityFilter, TasklList } from '../types'
 import { toggleTask } from '../actions'
-import TaskList from '../components/TaskList'
+import TaskList, { TaskListProps } from '../components/TaskList'
 
-const TaskListContainer = (): JSX.Element => {
-  const taskSelector = (state: ITodoState) => {
-    const filter = (): ITaskList => {
+const TaskListContainer: React.FC = () => {
+  const taskSelector = (state: TodoState) => {
+    const filter = (): TasklList => {
       switch (state.visibilityFilter) {
         case EnumVisibilityFilter.SHOW_ALL:
           return state.taskList
@@ -32,8 +32,8 @@ const TaskListContainer = (): JSX.Element => {
     },
   }
 
-  const props = { ...stateProps, ...dispatchProps }
-  return <TaskList {...props} />
+  const taskListProps: TaskListProps = { ...stateProps, ...dispatchProps }
+  return <TaskList {...taskListProps} />
 }
 
 export default TaskListContainer
