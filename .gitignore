@@ -31,6 +31,9 @@
 /.env
 /.env.*
 
+# Ignore storybook output directory
+/storybook-static
+
 # VSCode
 *.code-workspace
 
