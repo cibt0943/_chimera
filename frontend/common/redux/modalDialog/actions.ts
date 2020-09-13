@@ -36,48 +36,48 @@ export type HideModalPayload = {
  * action interfaces
  */
 
-export interface IAddModalAction extends Action {
+export interface AddModalAction extends Action {
   type: ActionType.ADD_MODAL
   payload: AddModalPayload
 }
 
-export interface IDeleteModalAction extends Action {
+export interface DeleteModalAction extends Action {
   type: ActionType.DELETE_MODAL
   payload: DeleteModalPayload
 }
 
-export interface IShowModalAction extends Action {
+export interface ShowModalAction extends Action {
   type: ActionType.SHOW_MODAL
   payload: ShowModalPayload
 }
 
-export interface IHideModalAction extends Action {
+export interface HideModalAction extends Action {
   type: ActionType.HIDE_MODAL
   payload: HideModalPayload
 }
 
-export type IModalAction = IAddModalAction | IDeleteModalAction | IShowModalAction | IHideModalAction
+export type ModalAction = AddModalAction | DeleteModalAction | ShowModalAction | HideModalAction
 
 /*
  * action creators
  */
 
-export const addModal = (payload: AddModalPayload): IAddModalAction => ({
+export const addModal = (payload: AddModalPayload): AddModalAction => ({
   type: ActionType.ADD_MODAL,
   payload,
 })
 
-export const deleteModal = (payload: DeleteModalPayload): IDeleteModalAction => ({
+export const deleteModal = (payload: DeleteModalPayload): DeleteModalAction => ({
   type: ActionType.DELETE_MODAL,
   payload,
 })
 
-export const showModal = (payload: ShowModalPayload): IShowModalAction => ({
+export const showModal = (payload: ShowModalPayload): ShowModalAction => ({
   type: ActionType.SHOW_MODAL,
   payload,
 })
 
-export const hideModal = (payload: HideModalPayload): IHideModalAction => ({
+export const hideModal = (payload: HideModalPayload): HideModalAction => ({
   type: ActionType.HIDE_MODAL,
   payload,
 })

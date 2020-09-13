@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux'
 import { addTask } from '../actions'
 import AddTask from '../components/AddTask'
 
-const AddTaskContainer = (): JSX.Element => {
+const AddTaskContainer: React.FC = () => {
   const dispatch = useDispatch()
   const dispatchProps = {
     onSubmit: (text: string): void => {

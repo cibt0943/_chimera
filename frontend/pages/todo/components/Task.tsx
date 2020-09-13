@@ -1,15 +1,14 @@
 import React from 'react'
 
-interface IProps {
+export interface TaskProps {
   text: string
   completed: boolean
   onClick: () => void
 }
 
-const Task: React.FC<IProps> = props => {
+const Task: React.FC<TaskProps> = props => {
   const { text, completed, onClick } = props
 
-  // console.log('Task')
   return (
     <li style={{ textDecoration: completed ? 'line-through' : 'none' }}>
       {text}

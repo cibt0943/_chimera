@@ -35,48 +35,48 @@ export type SetVisibilityFilterPayload = {
  * action interfaces
  */
 
-export interface IAddTaskAction extends Action {
+export interface AddTaskAction extends Action {
   type: ActionType.ADD_TASK
   payload: AddTaskPayload
 }
 
-export interface IDeleteTaskAction extends Action {
+export interface DeleteTaskAction extends Action {
   type: ActionType.DELETE_TASK
   payload: DeleteTaskPayload
 }
 
-export interface IToggleTaskAction extends Action {
+export interface ToggleTaskAction extends Action {
   type: ActionType.TOGGLE_TASK
   payload: ToggleTaskPayload
 }
 
-export interface ISetVisibilityFilterAction extends Action {
+export interface SetVisibilityFilterAction extends Action {
   type: ActionType.SET_VISIBILITY_FILTER
   payload: SetVisibilityFilterPayload
 }
 
-export type ITodoAction = IAddTaskAction | IDeleteTaskAction | IToggleTaskAction | ISetVisibilityFilterAction
+export type TodoAction = AddTaskAction | DeleteTaskAction | ToggleTaskAction | SetVisibilityFilterAction
 
 /*
  * action creators
  */
 
-export const addTask = (payload: AddTaskPayload): IAddTaskAction => ({
+export const addTask = (payload: AddTaskPayload): AddTaskAction => ({
   payload,
   type: ActionType.ADD_TASK,
 })
 
-export const deleteTask = (payload: DeleteTaskPayload): IDeleteTaskAction => ({
+export const deleteTask = (payload: DeleteTaskPayload): DeleteTaskAction => ({
   payload,
   type: ActionType.DELETE_TASK,
 })
 
-export const toggleTask = (payload: ToggleTaskPayload): IToggleTaskAction => ({
+export const toggleTask = (payload: ToggleTaskPayload): ToggleTaskAction => ({
   payload,
   type: ActionType.TOGGLE_TASK,
 })
 
-export const setVisibilityFilter = (payload: SetVisibilityFilterPayload): ISetVisibilityFilterAction => ({
+export const setVisibilityFilter = (payload: SetVisibilityFilterPayload): SetVisibilityFilterAction => ({
   payload,
   type: ActionType.SET_VISIBILITY_FILTER,
 })

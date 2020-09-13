@@ -1,20 +1,16 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
-import { Modal, Form, Input, Button } from 'semantic-ui-react'
-import { showModal } from 'common/actions/modalDialog'
-import ModalDialog from 'common/containers/ModalDialog'
+import { Modal, Form, Input } from 'semantic-ui-react'
+import { showModal } from 'common/redux/modalDialog/actions'
+import ModalDialog from 'common/redux/modalDialog/containers'
+import Button from 'common/components/atoms/Button/Button'
+import PositiveButton from 'common/components/atoms/Button/PositiveButton'
 
-if (process.env.NODE_ENV !== 'production') {
-  // eslint-disable-next-line @typescript-eslint/no-var-requires
-  const whyDidYouRender = require('@welldone-software/why-did-you-render')
-  whyDidYouRender(React)
-}
-
-interface IProps {
+export interface AddTaskProps {
   onSubmit: (text: string) => void
 }
 
-const AddTask: React.FC<IProps> = props => {
+const AddTask: React.FC<AddTaskProps> = props => {
   const { onSubmit } = props
 
   const [text, setText] = React.useState<string>('')
@@ -39,7 +35,6 @@ const AddTask: React.FC<IProps> = props => {
     dispatch(showModal({ id: modalId }))
   }
 
-  // console.log('AddTask')
   return (
     <div>
       <Button onClick={handleAddClick}>タスクを追加</Button>
@@ -53,9 +48,9 @@ const AddTask: React.FC<IProps> = props => {
           </Form>
         </Modal.Content>
         <Modal.Actions>
-          <Button positive={true} type="submit" form="addTask">
+          <PositiveButton type="submit" form="addTask">
             追加する
-          </Button>
+          </PositiveButton>
         </Modal.Actions>
       </ModalDialog>
     </div>

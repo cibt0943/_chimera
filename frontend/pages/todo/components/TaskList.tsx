@@ -1,16 +1,15 @@
 import React from 'react'
-import { ITaskList } from '../types'
+import { TasklList } from '../types'
 import Task from './Task'
 
-interface IProps {
-  taskList: ITaskList
+export interface TaskListProps {
+  taskList: TasklList
   toggleTask: (id: number) => void
 }
 
-const TaskList: React.FC<IProps> = props => {
+const TaskList: React.FC<TaskListProps> = props => {
   const { taskList, toggleTask } = props
 
-  // console.log('TaskList')
   return (
     <ul>
       {taskList.map(task => (
