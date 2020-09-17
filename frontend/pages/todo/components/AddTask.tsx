@@ -1,8 +1,8 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
 import { Modal, Form, Input } from 'semantic-ui-react'
-import { showModal } from 'common/redux/modalDialog/actions'
-import ModalDialog from 'common/redux/modalDialog/containers'
+import { showModal } from 'common/redux/modal/actions'
+import ModalDialog from 'common/redux/modal/containers'
 import Button from 'common/components/atoms/Button/Button'
 import PositiveButton from 'common/components/atoms/Button/PositiveButton'
 

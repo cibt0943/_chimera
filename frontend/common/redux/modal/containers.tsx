@@ -2,13 +2,13 @@ import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { ModalState } from './types'
 import { addModal, hideModal } from './actions'
-import ModalDialog, { ModalDialogProps } from 'common/components/organisms/ModalDialog'
+import MyModal, { MyModalProps } from 'common/components/organisms/MyModal'
 
-export interface ModalDialogContainerProps extends ModalDialogProps {
+export interface ModalContainerProps extends MyModalProps {
   modalId: string
 }
 
-const ModalDialogContainer: React.FC<ModalDialogContainerProps> = props => {
+const ModalContainer: React.FC<ModalContainerProps> = props => {
   const { modalId, ...tmpProps } = props
 
   const dispatch = useDispatch()
@@ -25,8 +25,8 @@ const ModalDialogContainer: React.FC<ModalDialogContainerProps> = props => {
     dispatch(hideModal({ id: modalId }))
   }
 
-  const modalDialogProps: ModalDialogProps = { ...tmpProps, open: modal.visible, onClose: handleClose }
-  return <ModalDialog {...modalDialogProps}>{modalDialogProps.children}</ModalDialog>
+  const modalProps: MyModalProps = { ...tmpProps, open: modal.visible, onClose: handleClose }
+  return <MyModal {...modalProps}>{modalProps.children}</MyModal>
 }
 
-export default ModalDialogContainer
+export default ModalContainer
