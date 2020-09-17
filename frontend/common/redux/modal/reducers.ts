@@ -3,7 +3,6 @@ import * as actions from './actions'
 
 const initialState: ModalListHash = {}
 
-/* todoを作成 */
 const buildModal = (payload: actions.AddModalPayload): Modal => {
   return {
     id: payload.id,

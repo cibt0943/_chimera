@@ -7,7 +7,7 @@ const glob = require('glob')
 
 module.exports = (env, argv) => {
   const isDevelopment = argv.mode === 'development'
-
+  const config = jsYaml.safeLoad(fs.readFileSync('config/webpack.yml', 'utf-8'))[argv.mode]
   const pages = {}
   glob.sync('./frontend/pages/*/index.{ts,tsx}').forEach(function (e) {
     // {key:value}の連想配列を生成
@@ -15,24 +15,31 @@ module.exports = (env, argv) => {
     pages[path.basename(path.dirname(e))] = e
   })
 
-  const config = jsYaml.safeLoad(fs.readFileSync('config/webpack.yml', 'utf-8'))[argv.mode]
-
   return {
     entry: pages,
-
     output: {
-      filename: '[name]-[hash].js',
       path: path.resolve(__dirname, config.public_root_path, config.output_path),
-      // publicPath: '',
+      filename: '[name]-[hash].js',
     },
 
     devtool: isDevelopment ? 'source-map' : 'none',
 
     resolve: {
       modules: ['node_modules', path.resolve(__dirname, 'frontend')],
-
       extensions: ['.ts', '.tsx', '.js', '.jsx', '.scss', '.css'],
     },
+
+    plugins: [
+      new MiniCssExtractPlugin({
+        filename: '[name]-[hash].css',
+      }),
+      new ManifestPlugin({
+        fileName: 'manifest.json',
+        // publicPath: プロダクトにて実際にJSへアクセスする際のパスと同様になるように指定
+        publicPath: `/${config.output_path}/`,
+        writeToFileEmit: true,
+      }),
+    ],
 
     module: {
       rules: [
@@ -66,11 +73,13 @@ module.exports = (env, argv) => {
               options: {
                 // PostCSS側でもソースマップを有効にする
                 sourceMap: true,
-                plugins: [
-                  // Autoprefixerを有効化
-                  // ベンダープレフィックスを自動付与する
-                  require('autoprefixer')({ grid: true }),
-                ],
+                postcssOptions: {
+                  plugins: [
+                    // Autoprefixerを有効化
+                    // ベンダープレフィックスを自動付与する
+                    require('autoprefixer')({ grid: true }),
+                  ],
+                },
               },
             },
             // Sassをバンドルするための設定
@@ -128,18 +137,6 @@ module.exports = (env, argv) => {
         // },
       ],
     },
-
-    plugins: [
-      new MiniCssExtractPlugin({
-        filename: '[name]-[hash].css',
-      }),
-      new ManifestPlugin({
-        fileName: 'manifest.json',
-        // publicPath: プロダクトにて実際にJSへアクセスする際のパスと同様になるように指定
-        publicPath: `/${config.output_path}/`,
-        writeToFileEmit: true,
-      }),
-    ],
 
     optimization: {
       splitChunks: {
