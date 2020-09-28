@@ -53,7 +53,7 @@ Rails.application.configure do
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
   # Rails 6.0からDNS Rebuilding Attack攻撃から守るために、指定されたホストからしかアクセスを受けつない仕様
-  config.hosts << ".#{EnvVariable::AP_SERVER_GLOBAL_DOMAIN}"
+  config.hosts << ".#{ENV['AP_SERVER_GLOBAL_DOMAIN']}"
 
   # assetの配信元
   webpack = config.x.webpack.deep_symbolize_keys
