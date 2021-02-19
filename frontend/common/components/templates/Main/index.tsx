@@ -2,9 +2,9 @@ import 'semantic-ui-css/semantic.min.css'
 import './style'
 
 import React from 'react'
-import Header from '../Header'
+import Header from '../../organisms/Header'
 
-const Layout: React.FC = props => {
+const Main: React.FC = (props) => {
   return (
     <>
       <Header />
@@ -13,4 +13,4 @@ const Layout: React.FC = props => {
   )
 }
 
-export default Layout
+export default Main

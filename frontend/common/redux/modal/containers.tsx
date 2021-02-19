@@ -8,7 +8,7 @@ export interface ModalContainerProps extends MyModalProps {
   modalId: string
 }
 
-const ModalContainer: React.FC<ModalContainerProps> = props => {
+const ModalContainer: React.FC<ModalContainerProps> = (props) => {
   const { modalId, ...tmpProps } = props
 
   const dispatch = useDispatch()
@@ -25,7 +25,11 @@ const ModalContainer: React.FC<ModalContainerProps> = props => {
     dispatch(hideModal({ id: modalId }))
   }
 
-  const modalProps: MyModalProps = { ...tmpProps, open: modal.visible, onClose: handleClose }
+  const modalProps: MyModalProps = {
+    ...tmpProps,
+    open: modal.visible,
+    onClose: handleClose,
+  }
   return <MyModal {...modalProps}>{modalProps.children}</MyModal>
 }
 

@@ -6,14 +6,14 @@ export enum EnumVisibilityFilter {
 
 export interface Task {
   id: number
-  text: string
-  completed: boolean
+  title: string
+  status: number
 }
 
 export type TasklList = Task[]
 
 /* stateの型を定義する。 */
-export interface TodoState {
+export interface AppState {
   taskList: TasklList
   visibilityFilter: string
 }

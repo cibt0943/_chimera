@@ -6,8 +6,8 @@ import AddTask from '../components/AddTask'
 const AddTaskContainer: React.FC = () => {
   const dispatch = useDispatch()
   const dispatchProps = {
-    onSubmit: (text: string): void => {
-      dispatch(addTask({ text }))
+    onSubmit: (title: string): void => {
+      dispatch(addTask({ title }))
     },
   }
 

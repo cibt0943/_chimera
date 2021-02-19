@@ -55,6 +55,8 @@ Rails.application.configure do
   # Rails 6.0からDNS Rebuilding Attack攻撃から守るために、指定されたホストからしかアクセスを受けつない仕様
   config.hosts << ".#{ENV['AP_SERVER_GLOBAL_DOMAIN']}"
 
+  config.web_console.whitelisted_ips = '0.0.0.0/0'
+
   # assetの配信元
   webpack = config.x.webpack.deep_symbolize_keys
   config.asset_host = "//#{webpack[:dev_server][:host]}:#{webpack[:dev_server][:port]}"

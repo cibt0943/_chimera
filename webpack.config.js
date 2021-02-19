@@ -178,8 +178,7 @@ module.exports = (env, argv) => {
       },
       // vagrantだとファイルシステムの違いから変更を検知できないらしいのでポーリングする
       watchOptions: {
-        aggregateTimeout: 300,
-        poll: 3000,
+        poll: true,
       },
     },
   }
