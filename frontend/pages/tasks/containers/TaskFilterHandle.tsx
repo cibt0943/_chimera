@@ -1,16 +1,16 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { TodoState } from '../types'
+import { AppState } from '../types'
 import { setVisibilityFilter } from '../actions'
-import Button, { ButtonProps } from 'common/components/atoms/Button/Button'
+import Button from 'common/components/atoms/Button/Button'
 
-export interface TaskFilterHandleCotntainerProps {
+type Props = {
   filter: string
   children: React.ReactNode
 }
 
-const TaskFilterHandleCotntainer: React.FC<TaskFilterHandleCotntainerProps> = props => {
-  const stateProps = useSelector((state: TodoState) => {
+const TaskFilterHandleCotntainer: React.FC<Props> = (props) => {
+  const stateProps = useSelector((state: AppState) => {
     return {
       active: props.filter === state.visibilityFilter,
     }
@@ -23,8 +23,7 @@ const TaskFilterHandleCotntainer: React.FC<TaskFilterHandleCotntainerProps> = pr
     },
   }
 
-  const buttonProps: ButtonProps = { ...stateProps, ...dispatchProps, ...props }
-  return <Button {...buttonProps} />
+  return <Button {...{ ...stateProps, ...dispatchProps, ...props }} />
 }
 
 export default TaskFilterHandleCotntainer

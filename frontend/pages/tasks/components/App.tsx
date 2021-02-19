@@ -4,7 +4,7 @@ import AddTask from '../containers/AddTask'
 import TaskList from '../containers/TaskList'
 import TaskFilter from './TaskFilter'
 
-const Todo: React.FC = () => {
+const App: React.FC = () => {
   return (
     <Container text={true}>
       <TaskFilter />
@@ -14,4 +14,4 @@ const Todo: React.FC = () => {
   )
 }
 
-export default Todo
+export default App

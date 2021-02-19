@@ -1,18 +1,17 @@
 module.exports = {
   extends: [
     'stylelint-config-standard',  // ベースとなるルール
-    'stylelint-prettier/recommended',
+    'stylelint-config-recommended-scss',
+    'stylelint-config-recess-order',
   ],
   plugins: [
-    'stylelint-scss',
     'stylelint-order',
   ],
+  ignoreFiles: [
+    '**/node_modules/**',
+  ],
   rules: {
-    'order/order': [
-      'custom-properties',
-      'declarations',
-    ],
-    'order/properties-alphabetical-order': true,  // ABC順に並べる
+    'string-quotes': 'single',
     'no-empty-source': null,
   },
 }

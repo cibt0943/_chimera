@@ -3,7 +3,7 @@ import { Button, ButtonProps } from 'semantic-ui-react'
 
 export type BaseButtonProps = ButtonProps
 
-const BaseButton: React.FC<BaseButtonProps> = props => {
+const BaseButton: React.FC<BaseButtonProps> = (props) => {
   return <Button {...props}>{props.children}</Button>
 }
 

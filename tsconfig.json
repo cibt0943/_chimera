@@ -19,6 +19,7 @@
     // "noEmit": true,
     "jsx": "react",
     "baseUrl": "./frontend",
+    "downlevelIteration": true,
   },
 }
 

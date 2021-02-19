@@ -1,11 +1,16 @@
 Rails.application.routes.draw do
-  shallow do
-    scope module: :gui do
-      # ルート
-      root 'dashboard#show'
+  scope module: :gui do
+    # ルート
+    root 'dashboard#show'
 
-      # todo
-      resources :todos
+    # task
+    resources :tasks
+  end
+
+  namespace :api, format: 'json' do
+    namespace :v1 do
+      # task
+      resources :tasks
     end
   end
 end

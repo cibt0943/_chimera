@@ -6,32 +6,32 @@ import ModalDialog from 'common/redux/modal/containers'
 import Button from 'common/components/atoms/Button/Button'
 import PositiveButton from 'common/components/atoms/Button/PositiveButton'
 
-export interface AddTaskProps {
-  onSubmit: (text: string) => void
+type Props = {
+  onSubmit: (title: string) => void
 }
 
-const AddTask: React.FC<AddTaskProps> = props => {
+const AddTask: React.FC<Props> = (props) => {
   const { onSubmit } = props
 
-  const [text, setText] = React.useState<string>('')
+  const [title, setTitle] = React.useState<string>('')
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.preventDefault()
-    setText(event.target.value)
+    setTitle(event.target.value)
   }
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    if (!text.trim()) return
-    onSubmit(text)
+    if (!title.trim()) return
+    onSubmit(title)
   }
 
-  const modalId = 'add_todo'
+  const modalId = 'add_task'
 
   const dispatch = useDispatch()
   const handleAddClick = (event: React.MouseEvent<HTMLElement>) => {
     event.preventDefault()
-    setText('')
+    setTitle('')
     dispatch(showModal({ id: modalId }))
   }
 
@@ -43,7 +43,7 @@ const AddTask: React.FC<AddTaskProps> = props => {
         <Modal.Content scrolling>
           <Form id="addTask" onSubmit={handleSubmit}>
             <Form.Field>
-              <Input focus fluid onChange={handleChange} value={text} />
+              <Input focus fluid onChange={handleChange} value={title} />
             </Form.Field>
           </Form>
         </Modal.Content>

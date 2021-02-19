@@ -3,7 +3,7 @@ import BaseButton, { BaseButtonProps } from './BaseButton'
 
 export type PositiveButtonProps = BaseButtonProps
 
-const PositiveButton: React.FC<PositiveButtonProps> = props => {
+const PositiveButton: React.FC<PositiveButtonProps> = (props) => {
   const baseButtonProps = { ...props, positive: true }
   return <BaseButton {...baseButtonProps}>{baseButtonProps.children}</BaseButton>
 }

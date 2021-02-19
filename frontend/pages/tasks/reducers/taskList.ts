@@ -10,31 +10,31 @@ const idGenarater = ((init = 0) => {
   }
 })()
 
-/* todoを作成 */
+/* taskを作成 */
 const buildTask = (payload: actions.AddTaskPayload): Task => {
   return {
-    text: payload.text,
+    title: payload.title,
     id: idGenarater(),
-    completed: false,
+    status: 0,
   }
 }
 
 /* 指定idのtaskを削除 */
 const deleteTask = (taskList: TasklList, payload: actions.DeleteTaskPayload): TasklList => {
-  return taskList.filter(task => task.id !== payload.id)
+  return taskList.filter((task) => task.id !== payload.id)
 }
 
 /* 指定idのtaskのcompletedを反転 */
 const toggleTask = (taskList: TasklList, payload: actions.ToggleTaskPayload): TasklList => {
-  return taskList.map(task => {
+  return taskList.map((task) => {
     if (task.id === payload.id) {
-      task.completed = !task.completed
+      task.status = ~task.status
     }
     return task
   })
 }
 
-const taskList = (state: TasklList = initialState, action: actions.TodoAction): TasklList => {
+const taskList = (state: TasklList = initialState, action: actions.TaskAction): TasklList => {
   switch (action.type) {
     case actions.ActionType.ADD_TASK:
       return state.concat(buildTask(action.payload))

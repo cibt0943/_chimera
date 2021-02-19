@@ -1,19 +1,19 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { TodoState, EnumVisibilityFilter, TasklList } from '../types'
+import { AppState, EnumVisibilityFilter, TasklList } from '../types'
 import { toggleTask } from '../actions'
-import TaskList, { TaskListProps } from '../components/TaskList'
+import TaskList from '../components/TaskList'
 
 const TaskListContainer: React.FC = () => {
-  const taskSelector = (state: TodoState) => {
+  const taskSelector = (state: AppState) => {
     const filter = (): TasklList => {
       switch (state.visibilityFilter) {
         case EnumVisibilityFilter.SHOW_ALL:
           return state.taskList
         case EnumVisibilityFilter.SHOW_ACTIVE:
-          return state.taskList.filter(e => !e.completed)
+          return state.taskList.filter((e) => e.status == 0)
         case EnumVisibilityFilter.SHOW_COMPLETED:
-          return state.taskList.filter(e => e.completed)
+          return state.taskList.filter((e) => e.status == 1)
         default:
           throw new Error('Unknown filter.')
       }
@@ -32,8 +32,7 @@ const TaskListContainer: React.FC = () => {
     },
   }
 
-  const taskListProps: TaskListProps = { ...stateProps, ...dispatchProps }
-  return <TaskList {...taskListProps} />
+  return <TaskList {...{ ...stateProps, ...dispatchProps }} />
 }
 
 export default TaskListContainer
