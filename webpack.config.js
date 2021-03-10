@@ -2,7 +2,7 @@ const path = require('path')
 const fs = require('fs')
 const jsYaml = require('js-yaml')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-const ManifestPlugin = require('webpack-manifest-plugin')
+const { WebpackManifestPlugin } = require('webpack-manifest-plugin')
 const glob = require('glob')
 
 module.exports = (env, argv) => {
@@ -19,10 +19,10 @@ module.exports = (env, argv) => {
     entry: pages,
     output: {
       path: path.resolve(__dirname, config.public_root_path, config.output_path),
-      filename: '[name]-[hash].js',
+      filename: '[name]-[contenthash].js',
     },
 
-    devtool: isDevelopment ? 'source-map' : 'none',
+    devtool: isDevelopment ? 'source-map' : 'false',
 
     resolve: {
       modules: ['node_modules', path.resolve(__dirname, 'frontend')],
@@ -31,10 +31,10 @@ module.exports = (env, argv) => {
 
     plugins: [
       new MiniCssExtractPlugin({
-        filename: '[name]-[hash].css',
+        filename: '[name]-[contenthash].css',
       }),
-      new ManifestPlugin({
-        fileName: 'manifest.json',
+      new WebpackManifestPlugin({
+        // fileName: 'manifest.json',
         // publicPath: プロダクトにて実際にJSへアクセスする際のパスと同様になるように指定
         publicPath: `/${config.output_path}/`,
         writeToFileEmit: true,
@@ -46,10 +46,11 @@ module.exports = (env, argv) => {
         {
           test: /\.(css|sass|scss)$/,
           use: [
+            // CSSを別ファイルとして出力する
             {
               loader: MiniCssExtractPlugin.loader,
               options: {
-                // publicPath: ''
+                publicPath: '',
               },
             },
             // CSSをバンドルするための設定
@@ -72,7 +73,7 @@ module.exports = (env, argv) => {
               loader: 'postcss-loader',
               options: {
                 // PostCSS側でもソースマップを有効にする
-                sourceMap: true,
+                sourceMap: isDevelopment,
                 postcssOptions: {
                   plugins: [
                     // Autoprefixerを有効化
@@ -82,7 +83,7 @@ module.exports = (env, argv) => {
                 },
               },
             },
-            // Sassをバンドルするための設定
+            // SassをCSSへ変換
             {
               loader: 'sass-loader',
               options: {
@@ -124,17 +125,6 @@ module.exports = (env, argv) => {
             },
           ],
         },
-        // {
-        //   test: /\.(png|jpg|gif|svg|eot|ttf|woff|woff2)$/,
-        //   use: [
-        //     {
-        //       loader: 'file-loader',
-        //       options: {
-        //         name: './[name].[ext]',
-        //       },
-        //     }
-        //   ],
-        // },
       ],
     },
 
@@ -147,7 +137,7 @@ module.exports = (env, argv) => {
             name: 'common',
             enforce: true,
           },
-          vendor: {
+          defaultVendors: {
             test: /node_modules/,
             chunks: 'initial',
             name: 'vendor',

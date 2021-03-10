@@ -10,7 +10,7 @@ const Task: React.FC<Props> = (props) => {
   const { title, status, onClick } = props
 
   return (
-    <li style={{ textDecoration: status == 1 ? 'line-through' : 'none' }}>
+    <li style={{ textDecoration: status == 0 ? 'none' : 'line-through' }}>
       {title}
       <button onClick={onClick}>toggle</button>
     </li>
