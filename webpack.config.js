@@ -61,7 +61,6 @@ module.exports = (env, argv) => {
                 // url: false,
                 // ソースマップの作成
                 sourceMap: isDevelopment,
-                // Sass+PostCSSの場合は2を指定
                 // 0 => no loaders (default);
                 // 1 => postcss-loader;
                 // 2 => postcss-loader, sass-loader
