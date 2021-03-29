@@ -102,27 +102,17 @@ module.exports = (env, argv) => {
         },
         {
           test: /\.(jpe|png|gif|svg|ico)$/,
-          use: [
-            {
-              loader: 'url-loader',
-              options: {
-                limit: 10000,
-                name: 'images/[name].[ext]',
-              },
-            },
-          ],
+          type: "asset/resource",
+          generator: {
+            filename: 'images/[name]-[contenthash][ext]'
+          }
         },
         {
           test: /\.(eot|ttf|woff|woff2)$/,
-          use: [
-            {
-              loader: 'url-loader',
-              options: {
-                limit: 10000,
-                name: 'fonts/[name].[ext]',
-              },
-            },
-          ],
+          type: "asset/resource",
+          generator: {
+            filename: 'fonts/[name]-[contenthash][ext]'
+          }
         },
       ],
     },

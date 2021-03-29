@@ -3,14 +3,14 @@ import { Container, Dropdown, Menu } from 'semantic-ui-react'
 
 const Header: React.FC = () => {
   return (
-    <Menu color="red" fixed="top" inverted={true}>
+    <Menu color="red" fixed="top" inverted>
       <Container>
-        <Menu.Item as="a" header={true} href="/">
+        <Menu.Item as="a" header href="/">
           tamechimera
         </Menu.Item>
         <Menu.Item as="a">Home</Menu.Item>
 
-        <Dropdown item={true} simple={true} text="Dropdown">
+        <Dropdown item simple text="Dropdown">
           <Dropdown.Menu>
             <Dropdown.Item>List Item</Dropdown.Item>
             <Dropdown.Item>List Item</Dropdown.Item>
