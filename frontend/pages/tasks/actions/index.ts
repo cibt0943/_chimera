@@ -1,6 +1,4 @@
-// import { Action, Dispatch } from 'redux'
 import { Action } from 'redux'
-// import axios from 'axios'
 import { TasklList } from '../types'
 
 /*
@@ -122,27 +120,3 @@ export const setVisibilityFilter = (payload: SetVisibilityFilterPayload): SetVis
   type: ActionType.SET_VISIBILITY_FILTER,
   payload,
 })
-
-/*
- * Fetch Action
- */
-
-//task取得
-// export const fetchTasks = () => {
-//   console.log('2')
-//   return (dispatch: Dispatch) => {
-//     console.log('3')
-//     try {
-//       const response = axios.get('/api/v1/tasks')
-//       dispatch({
-//         type: ActionType.FETCH_TASKS_SUCCESS,
-//         payload: response,
-//       })
-//     } catch (e) {
-//       dispatch({
-//         type: ActionType.FETCH_TASKS_FAILURE,
-//         payload: console.log(e),
-//       })
-//     }
-//   }
-// }

@@ -1,7 +1,6 @@
 module.exports = {
   extends: [
     'stylelint-config-standard',  // ベースとなるルール
-    'stylelint-config-recommended-scss',
     'stylelint-config-recess-order',
   ],
   plugins: [
