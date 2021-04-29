@@ -1,17 +1,17 @@
 module.exports = {
   env: {
     browser: true,
-    es2020: true,
+    es2021: true,
   },
   extends: [
     'eslint:recommended',
     'plugin:react/recommended',
-    'plugin:@typescript-eslint/eslint-recommended',  // eslint:recommendedの中でTypeScriptに不要なものをOFFにする設定 (TypeScriptの型チェックで事足りているもの)
+    'plugin:import/errors',
+    'plugin:import/warnings',
+    'plugin:import/typescript',
     'plugin:@typescript-eslint/recommended',  // 型を必要としない基本ルール
     'plugin:@typescript-eslint/recommended-requiring-type-checking',  // 型を必要とする基本ルール
     'prettier',
-    'prettier/@typescript-eslint',  // Prettierでカバーできるルールを無効化
-    'prettier/react',
   ],
   settings: {
     react: {
@@ -28,9 +28,12 @@ module.exports = {
       jsx: true,
     },
     ecmaVersion: 12,
+    tsconfigRootDir: __dirname,
   },
   plugins: [
     '@typescript-eslint',
+    'import',
+    'jsx-a11y',
     'prefer-arrow',
     'react',
     'react-hooks',
