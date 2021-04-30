@@ -1,4 +1,4 @@
-import React from 'react'
+import { VFC, ReactNode } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { AppState } from '../types'
 import { setVisibilityFilter } from '../actions'
@@ -6,10 +6,10 @@ import Button from 'common/components/atoms/Button/Button'
 
 type Props = {
   filter: string
-  children: React.ReactNode
+  children: ReactNode
 }
 
-const TaskFilterHandleCotntainer: React.FC<Props> = (props) => {
+const TaskFilterHandleCotntainer: VFC<Props> = (props) => {
   const stateProps = useSelector((state: AppState) => {
     return {
       active: props.filter === state.visibilityFilter,

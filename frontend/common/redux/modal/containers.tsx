@@ -1,4 +1,4 @@
-import React from 'react'
+import { VFC, Fragment } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { ModalState } from './types'
 import { addModal, hideModal } from './actions'
@@ -8,7 +8,7 @@ export interface ModalContainerProps extends MyModalProps {
   modalId: string
 }
 
-const ModalContainer: React.FC<ModalContainerProps> = (props) => {
+const ModalContainer: VFC<ModalContainerProps> = (props) => {
   const { modalId, ...tmpProps } = props
 
   const dispatch = useDispatch()
@@ -18,7 +18,7 @@ const ModalContainer: React.FC<ModalContainerProps> = (props) => {
 
   if (!modal) {
     dispatch(addModal({ id: modalId, visible: false }))
-    return <React.Fragment />
+    return <Fragment />
   }
 
   const handleClose = (): void => {

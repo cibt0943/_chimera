@@ -9,17 +9,18 @@ module.exports = {
     'plugin:import/errors',
     'plugin:import/warnings',
     'plugin:import/typescript',
-    'plugin:@typescript-eslint/recommended',  // 型を必要としない基本ルール
-    'plugin:@typescript-eslint/recommended-requiring-type-checking',  // 型を必要とする基本ルール
+    'plugin:@typescript-eslint/recommended', // 型を必要としない基本ルール
+    'plugin:@typescript-eslint/recommended-requiring-type-checking', // 型を必要とする基本ルール
     'prettier',
   ],
   settings: {
-    react: {
-      version: 'detect',
+    'import/resolver': {
+      node: {
+        paths: ['frontend'],
+      },
     },
   },
-  globals: {
-  },
+  globals: {},
   parser: '@typescript-eslint/parser',
   parserOptions: {
     project: './tsconfig.eslint.json',
@@ -30,14 +31,7 @@ module.exports = {
     ecmaVersion: 12,
     tsconfigRootDir: __dirname,
   },
-  plugins: [
-    '@typescript-eslint',
-    'import',
-    'jsx-a11y',
-    'prefer-arrow',
-    'react',
-    'react-hooks',
-  ],
+  plugins: ['@typescript-eslint', 'import', 'jsx-a11y', 'prefer-arrow', 'react', 'react-hooks'],
   root: true,
   rules: {
     // 'space-before-function-paren': "off",
@@ -46,16 +40,17 @@ module.exports = {
     'prefer-arrow/prefer-arrow-functions': [
       'error',
       {
-        'disallowPrototype': true,
-        'singleReturnOnly': false,
-        'classPropertiesAllowed': false,
+        disallowPrototype: true,
+        singleReturnOnly: false,
+        classPropertiesAllowed: false,
       },
     ],
+    'react/react-in-jsx-scope': 'off',
   },
   overrides: [
     {
-      'files': ['*.tsx'],
-      'rules': {
+      files: ['*.tsx'],
+      rules: {
         'react/prop-types': 'off',
       },
     },

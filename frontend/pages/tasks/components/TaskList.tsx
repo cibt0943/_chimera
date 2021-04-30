@@ -1,4 +1,4 @@
-import React from 'react'
+import { VFC } from 'react'
 import { TasklList } from '../types'
 import Task from './Task'
 
@@ -7,7 +7,7 @@ type Props = {
   toggleTask: (id: number) => void
 }
 
-const TaskList: React.FC<Props> = (props) => {
+const TaskList: VFC<Props> = (props) => {
   const { taskList, toggleTask } = props
 
   return (

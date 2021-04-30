@@ -1,10 +1,10 @@
-import React from 'react'
+import { VFC } from 'react'
 import { Container } from 'semantic-ui-react'
 import AddTask from '../containers/AddTask'
 import TaskList from '../containers/TaskList'
 import TaskFilter from './TaskFilter'
 
-const App: React.FC = () => {
+const App: VFC = () => {
   return (
     <Container text={true}>
       <TaskFilter />

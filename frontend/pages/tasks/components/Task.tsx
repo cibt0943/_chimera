@@ -1,4 +1,4 @@
-import React from 'react'
+import { VFC } from 'react'
 
 type Props = {
   title: string
@@ -6,7 +6,7 @@ type Props = {
   onClick: () => void
 }
 
-const Task: React.FC<Props> = (props) => {
+const Task: VFC<Props> = (props) => {
   const { title, status, onClick } = props
 
   return (
