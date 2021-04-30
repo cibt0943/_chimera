@@ -1,10 +1,10 @@
-import React from 'react'
+import { VFC } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { AppState, EnumVisibilityFilter, TasklList } from '../types'
 import { toggleTask } from '../actions'
 import TaskList from '../components/TaskList'
 
-const TaskListContainer: React.FC = () => {
+const TaskListContainer: VFC = () => {
   const taskSelector = (state: AppState) => {
     const filter = (): TasklList => {
       switch (state.visibilityFilter) {

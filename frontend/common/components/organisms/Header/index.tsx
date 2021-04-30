@@ -1,7 +1,7 @@
-import React from 'react'
+import { VFC } from 'react'
 import { Container, Dropdown, Menu } from 'semantic-ui-react'
 
-const Header: React.FC = () => {
+const Header: VFC = () => {
   return (
     <Menu color="red" fixed="top" inverted>
       <Container>

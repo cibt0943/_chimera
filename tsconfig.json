@@ -17,8 +17,8 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     // "noEmit": true,
-    "jsx": "react",
-    "baseUrl": "./frontend",
+    "jsx": "react-jsx",
+    "baseUrl": "frontend",
     "downlevelIteration": true,
   },
 }

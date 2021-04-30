@@ -1,10 +1,13 @@
+import { VFC, ReactNode } from 'react'
 import 'semantic-ui-css/semantic.min.css'
-import './style'
-
-import React from 'react'
 import Header from '../../organisms/Header'
+import './style.scss'
 
-const Main: React.FC = (props) => {
+type Props = {
+  children: ReactNode
+}
+
+const Main: VFC<Props> = (props) => {
   return (
     <>
       <Header />

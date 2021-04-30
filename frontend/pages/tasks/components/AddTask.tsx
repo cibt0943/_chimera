@@ -1,4 +1,4 @@
-import React from 'react'
+import { VFC, ChangeEvent, FormEvent, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { Modal, Form, Input } from 'semantic-ui-react'
 import { showModal } from 'common/redux/modal/actions'
@@ -10,17 +10,17 @@ type Props = {
   onSubmit: (title: string) => void
 }
 
-const AddTask: React.FC<Props> = (props) => {
+const AddTask: VFC<Props> = (props) => {
   const { onSubmit } = props
 
-  const [title, setTitle] = React.useState<string>('')
+  const [title, setTitle] = useState('')
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     event.preventDefault()
     setTitle(event.target.value)
   }
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     if (!title.trim()) return
     onSubmit(title)

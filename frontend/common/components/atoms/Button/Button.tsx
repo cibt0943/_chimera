@@ -1,9 +1,9 @@
-import React from 'react'
+import { VFC } from 'react'
 import BaseButton, { BaseButtonProps } from './BaseButton'
 
 export type ButtonProps = BaseButtonProps
 
-const Button: React.FC<ButtonProps> = (props) => {
+const Button: VFC<ButtonProps> = (props) => {
   return <BaseButton {...props}>{props.children}</BaseButton>
 }
 
