@@ -14,6 +14,9 @@ module.exports = {
     'prettier',
   ],
   settings: {
+    react: {
+      version: 'detect',
+    },
     'import/resolver': {
       node: {
         paths: ['frontend'],

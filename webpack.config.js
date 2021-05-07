@@ -9,7 +9,7 @@ module.exports = (env, argv) => {
   const isDevelopment = argv.mode === 'development'
   const config = jsYaml.safeLoad(fs.readFileSync('config/webpack.yml', 'utf-8'))[argv.mode]
   const pages = {}
-  glob.sync('./frontend/pages/*/index.{ts,tsx}').forEach(function (e) {
+  glob.sync('./frontend/features/*/index.{ts,tsx}').forEach(function (e) {
     // {key:value}の連想配列を生成
     // pages[path.basename(e, '.tsx')] = e
     pages[path.basename(path.dirname(e))] = e
@@ -102,17 +102,17 @@ module.exports = (env, argv) => {
         },
         {
           test: /\.(jpe|png|gif|svg|ico)$/,
-          type: "asset/resource",
+          type: 'asset/resource',
           generator: {
-            filename: 'images/[name]-[contenthash][ext]'
-          }
+            filename: 'images/[name]-[contenthash][ext]',
+          },
         },
         {
           test: /\.(eot|ttf|woff|woff2)$/,
-          type: "asset/resource",
+          type: 'asset/resource',
           generator: {
-            filename: 'fonts/[name]-[contenthash][ext]'
-          }
+            filename: 'fonts/[name]-[contenthash][ext]',
+          },
         },
       ],
     },

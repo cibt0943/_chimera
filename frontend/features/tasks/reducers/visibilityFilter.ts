@@ -5,7 +5,7 @@ const initialState: string = EnumVisibilityFilter.SHOW_ACTIVE
 
 const visibilityFilter = (state: string = initialState, action: actions.TaskAction): string => {
   switch (action.type) {
-    case actions.ActionType.SET_VISIBILITY_FILTER:
+    case actions.ActionType.CHANGE_TASK_FILTER:
       return action.payload.filter
     default:
       return state

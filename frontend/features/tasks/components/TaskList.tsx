@@ -13,7 +13,7 @@ const TaskList: VFC<Props> = (props) => {
   return (
     <ul>
       {taskList.map((task) => (
-        <Task key={task.id} onClick={(): void => toggleTask(task.id)} {...task} />
+        <Task key={task.id} onClick={() => toggleTask(task.id)} {...task} />
       ))}
     </ul>
   )
