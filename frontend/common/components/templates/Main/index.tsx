@@ -1,6 +1,6 @@
 import { VFC, ReactNode } from 'react'
-import 'semantic-ui-css/semantic.min.css'
 import Header from '../../organisms/Header'
+import 'semantic-ui-css/semantic.min.css'
 import './style.scss'
 
 type Props = {

@@ -1,8 +1,6 @@
-import { VFC, ChangeEvent, FormEvent, useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { VFC, ChangeEvent, FormEvent, MouseEvent, useState } from 'react'
 import { Modal, Form, Input } from 'semantic-ui-react'
-import { showModal } from 'common/redux/modal/actions'
-import ModalDialog from 'common/redux/modal/containers'
+import MyModal from 'common/components/organisms/MyModal'
 import Button from 'common/components/atoms/Button/Button'
 import PositiveButton from 'common/components/atoms/Button/PositiveButton'
 
@@ -14,6 +12,7 @@ const AddTask: VFC<Props> = (props) => {
   const { onSubmit } = props
 
   const [title, setTitle] = useState('')
+  const [showModal, setShowModal] = useState(false)
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     event.preventDefault()
@@ -26,19 +25,20 @@ const AddTask: VFC<Props> = (props) => {
     onSubmit(title)
   }
 
-  const modalId = 'add_task'
-
-  const dispatch = useDispatch()
-  const handleAddClick = (event: React.MouseEvent<HTMLElement>) => {
+  const handleAddClick = (event: MouseEvent<HTMLElement>) => {
     event.preventDefault()
     setTitle('')
-    dispatch(showModal({ id: modalId }))
+    setShowModal(true)
+  }
+
+  const handleClose = () => {
+    setShowModal(false)
   }
 
   return (
     <div>
       <Button onClick={handleAddClick}>タスクを追加</Button>
-      <ModalDialog modalId={modalId}>
+      <MyModal open={showModal} onClose={handleClose}>
         <Modal.Header>タスクを追加</Modal.Header>
         <Modal.Content scrolling>
           <Form id="addTask" onSubmit={handleSubmit}>
@@ -52,7 +52,7 @@ const AddTask: VFC<Props> = (props) => {
             追加する
           </PositiveButton>
         </Modal.Actions>
-      </ModalDialog>
+      </MyModal>
     </div>
   )
 }

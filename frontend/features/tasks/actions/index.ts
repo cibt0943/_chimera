@@ -6,13 +6,13 @@ import { TasklList } from '../types'
  */
 
 export enum ActionType {
-  FETCH_TASKS_REQUEST = '@@TASK/FETCH_TASKS_REQUEST',
-  FETCH_TASKS_SUCCESS = '@@TASK/FETCH_TASKS_SUCCESS',
-  FETCH_TASKS_FAILURE = '@@TASK/FETCH_TASKS_FAILURE',
-  ADD_TASK = '@@TASK/ADD_TASK',
-  DELETE_TASK = '@@TASK/DELETE_TASK',
-  TOGGLE_TASK = '@@TASK/TOGGLE_TASK',
-  SET_VISIBILITY_FILTER = '@@TASK/SET_VISIBILITY_FILTER',
+  FETCH_TASKS_REQUEST = 'task/fetchResuest',
+  FETCH_TASKS_SUCCESS = 'task/fetchSuccess',
+  FETCH_TASKS_FAILURE = 'task/fetchFailure',
+  ADD_TASK = 'task/add',
+  DELETE_TASK = 'task/delete',
+  TOGGLE_TASK = 'task/toggle',
+  CHANGE_TASK_FILTER = 'task/changeFilter',
 }
 
 /*
@@ -77,7 +77,7 @@ export interface ToggleTaskAction extends Action {
 }
 
 export interface SetVisibilityFilterAction extends Action {
-  type: ActionType.SET_VISIBILITY_FILTER
+  type: ActionType.CHANGE_TASK_FILTER
   payload: SetVisibilityFilterPayload
 }
 
@@ -117,6 +117,6 @@ export const toggleTask = (payload: ToggleTaskPayload): ToggleTaskAction => ({
 })
 
 export const setVisibilityFilter = (payload: SetVisibilityFilterPayload): SetVisibilityFilterAction => ({
-  type: ActionType.SET_VISIBILITY_FILTER,
+  type: ActionType.CHANGE_TASK_FILTER,
   payload,
 })
