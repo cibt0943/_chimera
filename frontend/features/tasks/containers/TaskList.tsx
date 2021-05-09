@@ -1,11 +1,13 @@
-import { VFC } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
-import { AppState, EnumVisibilityFilter, TasklList } from '../types'
+import { VFC, useContext } from 'react'
+import { EnumVisibilityFilter, TasklList } from '../types'
+import { TasksContext } from '../providers'
 import { toggleTask } from '../actions'
 import TaskList from '../components/TaskList'
 
 const TaskListContainer: VFC = () => {
-  const taskSelector = (state: AppState) => {
+  const { state, dispatch } = useContext(TasksContext)
+
+  const taskSelector = () => {
     const filter = (): TasklList => {
       switch (state.visibilityFilter) {
         case EnumVisibilityFilter.SHOW_ALL:
@@ -24,8 +26,7 @@ const TaskListContainer: VFC = () => {
     }
   }
 
-  const stateProps = useSelector(taskSelector)
-  const dispatch = useDispatch()
+  const stateProps = taskSelector()
   const dispatchProps = {
     toggleTask: (id: number): void => {
       dispatch(toggleTask({ id }))

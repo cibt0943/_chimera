@@ -4,7 +4,7 @@ export enum EnumVisibilityFilter {
   SHOW_COMPLETED = 'SHOW_COMPLETED',
 }
 
-export interface Task {
+export type Task = {
   id: number
   title: string
   status: number
@@ -13,7 +13,7 @@ export interface Task {
 export type TasklList = Task[]
 
 /* stateの型を定義する。 */
-export interface AppState {
+export type TasksState = {
   taskList: TasklList
   visibilityFilter: string
 }
