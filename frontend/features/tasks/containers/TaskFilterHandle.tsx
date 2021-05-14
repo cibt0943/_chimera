@@ -1,6 +1,5 @@
-import { VFC, ReactNode } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
-import { AppState } from '../types'
+import { VFC, useContext, ReactNode } from 'react'
+import { TasksContext } from '../providers'
 import { setVisibilityFilter } from '../actions'
 import Button from 'common/components/atoms/Button/Button'
 
@@ -10,13 +9,12 @@ type Props = {
 }
 
 const TaskFilterHandleCotntainer: VFC<Props> = (props) => {
-  const stateProps = useSelector((state: AppState) => {
-    return {
-      active: props.filter === state.visibilityFilter,
-    }
-  })
+  const { state, dispatch } = useContext(TasksContext)
 
-  const dispatch = useDispatch()
+  const stateProps = {
+    active: props.filter === state.visibilityFilter,
+  }
+
   const dispatchProps = {
     onClick: (): void => {
       dispatch(setVisibilityFilter({ filter: props.filter }))

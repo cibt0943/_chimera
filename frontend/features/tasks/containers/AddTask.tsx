@@ -1,10 +1,11 @@
-import { VFC } from 'react'
-import { useDispatch } from 'react-redux'
+import { VFC, useContext } from 'react'
+import { TasksContext } from '../providers'
 import { addTask } from '../actions'
 import AddTask from '../components/AddTask'
 
 const AddTaskContainer: VFC = () => {
-  const dispatch = useDispatch()
+  const { dispatch } = useContext(TasksContext)
+
   const dispatchProps = {
     onSubmit: (title: string): void => {
       dispatch(addTask({ title }))

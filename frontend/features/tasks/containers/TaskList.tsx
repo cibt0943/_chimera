@@ -1,31 +1,29 @@
-import { VFC } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
-import { AppState, EnumVisibilityFilter, TasklList } from '../types'
+import { VFC, useContext } from 'react'
+import { EnumVisibilityFilter, TasklList } from '../types'
+import { TasksContext } from '../providers'
 import { toggleTask } from '../actions'
 import TaskList from '../components/TaskList'
 
 const TaskListContainer: VFC = () => {
-  const taskSelector = (state: AppState) => {
-    const filter = (): TasklList => {
-      switch (state.visibilityFilter) {
-        case EnumVisibilityFilter.SHOW_ALL:
-          return state.taskList
-        case EnumVisibilityFilter.SHOW_ACTIVE:
-          return state.taskList.filter((e) => e.status == 0)
-        case EnumVisibilityFilter.SHOW_COMPLETED:
-          return state.taskList.filter((e) => e.status == 1)
-        default:
-          throw new Error('Unknown filter.')
-      }
-    }
+  const { state, dispatch } = useContext(TasksContext)
 
-    return {
-      taskList: filter(),
+  const taskFilter = (): TasklList => {
+    switch (state.visibilityFilter) {
+      case EnumVisibilityFilter.SHOW_ALL:
+        return state.taskList
+      case EnumVisibilityFilter.SHOW_ACTIVE:
+        return state.taskList.filter((e) => e.status == 0)
+      case EnumVisibilityFilter.SHOW_COMPLETED:
+        return state.taskList.filter((e) => e.status == 1)
+      default:
+        throw new Error('Unknown filter.')
     }
   }
 
-  const stateProps = useSelector(taskSelector)
-  const dispatch = useDispatch()
+  const stateProps = {
+    taskList: taskFilter(),
+  }
+
   const dispatchProps = {
     toggleTask: (id: number): void => {
       dispatch(toggleTask({ id }))

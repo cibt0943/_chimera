@@ -1,6 +1,7 @@
 import { VFC } from 'react'
 
 type Props = {
+  id: number
   title: string
   status: number
   onClick: () => void
