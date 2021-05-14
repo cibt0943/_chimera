@@ -3,7 +3,7 @@ import { tasksReducer, initialState } from '../reducers'
 import { TasksState } from '../types'
 import { TasksAction } from '../actions'
 
-export type TasksContextType = {
+type TasksContextType = {
   state: TasksState
   dispatch: Dispatch<TasksAction>
 }

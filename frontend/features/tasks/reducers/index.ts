@@ -6,11 +6,6 @@ export const initialState: TasksState = {
   visibilityFilter: EnumVisibilityFilter.SHOW_ACTIVE,
 }
 
-export const initialState2: TasksState = {
-  taskList: [],
-  visibilityFilter: EnumVisibilityFilter.SHOW_ALL,
-}
-
 const idGenarater = ((init = 0) => {
   let id = init
   return () => {
