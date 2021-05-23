@@ -1,8 +1,8 @@
-import { TasksState, Task, TasklList, EnumVisibilityFilter } from '../types'
+import { TasksState, Task, Tasks, EnumVisibilityFilter } from '../types'
 import * as actions from '../actions'
 
 export const initialState: TasksState = {
-  taskList: [],
+  tasks: [],
   visibilityFilter: EnumVisibilityFilter.SHOW_ACTIVE,
 }
 
@@ -23,13 +23,13 @@ const buildTask = (payload: actions.AddTaskPayload): Task => {
 }
 
 /* 指定idのtaskを削除 */
-const deleteTask = (taskList: TasklList, payload: actions.DeleteTaskPayload): TasklList => {
-  return taskList.filter((task) => task.id !== payload.id)
+const deleteTask = (tasks: Tasks, payload: actions.DeleteTaskPayload): Tasks => {
+  return tasks.filter((task) => task.id !== payload.id)
 }
 
 /* 指定idのtaskのcompletedを反転 */
-const toggleTask = (taskList: TasklList, payload: actions.ToggleTaskPayload): TasklList => {
-  return taskList.map((task) => {
+const toggleTask = (tasks: Tasks, payload: actions.ToggleTaskPayload): Tasks => {
+  return tasks.map((task) => {
     if (task.id === payload.id) {
       task.status = ~task.status
     }
@@ -39,20 +39,25 @@ const toggleTask = (taskList: TasklList, payload: actions.ToggleTaskPayload): Ta
 
 export const tasksReducer = (state: TasksState = initialState, action: actions.TasksAction): TasksState => {
   switch (action.type) {
+    case actions.TasksActionType.SET_TASKS:
+      return {
+        ...state,
+        tasks: action.payload.tasks,
+      }
     case actions.TasksActionType.ADD_TASK:
       return {
         ...state,
-        taskList: state.taskList.concat(buildTask(action.payload)),
+        tasks: state.tasks.concat(buildTask(action.payload)),
       }
     case actions.TasksActionType.DELETE_TASK:
       return {
         ...state,
-        taskList: deleteTask(state.taskList, action.payload),
+        tasks: deleteTask(state.tasks, action.payload),
       }
     case actions.TasksActionType.TOGGLE_TASK:
       return {
         ...state,
-        taskList: toggleTask(state.taskList, action.payload),
+        tasks: toggleTask(state.tasks, action.payload),
       }
     case actions.TasksActionType.CHANGE_TASK_FILTER:
       return {

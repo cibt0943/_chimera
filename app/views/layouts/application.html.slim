@@ -6,11 +6,11 @@ html
     = csp_meta_tag
     = stylesheet_pack_tag 'vendor'
     = stylesheet_pack_tag 'common'
-    / = stylesheet_pack_tag 'app'
+    / = stylesheet_pack_tag 'main'
     = yield :stylesheet
   body
     = yield
     = javascript_pack_tag 'vendor'
     = javascript_pack_tag 'common'
-    / = javascript_pack_tag 'app'
+    = javascript_pack_tag 'main'
     = yield :javascript

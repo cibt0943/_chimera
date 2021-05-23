@@ -3,26 +3,28 @@ const fs = require('fs')
 const jsYaml = require('js-yaml')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const { WebpackManifestPlugin } = require('webpack-manifest-plugin')
-const glob = require('glob')
+// const glob = require('glob')
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 
 module.exports = (env, argv) => {
   const isDevelopment = argv.mode === 'development'
   const config = jsYaml.safeLoad(fs.readFileSync('config/webpack.yml', 'utf-8'))[argv.mode]
-  const pages = {}
-  glob.sync('./frontend/features/*/index.{ts,tsx}').forEach(function (e) {
-    // {key:value}の連想配列を生成
-    // pages[path.basename(e, '.tsx')] = e
-    pages[path.basename(path.dirname(e))] = e
-  })
+  // const pages = {}
+  // glob.sync('./frontend/features/*/index.{ts,tsx}').forEach(function (e) {
+  //   // {key:value}の連想配列を生成
+  //   // pages[path.basename(e, '.tsx')] = e
+  //   pages[path.basename(path.dirname(e))] = e
+  // })
 
   return {
-    entry: pages,
+    // entry: pages,
+    entry: './frontend/index.tsx',
     output: {
       path: path.resolve(__dirname, config.public_root_path, config.output_path),
       filename: '[name]-[contenthash].js',
     },
 
-    devtool: isDevelopment ? 'source-map' : 'false',
+    devtool: isDevelopment ? 'source-map' : false,
 
     resolve: {
       modules: ['node_modules', path.resolve(__dirname, 'frontend')],
@@ -39,6 +41,7 @@ module.exports = (env, argv) => {
         publicPath: `/${config.output_path}/`,
         writeToFileEmit: true,
       }),
+      new BundleAnalyzerPlugin(),
     ],
 
     module: {
