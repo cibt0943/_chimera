@@ -1,25 +1,18 @@
 import { render } from 'react-dom'
 import { BrowserRouter } from 'react-router-dom'
-import { QueryClient, QueryClientProvider } from 'react-query'
-import { ReactQueryDevtools } from 'react-query/devtools'
+import { SWRConfig } from 'swr'
 import App from './App'
 
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      retry: 0,
-      suspense: true,
-    },
-    mutations: { retry: 0 },
-  },
-})
+const options = {
+  suspense: true,
+  revalidateOnFocus: false,
+}
 
 render(
   <BrowserRouter>
-    <QueryClientProvider client={queryClient}>
+    <SWRConfig value={options}>
       <App />
-      {process.env.NODE_ENV === 'development' && <ReactQueryDevtools initialIsOpen={false} />}
-    </QueryClientProvider>
+    </SWRConfig>
   </BrowserRouter>,
   document.getElementById('root'),
 )

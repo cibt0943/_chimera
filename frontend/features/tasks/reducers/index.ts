@@ -3,7 +3,7 @@ import * as actions from '../actions'
 
 export const initialState: TasksState = {
   tasks: [],
-  visibilityFilter: EnumVisibilityFilter.SHOW_ACTIVE,
+  visibilityFilter: EnumVisibilityFilter.SHOW_ALL,
 }
 
 const idGenarater = ((init = 0) => {
@@ -37,7 +37,7 @@ const toggleTask = (tasks: Tasks, payload: actions.ToggleTaskPayload): Tasks => 
   })
 }
 
-export const tasksReducer = (state: TasksState = initialState, action: actions.TasksAction): TasksState => {
+export const tasksReducer = (state: TasksState, action: actions.TasksAction): TasksState => {
   switch (action.type) {
     case actions.TasksActionType.SET_TASKS:
       return {

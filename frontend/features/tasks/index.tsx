@@ -1,13 +1,13 @@
 import { VFC, Suspense } from 'react'
 import { Container, Loader } from 'semantic-ui-react'
-import { TasksProvider } from './providers'
+import { TasksContextProvider } from './providers'
 import AddTask from './containers/AddTask'
 import TaskList from './containers/TaskList'
 import TaskFilter from './components/TaskFilter'
 
 const Tasks: VFC = () => {
   return (
-    <TasksProvider>
+    <TasksContextProvider>
       <Container text={true}>
         <TaskFilter />
         <AddTask />
@@ -15,7 +15,7 @@ const Tasks: VFC = () => {
           <TaskList />
         </Suspense>
       </Container>
-    </TasksProvider>
+    </TasksContextProvider>
   )
 }
 
