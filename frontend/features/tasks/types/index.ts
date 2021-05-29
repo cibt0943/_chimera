@@ -10,10 +10,10 @@ export type Task = {
   status: number
 }
 
-export type TasklList = Task[]
+export type Tasks = Task[]
 
 /* stateの型を定義する。 */
 export type TasksState = {
-  taskList: TasklList
+  tasks: Tasks
   visibilityFilter: string
 }

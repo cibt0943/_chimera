@@ -1,13 +1,22 @@
-import { render } from 'react-dom'
-import { BrowserRouter } from 'react-router-dom'
-import Layout from 'common/components/templates/Main'
-import App from './components/App'
+import { VFC, Suspense } from 'react'
+import { Container, Loader } from 'semantic-ui-react'
+import { TasksContextProvider } from './providers'
+import AddTask from './containers/AddTask'
+import TaskList from './containers/TaskList'
+import TaskFilter from './components/TaskFilter'
 
-render(
-  <BrowserRouter>
-    <Layout>
-      <App />
-    </Layout>
-  </BrowserRouter>,
-  document.getElementById('root'),
-)
+const Tasks: VFC = () => {
+  return (
+    <TasksContextProvider>
+      <Container text={true}>
+        <TaskFilter />
+        <AddTask />
+        <Suspense fallback={<Loader active inline="centered" />}>
+          <TaskList />
+        </Suspense>
+      </Container>
+    </TasksContextProvider>
+  )
+}
+
+export default Tasks

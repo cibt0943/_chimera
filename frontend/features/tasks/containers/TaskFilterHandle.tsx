@@ -1,5 +1,5 @@
 import { VFC, useContext, ReactNode } from 'react'
-import { TasksContext } from '../providers'
+import { TasksStateContext, TasksDispatchContext } from '../providers'
 import { setVisibilityFilter } from '../actions'
 import Button from 'common/components/atoms/Button/Button'
 
@@ -9,10 +9,11 @@ type Props = {
 }
 
 const TaskFilterHandleCotntainer: VFC<Props> = (props) => {
-  const { state, dispatch } = useContext(TasksContext)
+  const { visibilityFilter } = useContext(TasksStateContext)
+  const dispatch = useContext(TasksDispatchContext)
 
   const stateProps = {
-    active: props.filter === state.visibilityFilter,
+    active: props.filter === visibilityFilter,
   }
 
   const dispatchProps = {

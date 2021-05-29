@@ -30,6 +30,9 @@ gem 'slim-rails'
 # Session Store
 gem 'redis-rails'
 
+# Json Serializer
+gem 'active_model_serializers'
+
 # Seed Data
 gem 'seed-fu'
 

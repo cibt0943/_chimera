@@ -3,14 +3,14 @@ import { tasksReducer, initialState } from '../reducers'
 import { TasksState } from '../types'
 import { TasksAction } from '../actions'
 
-type TasksContextType = {
-  state: TasksState
-  dispatch: Dispatch<TasksAction>
-}
+export const TasksStateContext = createContext<TasksState>(initialState)
+export const TasksDispatchContext = createContext<Dispatch<TasksAction>>(() => null)
 
-export const TasksContext = createContext<TasksContextType>({ state: initialState, dispatch: () => null })
-
-export const TasksProvider: VFC<{ children: ReactNode }> = (props) => {
+export const TasksContextProvider: VFC<{ children: ReactNode }> = (props) => {
   const [state, dispatch] = useReducer(tasksReducer, initialState)
-  return <TasksContext.Provider value={{ state, dispatch }}>{props.children}</TasksContext.Provider>
+  return (
+    <TasksStateContext.Provider value={state}>
+      <TasksDispatchContext.Provider value={dispatch}>{props.children}</TasksDispatchContext.Provider>
+    </TasksStateContext.Provider>
+  )
 }

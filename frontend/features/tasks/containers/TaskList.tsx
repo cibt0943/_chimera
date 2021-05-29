@@ -1,27 +1,40 @@
 import { VFC, useContext } from 'react'
-import { EnumVisibilityFilter, TasklList } from '../types'
-import { TasksContext } from '../providers'
-import { toggleTask } from '../actions'
+import ky from 'ky'
+import useSWR from 'swr'
+import { EnumVisibilityFilter, Tasks } from '../types'
+import { TasksStateContext, TasksDispatchContext } from '../providers'
+import { setTasks, toggleTask } from '../actions'
 import TaskList from '../components/TaskList'
 
 const TaskListContainer: VFC = () => {
-  const { state, dispatch } = useContext(TasksContext)
+  const dispatch = useContext(TasksDispatchContext)
 
-  const taskFilter = (): TasklList => {
-    switch (state.visibilityFilter) {
+  const getTasks = async () => {
+    const response = await ky.get('/api/v1/tasks')
+    const tasks = (await response.json()) as Tasks
+    dispatch(setTasks({ tasks }))
+    return tasks
+  }
+
+  useSWR('tasks', getTasks)
+
+  const { tasks, visibilityFilter } = useContext(TasksStateContext)
+
+  const taskFilter = (): Tasks => {
+    switch (visibilityFilter) {
       case EnumVisibilityFilter.SHOW_ALL:
-        return state.taskList
+        return tasks
       case EnumVisibilityFilter.SHOW_ACTIVE:
-        return state.taskList.filter((e) => e.status == 0)
+        return tasks.filter((e) => e.status == 0)
       case EnumVisibilityFilter.SHOW_COMPLETED:
-        return state.taskList.filter((e) => e.status == 1)
+        return tasks.filter((e) => e.status == 1)
       default:
         throw new Error('Unknown filter.')
     }
   }
 
   const stateProps = {
-    taskList: taskFilter(),
+    tasks: taskFilter(),
   }
 
   const dispatchProps = {

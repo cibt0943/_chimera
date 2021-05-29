@@ -1,13 +1,11 @@
-import { TasklList } from '../types'
+import { Tasks } from '../types'
 
 /*
  * action types
  */
 
 export enum TasksActionType {
-  FETCH_TASKS_REQUEST = 'tasks/fetchResuest',
-  FETCH_TASKS_SUCCESS = 'tasks/fetchSuccess',
-  FETCH_TASKS_FAILURE = 'tasks/fetchFailure',
+  SET_TASKS = 'tasks/set',
   ADD_TASK = 'tasks/add',
   DELETE_TASK = 'tasks/delete',
   TOGGLE_TASK = 'tasks/toggle',
@@ -18,12 +16,8 @@ export enum TasksActionType {
  * action payloads
  */
 
-export type FetchTasksSuccessPayload = {
-  tasks: TasklList
-}
-
-export type FetchTasksFailurePayload = {
-  error: string
+export type SetTasksPayload = {
+  tasks: Tasks
 }
 
 export type AddTaskPayload = {
@@ -46,20 +40,10 @@ export type SetVisibilityFilterPayload = {
  * action interfaces
  */
 
-export interface FetchTasksRequestAction {
-  type: TasksActionType.FETCH_TASKS_REQUEST
+export interface SetTasksAction {
+  type: TasksActionType.SET_TASKS
+  payload: SetTasksPayload
 }
-
-export interface FetchTasksSuccessAction {
-  type: TasksActionType.FETCH_TASKS_SUCCESS
-  payload: FetchTasksSuccessPayload
-}
-
-export interface FetchTasksFailureAction {
-  type: TasksActionType.FETCH_TASKS_FAILURE
-  payload: FetchTasksFailurePayload
-}
-
 export interface AddTaskAction {
   type: TasksActionType.ADD_TASK
   payload: AddTaskPayload
@@ -80,23 +64,14 @@ export interface SetVisibilityFilterAction {
   payload: SetVisibilityFilterPayload
 }
 
-export type TasksAction = FetchTasksRequestAction | FetchTasksSuccessAction | FetchTasksFailureAction | AddTaskAction | DeleteTaskAction | ToggleTaskAction | SetVisibilityFilterAction
+export type TasksAction = SetTasksAction | AddTaskAction | DeleteTaskAction | ToggleTaskAction | SetVisibilityFilterAction
 
 /*
  * action creators
  */
 
-export const fetchTasksRequest = (): FetchTasksRequestAction => ({
-  type: TasksActionType.FETCH_TASKS_REQUEST,
-})
-
-export const fetchTasksSuccess = (payload: FetchTasksSuccessPayload): FetchTasksSuccessAction => ({
-  type: TasksActionType.FETCH_TASKS_SUCCESS,
-  payload,
-})
-
-export const fetchTasksFailure = (payload: FetchTasksFailurePayload): FetchTasksFailureAction => ({
-  type: TasksActionType.FETCH_TASKS_FAILURE,
+export const setTasks = (payload: SetTasksPayload): SetTasksAction => ({
+  type: TasksActionType.SET_TASKS,
   payload,
 })
 
