@@ -9,11 +9,11 @@ type Props = {
 }
 
 const TaskFilterHandleCotntainer: VFC<Props> = (props) => {
-  const { state } = useContext(TasksStateContext)
-  const { dispatch } = useContext(TasksDispatchContext)
+  const { visibilityFilter } = useContext(TasksStateContext)
+  const dispatch = useContext(TasksDispatchContext)
 
   const stateProps = {
-    active: props.filter === state.visibilityFilter,
+    active: props.filter === visibilityFilter,
   }
 
   const dispatchProps = {

@@ -4,7 +4,7 @@ import { addTask } from '../actions'
 import AddTask from '../components/AddTask'
 
 const AddTaskContainer: VFC = () => {
-  const { dispatch } = useContext(TasksDispatchContext)
+  const dispatch = useContext(TasksDispatchContext)
 
   const dispatchProps = {
     onSubmit: (title: string): void => {
