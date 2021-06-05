@@ -1,10 +1,11 @@
 import { VFC, useContext, ReactNode } from 'react'
-import { TasksStateContext, TasksDispatchContext } from '../providers'
+import { VisibilityFilter } from '../types'
 import { setVisibilityFilter } from '../actions'
+import { TasksStateContext, TasksDispatchContext } from '../providers'
 import Button from 'common/components/atoms/Button/Button'
 
 type Props = {
-  filter: string
+  filter: VisibilityFilter
   children: ReactNode
 }
 

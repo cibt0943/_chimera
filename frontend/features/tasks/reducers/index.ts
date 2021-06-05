@@ -1,9 +1,9 @@
-import { TasksState, Task, Tasks, EnumVisibilityFilter } from '../types'
+import { TasksState, Task, Tasks, VisibilityFilter } from '../types'
 import * as actions from '../actions'
 
 export const initialState: TasksState = {
   tasks: [],
-  visibilityFilter: EnumVisibilityFilter.SHOW_ALL,
+  visibilityFilter: VisibilityFilter.SHOW_ALL,
 }
 
 const idGenarater = ((init = 0) => {

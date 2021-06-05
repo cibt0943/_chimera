@@ -1,9 +1,9 @@
 import { VFC, useContext } from 'react'
 import ky from 'ky'
 import useSWR from 'swr'
-import { EnumVisibilityFilter, Tasks } from '../types'
-import { TasksStateContext, TasksDispatchContext } from '../providers'
+import { VisibilityFilter, Tasks } from '../types'
 import { setTasks, toggleTask } from '../actions'
+import { TasksStateContext, TasksDispatchContext } from '../providers'
 import TaskList from '../components/TaskList'
 
 const TaskListContainer: VFC = () => {
@@ -22,11 +22,11 @@ const TaskListContainer: VFC = () => {
 
   const taskFilter = (): Tasks => {
     switch (visibilityFilter) {
-      case EnumVisibilityFilter.SHOW_ALL:
+      case VisibilityFilter.SHOW_ALL:
         return tasks
-      case EnumVisibilityFilter.SHOW_ACTIVE:
+      case VisibilityFilter.SHOW_ACTIVE:
         return tasks.filter((e) => e.status == 0)
-      case EnumVisibilityFilter.SHOW_COMPLETED:
+      case VisibilityFilter.SHOW_COMPLETED:
         return tasks.filter((e) => e.status == 1)
       default:
         throw new Error('Unknown filter.')

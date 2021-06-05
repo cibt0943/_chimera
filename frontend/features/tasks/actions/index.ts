@@ -1,4 +1,4 @@
-import { Tasks } from '../types'
+import { VisibilityFilter, Tasks } from '../types'
 
 /*
  * action types
@@ -33,7 +33,7 @@ export type ToggleTaskPayload = {
 }
 
 export type SetVisibilityFilterPayload = {
-  filter: string
+  filter: VisibilityFilter
 }
 
 /*

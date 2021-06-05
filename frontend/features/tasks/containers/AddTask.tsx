@@ -1,6 +1,6 @@
 import { VFC, useContext } from 'react'
-import { TasksDispatchContext } from '../providers'
 import { addTask } from '../actions'
+import { TasksDispatchContext } from '../providers'
 import AddTask from '../components/AddTask'
 
 const AddTaskContainer: VFC = () => {

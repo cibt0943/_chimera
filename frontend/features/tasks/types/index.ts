@@ -1,8 +1,9 @@
-export enum EnumVisibilityFilter {
-  SHOW_ALL = 'SHOW_ALL',
-  SHOW_ACTIVE = 'SHOW_ACTIVE',
-  SHOW_COMPLETED = 'SHOW_COMPLETED',
-}
+export const VisibilityFilter = {
+  SHOW_ALL: 'SHOW_ALL',
+  SHOW_ACTIVE: 'SHOW_ACTIVE',
+  SHOW_COMPLETED: 'SHOW_COMPLETED',
+} as const
+export type VisibilityFilter = typeof VisibilityFilter[keyof typeof VisibilityFilter]
 
 export type Task = {
   id: number
@@ -15,5 +16,5 @@ export type Tasks = Task[]
 /* stateの型を定義する。 */
 export type TasksState = {
   tasks: Tasks
-  visibilityFilter: string
+  visibilityFilter: VisibilityFilter
 }

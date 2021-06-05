@@ -1,7 +1,7 @@
 import { VFC, useReducer, createContext, Dispatch, ReactNode } from 'react'
-import { tasksReducer, initialState } from '../reducers'
 import { TasksState } from '../types'
 import { TasksAction } from '../actions'
+import { tasksReducer, initialState } from '../reducers'
 
 export const TasksStateContext = createContext<TasksState>(initialState)
 export const TasksDispatchContext = createContext<Dispatch<TasksAction>>(() => null)
