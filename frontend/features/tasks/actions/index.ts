@@ -5,10 +5,10 @@ import { VisibilityFilter, Tasks } from '../types'
  */
 
 export enum TasksActionType {
-  SET_TASKS = 'tasks/set',
+  LOAD_TASKS = 'tasks/set',
   ADD_TASK = 'tasks/add',
   DELETE_TASK = 'tasks/delete',
-  TOGGLE_TASK = 'tasks/toggle',
+  UPDATE_TASK_STATUS = 'tasks/toggle',
   CHANGE_TASK_FILTER = 'tasks/changeFilter',
 }
 
@@ -16,7 +16,7 @@ export enum TasksActionType {
  * action payloads
  */
 
-export type SetTasksPayload = {
+export type LoadTasksPayload = {
   tasks: Tasks
 }
 
@@ -28,7 +28,7 @@ export type DeleteTaskPayload = {
   id: number
 }
 
-export type ToggleTaskPayload = {
+export type UpdateTaskStatusPayload = {
   id: number
 }
 
@@ -40,9 +40,9 @@ export type SetVisibilityFilterPayload = {
  * action interfaces
  */
 
-export interface SetTasksAction {
-  type: TasksActionType.SET_TASKS
-  payload: SetTasksPayload
+export interface LoadTasksAction {
+  type: TasksActionType.LOAD_TASKS
+  payload: LoadTasksPayload
 }
 export interface AddTaskAction {
   type: TasksActionType.ADD_TASK
@@ -54,9 +54,9 @@ export interface DeleteTaskAction {
   payload: DeleteTaskPayload
 }
 
-export interface ToggleTaskAction {
-  type: TasksActionType.TOGGLE_TASK
-  payload: ToggleTaskPayload
+export interface UpdateTaskStatusAction {
+  type: TasksActionType.UPDATE_TASK_STATUS
+  payload: UpdateTaskStatusPayload
 }
 
 export interface SetVisibilityFilterAction {
@@ -64,14 +64,14 @@ export interface SetVisibilityFilterAction {
   payload: SetVisibilityFilterPayload
 }
 
-export type TasksAction = SetTasksAction | AddTaskAction | DeleteTaskAction | ToggleTaskAction | SetVisibilityFilterAction
+export type TasksAction = LoadTasksAction | AddTaskAction | DeleteTaskAction | UpdateTaskStatusAction | SetVisibilityFilterAction
 
 /*
  * action creators
  */
 
-export const setTasks = (payload: SetTasksPayload): SetTasksAction => ({
-  type: TasksActionType.SET_TASKS,
+export const loadTasks = (payload: LoadTasksPayload): LoadTasksAction => ({
+  type: TasksActionType.LOAD_TASKS,
   payload,
 })
 
@@ -85,8 +85,8 @@ export const deleteTask = (payload: DeleteTaskPayload): DeleteTaskAction => ({
   payload,
 })
 
-export const toggleTask = (payload: ToggleTaskPayload): ToggleTaskAction => ({
-  type: TasksActionType.TOGGLE_TASK,
+export const updateTaskStatus = (payload: UpdateTaskStatusPayload): UpdateTaskStatusAction => ({
+  type: TasksActionType.UPDATE_TASK_STATUS,
   payload,
 })
 

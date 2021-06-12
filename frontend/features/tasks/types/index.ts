@@ -5,10 +5,16 @@ export const VisibilityFilter = {
 } as const
 export type VisibilityFilter = typeof VisibilityFilter[keyof typeof VisibilityFilter]
 
+export const TaskStatus = {
+  ACTIVE: 0,
+  COMPLETED: 1,
+} as const
+export type TaskStatus = typeof TaskStatus[keyof typeof TaskStatus]
+
 export type Task = {
   id: number
   title: string
-  status: number
+  status: TaskStatus
 }
 
 export type Tasks = Task[]

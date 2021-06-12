@@ -1,15 +1,14 @@
 import { VFC } from 'react'
-import { Modal, ModalProps } from 'semantic-ui-react'
+import Dialog, { DialogProps } from '@material-ui/core/Dialog'
 
-export type MyModalProps = ModalProps
+export type MyDialogProps = DialogProps
 
-const MyModal: VFC<MyModalProps> = (props) => {
-  const modalProps: ModalProps = {
+const MyModal: VFC<MyDialogProps> = (props) => {
+  const dialogProps: MyDialogProps = {
     ...props,
-    closeIcon: true,
-    dimmer: 'blurring',
   }
-  return <Modal {...modalProps}>{modalProps.children}</Modal>
+
+  return <Dialog {...dialogProps}>{dialogProps.children}</Dialog>
 }
 
 export default MyModal

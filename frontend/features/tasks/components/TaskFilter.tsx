@@ -1,15 +1,26 @@
 import { VFC } from 'react'
-import { Button } from 'semantic-ui-react'
+import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup'
+import ToggleButton from '@material-ui/lab/ToggleButton'
 import { VisibilityFilter } from '../types'
-import TaskFilterHandle from '../containers/TaskFilterHandle'
 
-const TaskFilter: VFC = () => {
+type Props = {
+  visibilityFilter: VisibilityFilter
+  toggleFilter: (filter: VisibilityFilter) => void
+}
+
+const TaskFilter: VFC<Props> = (props) => {
+  const { visibilityFilter, toggleFilter } = props
+
+  const handleChange = (event: React.MouseEvent<HTMLElement>, filter: VisibilityFilter) => {
+    toggleFilter(filter)
+  }
+
   return (
-    <Button.Group>
-      <TaskFilterHandle filter={VisibilityFilter.SHOW_ALL}>All</TaskFilterHandle>
-      <TaskFilterHandle filter={VisibilityFilter.SHOW_ACTIVE}>Active</TaskFilterHandle>
-      <TaskFilterHandle filter={VisibilityFilter.SHOW_COMPLETED}>Completed</TaskFilterHandle>
-    </Button.Group>
+    <ToggleButtonGroup exclusive value={visibilityFilter} onChange={handleChange}>
+      <ToggleButton value={VisibilityFilter.SHOW_ALL}>All</ToggleButton>
+      <ToggleButton value={VisibilityFilter.SHOW_ACTIVE}>Active</ToggleButton>
+      <ToggleButton value={VisibilityFilter.SHOW_COMPLETED}>Completed</ToggleButton>
+    </ToggleButtonGroup>
   )
 }
 

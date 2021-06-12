@@ -2,7 +2,7 @@ import { VFC, useContext } from 'react'
 import ky from 'ky'
 import useSWR from 'swr'
 import { VisibilityFilter, Tasks } from '../types'
-import { setTasks, toggleTask } from '../actions'
+import { loadTasks, updateTaskStatus } from '../actions'
 import { TasksStateContext, TasksDispatchContext } from '../providers'
 import TaskList from '../components/TaskList'
 
@@ -12,7 +12,7 @@ const TaskListContainer: VFC = () => {
   const getTasks = async () => {
     const response = await ky.get('/api/v1/tasks')
     const tasks = (await response.json()) as Tasks
-    dispatch(setTasks({ tasks }))
+    dispatch(loadTasks({ tasks }))
     return tasks
   }
 
@@ -38,8 +38,8 @@ const TaskListContainer: VFC = () => {
   }
 
   const dispatchProps = {
-    toggleTask: (id: number): void => {
-      dispatch(toggleTask({ id }))
+    updateTaskStatus: (id: number): void => {
+      dispatch(updateTaskStatus({ id }))
     },
   }
 

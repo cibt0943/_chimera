@@ -1,9 +1,10 @@
 import { VFC } from 'react'
+import { TaskStatus } from '../types'
 
 type Props = {
   id: number
   title: string
-  status: number
+  status: TaskStatus
   onClick: () => void
 }
 

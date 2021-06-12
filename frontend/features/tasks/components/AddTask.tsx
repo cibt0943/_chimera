@@ -1,33 +1,22 @@
-import { VFC, ChangeEvent, FormEvent, MouseEvent, useState } from 'react'
-import { Modal, Form, Input } from 'semantic-ui-react'
+import { VFC, MouseEvent, useState } from 'react'
+import DialogActions from '@material-ui/core/DialogActions'
+import DialogContent from '@material-ui/core/DialogContent'
+import DialogTitle from '@material-ui/core/DialogTitle'
 import MyModal from 'common/components/organisms/MyModal'
-import Button from 'common/components/atoms/Button/Button'
-import PositiveButton from 'common/components/atoms/Button/PositiveButton'
+import ContainedButton from 'common/components/atoms/Button/ContainedButton'
+import TaskForm, { TaskFormValues } from './TaskForm'
 
 type Props = {
-  onSubmit: (title: string) => void
+  addTask: (data: TaskFormValues) => void
 }
 
 const AddTask: VFC<Props> = (props) => {
-  const { onSubmit } = props
+  const { addTask } = props
 
-  const [title, setTitle] = useState('')
   const [showModal, setShowModal] = useState(false)
-
-  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    event.preventDefault()
-    setTitle(event.target.value)
-  }
-
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
-    if (!title.trim()) return
-    onSubmit(title)
-  }
 
   const handleAddClick = (event: MouseEvent<HTMLElement>) => {
     event.preventDefault()
-    setTitle('')
     setShowModal(true)
   }
 
@@ -37,21 +26,17 @@ const AddTask: VFC<Props> = (props) => {
 
   return (
     <div>
-      <Button onClick={handleAddClick}>タスクを追加</Button>
+      <ContainedButton onClick={handleAddClick}>タスクを追加</ContainedButton>
       <MyModal open={showModal} onClose={handleClose}>
-        <Modal.Header>タスクを追加</Modal.Header>
-        <Modal.Content scrolling>
-          <Form id="addTask" onSubmit={handleSubmit}>
-            <Form.Field>
-              <Input focus fluid onChange={handleChange} value={title} />
-            </Form.Field>
-          </Form>
-        </Modal.Content>
-        <Modal.Actions>
-          <PositiveButton type="submit" form="addTask">
+        <DialogTitle>タスクを追加</DialogTitle>
+        <DialogContent>
+          <TaskForm addTask={addTask} />
+        </DialogContent>
+        <DialogActions>
+          <ContainedButton type="submit" form="addTask">
             追加する
-          </PositiveButton>
-        </Modal.Actions>
+          </ContainedButton>
+        </DialogActions>
       </MyModal>
     </div>
   )

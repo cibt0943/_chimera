@@ -1,4 +1,4 @@
-import { TasksState, Task, Tasks, VisibilityFilter } from '../types'
+import { TasksState, Task, Tasks, VisibilityFilter, TaskStatus } from '../types'
 import * as actions from '../actions'
 
 export const initialState: TasksState = {
@@ -18,7 +18,7 @@ const buildTask = (payload: actions.AddTaskPayload): Task => {
   return {
     title: payload.title,
     id: idGenarater(),
-    status: 0,
+    status: TaskStatus.ACTIVE,
   }
 }
 
@@ -28,10 +28,10 @@ const deleteTask = (tasks: Tasks, payload: actions.DeleteTaskPayload): Tasks => 
 }
 
 /* 指定idのtaskのcompletedを反転 */
-const toggleTask = (tasks: Tasks, payload: actions.ToggleTaskPayload): Tasks => {
+const updateTaskStatus = (tasks: Tasks, payload: actions.UpdateTaskStatusPayload): Tasks => {
   return tasks.map((task) => {
     if (task.id === payload.id) {
-      task.status = ~task.status
+      task.status = task.status === TaskStatus.ACTIVE ? TaskStatus.COMPLETED : TaskStatus.ACTIVE
     }
     return task
   })
@@ -39,7 +39,7 @@ const toggleTask = (tasks: Tasks, payload: actions.ToggleTaskPayload): Tasks => 
 
 export const tasksReducer = (state: TasksState, action: actions.TasksAction): TasksState => {
   switch (action.type) {
-    case actions.TasksActionType.SET_TASKS:
+    case actions.TasksActionType.LOAD_TASKS:
       return {
         ...state,
         tasks: action.payload.tasks,
@@ -54,10 +54,10 @@ export const tasksReducer = (state: TasksState, action: actions.TasksAction): Ta
         ...state,
         tasks: deleteTask(state.tasks, action.payload),
       }
-    case actions.TasksActionType.TOGGLE_TASK:
+    case actions.TasksActionType.UPDATE_TASK_STATUS:
       return {
         ...state,
-        tasks: toggleTask(state.tasks, action.payload),
+        tasks: updateTaskStatus(state.tasks, action.payload),
       }
     case actions.TasksActionType.CHANGE_TASK_FILTER:
       return {

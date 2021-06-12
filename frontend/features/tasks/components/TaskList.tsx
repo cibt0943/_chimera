@@ -4,16 +4,16 @@ import Task from './Task'
 
 type Props = {
   tasks: Tasks
-  toggleTask: (id: number) => void
+  updateTaskStatus: (id: number) => void
 }
 
 const TaskList: VFC<Props> = (props) => {
-  const { tasks, toggleTask } = props
+  const { tasks, updateTaskStatus } = props
 
   return (
     <ul>
       {tasks.map((task) => (
-        <Task key={task.id} onClick={() => toggleTask(task.id)} {...task} />
+        <Task key={task.id} onClick={() => updateTaskStatus(task.id)} {...task} />
       ))}
     </ul>
   )
