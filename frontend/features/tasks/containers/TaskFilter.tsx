@@ -14,7 +14,9 @@ const TaskFilterContainer: VFC = () => {
 
   const dispatchProps = {
     toggleFilter: (filter: VisibilityFilter): void => {
-      dispatch(setVisibilityFilter({ filter }))
+      if (filter !== null) {
+        dispatch(setVisibilityFilter({ filter }))
+      }
     },
   }
 

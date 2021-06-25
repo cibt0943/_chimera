@@ -1,11 +1,15 @@
-import { VFC } from 'react'
+import { VFC, ReactNode } from 'react'
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
 
-const Header: VFC = () => {
+type Props = {
+  children: ReactNode
+}
+
+const Header: VFC<Props> = (props) => {
   return (
-    <AppBar position="static">
-      <Toolbar></Toolbar>
+    <AppBar position="sticky">
+      <Toolbar variant="dense">{props.children}</Toolbar>
     </AppBar>
   )
 }

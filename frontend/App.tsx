@@ -1,7 +1,6 @@
 import { VFC } from 'react'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import { SWRConfig } from 'swr'
-import Layout from 'common/components/templates/Main'
 import Tasks from 'features/tasks'
 
 const options = {
@@ -11,15 +10,16 @@ const options = {
 
 const App: VFC = () => (
   <SWRConfig value={options}>
-    <Layout>
-      <BrowserRouter>
-        <Switch>
-          <Route exact path="/tasks">
-            <Tasks />
-          </Route>
-        </Switch>
-      </BrowserRouter>
-    </Layout>
+    <BrowserRouter>
+      <Switch>
+        <Route exact path="/tasks">
+          <Tasks />
+        </Route>
+        <Route exact path="/memos">
+          <Tasks />
+        </Route>
+      </Switch>
+    </BrowserRouter>
   </SWRConfig>
 )
 
