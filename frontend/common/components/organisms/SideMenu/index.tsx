@@ -83,7 +83,7 @@ const SideMenu: VFC = () => {
             [classes.hide]: !showSideMenu,
           })}
         >
-          <Typography variant="h6">Tame Chimera</Typography>
+          <Typography variant="h6">Cobushi</Typography>
         </Box>
         <Box>
           <IconButton onClick={handleToggleDrawer}>{showSideMenu ? <ChevronLeftIcon /> : <ChevronRightIcon />}</IconButton>

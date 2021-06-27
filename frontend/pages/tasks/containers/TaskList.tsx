@@ -16,6 +16,7 @@ const TaskListContainer: VFC = () => {
     return tasks
   }
 
+  // apiアクセス
   useSWR('tasks', getTasks)
 
   const { tasks, visibilityFilter } = useContext(TasksStateContext)
