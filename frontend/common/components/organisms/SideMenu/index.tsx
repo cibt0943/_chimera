@@ -95,13 +95,13 @@ const SideMenu: VFC = () => {
           <ListItemIcon>
             <PlaylistAddCheckIcon />
           </ListItemIcon>
-          <ListItemText primary="todo" />
+          <ListItemText primary="タスク" />
         </ListItem>
         <ListItem button key="memos" component={RouterLink} to="/memos" activeClassName="Mui-selected">
           <ListItemIcon>
             <DescriptionIcon />
           </ListItemIcon>
-          <ListItemText primary="memo" />
+          <ListItemText primary="メモ" />
         </ListItem>
       </List>
     </Drawer>

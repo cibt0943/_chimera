@@ -1,7 +1,8 @@
 import { VFC } from 'react'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import { SWRConfig } from 'swr'
-import Tasks from 'features/tasks'
+import Tasks from 'pages/tasks'
+import Memos from 'pages/memos'
 
 const options = {
   suspense: true,
@@ -16,7 +17,7 @@ const App: VFC = () => (
           <Tasks />
         </Route>
         <Route exact path="/memos">
-          <Tasks />
+          <Memos />
         </Route>
       </Switch>
     </BrowserRouter>

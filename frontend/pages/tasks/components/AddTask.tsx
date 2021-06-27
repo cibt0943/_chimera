@@ -2,7 +2,7 @@ import { VFC, MouseEvent, useState } from 'react'
 import DialogActions from '@material-ui/core/DialogActions'
 import DialogContent from '@material-ui/core/DialogContent'
 import DialogTitle from '@material-ui/core/DialogTitle'
-import MyModal from 'common/components/organisms/MyModal'
+import MyModal from 'common/components/molecules/MyModal'
 import ContainedButton from 'common/components/atoms/Button/ContainedButton'
 import TaskForm, { TaskFormValues } from './TaskForm'
 
