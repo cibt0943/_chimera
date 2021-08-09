@@ -1,9 +1,6 @@
 import { VFC, MouseEvent, useState } from 'react'
-import DialogActions from '@material-ui/core/DialogActions'
-import DialogContent from '@material-ui/core/DialogContent'
-import DialogTitle from '@material-ui/core/DialogTitle'
-import MyModal from 'common/components/molecules/MyModal'
-import ContainedButton from 'common/components/atoms/Button/ContainedButton'
+import Modal, { ModalTitle, ModalAction } from 'common/components/molecules/Modal'
+import Button from 'common/components/atoms/Button'
 import TaskForm, { TaskFormValues } from './TaskForm'
 
 type Props = {
@@ -26,18 +23,18 @@ const AddTask: VFC<Props> = (props) => {
 
   return (
     <div>
-      <ContainedButton onClick={handleAddClick}>タスクを追加</ContainedButton>
-      <MyModal open={showModal} onClose={handleClose}>
-        <DialogTitle>タスクを追加</DialogTitle>
-        <DialogContent>
-          <TaskForm addTask={addTask} />
-        </DialogContent>
-        <DialogActions>
-          <ContainedButton type="submit" form="addTask">
+      <Button className="tw-btn-primary" onClick={handleAddClick}>
+        タスクを追加
+      </Button>
+      <Modal show={showModal} onClose={handleClose}>
+        <ModalTitle>タスクを追加</ModalTitle>
+        <TaskForm addTask={addTask} />
+        <ModalAction>
+          <Button type="submit" form="addTask">
             追加する
-          </ContainedButton>
-        </DialogActions>
-      </MyModal>
+          </Button>
+        </ModalAction>
+      </Modal>
     </div>
   )
 }

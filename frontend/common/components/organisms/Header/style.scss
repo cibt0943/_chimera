@@ -1,0 +1,12 @@
+html {
+  .header {
+    @apply tw-flex tw-flex-wrap tw-h-14 tw-items-center;
+    @apply tw-text-black;
+  }
+
+  &[data-theme='dark'] {
+    .header {
+      @apply tw-text-white;
+    }
+  }
+}

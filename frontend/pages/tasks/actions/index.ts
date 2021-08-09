@@ -4,6 +4,7 @@ import { VisibilityFilter, Tasks } from '../types'
  * action types
  */
 
+// ここenumやめたい
 export enum TasksActionType {
   LOAD_TASKS = 'tasks/set',
   ADD_TASK = 'tasks/add',

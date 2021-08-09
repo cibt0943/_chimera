@@ -1,10 +1,10 @@
 import { VFC } from 'react'
-import { useForm, Controller, SubmitHandler } from 'react-hook-form'
-import TextField from '@material-ui/core/TextField'
+import { useForm, SubmitHandler } from 'react-hook-form'
+import InputField from 'common/components/atoms/InputField'
 
 type Props = {
-  titleValue?: string
   addTask: (data: TaskFormValues) => void
+  titleValue?: string
 }
 
 export type TaskFormValues = {
@@ -12,14 +12,16 @@ export type TaskFormValues = {
 }
 
 const TaskForm: VFC<Props> = (props) => {
-  const { titleValue = '', addTask } = props
+  const { addTask, titleValue = '' } = props
 
   const {
-    control,
+    register,
     handleSubmit,
     formState: { errors },
   } = useForm<TaskFormValues>({
-    defaultValues: { title: titleValue },
+    defaultValues: {
+      title: titleValue,
+    },
   })
 
   const onSubmitHandler: SubmitHandler<TaskFormValues> = (data, event) => {
@@ -29,7 +31,7 @@ const TaskForm: VFC<Props> = (props) => {
 
   return (
     <form id="addTask" onSubmit={handleSubmit(onSubmitHandler)}>
-      <Controller name="title" control={control} defaultValue="" render={({ field }) => <TextField {...field} variant="outlined" />} />
+      <InputField labelText="タスク名" register={register('title')} />
       {errors?.title?.type === 'required' && <p>This field is required</p>}
     </form>
   )

@@ -1,7 +1,7 @@
 import { VFC } from 'react'
-import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup'
-import ToggleButton from '@material-ui/lab/ToggleButton'
 import { VisibilityFilter } from '../types'
+import RadioButtonGroup from 'common/components/molecules/RadioButtonGroup'
+import RadioButton from 'common/components/molecules/RadioButton'
 
 type Props = {
   visibilityFilter: VisibilityFilter
@@ -11,16 +11,16 @@ type Props = {
 const TaskFilter: VFC<Props> = (props) => {
   const { visibilityFilter, toggleFilter } = props
 
-  const handleChange = (event: React.MouseEvent<HTMLElement>, filter: VisibilityFilter) => {
+  const handleChange = (filter: VisibilityFilter) => {
     toggleFilter(filter)
   }
 
   return (
-    <ToggleButtonGroup exclusive value={visibilityFilter} onChange={handleChange}>
-      <ToggleButton value={VisibilityFilter.SHOW_ALL}>All</ToggleButton>
-      <ToggleButton value={VisibilityFilter.SHOW_ACTIVE}>Active</ToggleButton>
-      <ToggleButton value={VisibilityFilter.SHOW_COMPLETED}>Completed</ToggleButton>
-    </ToggleButtonGroup>
+    <RadioButtonGroup value={visibilityFilter} onChange={handleChange}>
+      <RadioButton value={VisibilityFilter.SHOW_ALL}>All</RadioButton>
+      <RadioButton value={VisibilityFilter.SHOW_ACTIVE}>Active</RadioButton>
+      <RadioButton value={VisibilityFilter.SHOW_COMPLETED}>Completed</RadioButton>
+    </RadioButtonGroup>
   )
 }
 

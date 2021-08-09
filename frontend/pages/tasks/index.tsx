@@ -1,9 +1,7 @@
 import { VFC, Suspense } from 'react'
-import Container from '@material-ui/core/Container'
-import CircularProgress from '@material-ui/core/CircularProgress'
-import Typography from '@material-ui/core/Typography'
 import Layout from 'common/components/templates/Main'
 import Header from 'common/components/organisms/Header'
+import LoadingPlaceholder from 'common/components/molecules/LoadingPlaceholder'
 import { TasksContextProvider } from './providers'
 import TaskFilter from './containers/TaskFilter'
 import AddTask from './containers/AddTask'
@@ -14,17 +12,19 @@ const Tasks: VFC = () => {
     <TasksContextProvider>
       <Layout>
         <Header>
-          <Typography variant="h6" noWrap>
-            todo
-          </Typography>
+          <h3 className="tw-pl-6 tw-text-xl tw-font-semibold">Todo</h3>
         </Header>
-        <Container maxWidth="sm">
-          <TaskFilter />
-          <AddTask />
-          <Suspense fallback={<CircularProgress />}>
-            <TaskList />
-          </Suspense>
-        </Container>
+        <div className="tw-container tw-mx-auto tw-px-6 tw-py-3">
+          <div className="tw-flex tw-justify-between">
+            <AddTask />
+            <TaskFilter />
+          </div>
+          <div className="tw-mt-6">
+            <Suspense fallback={<LoadingPlaceholder />}>
+              <TaskList />
+            </Suspense>
+          </div>
+        </div>
       </Layout>
     </TasksContextProvider>
   )

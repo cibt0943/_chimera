@@ -8,6 +8,7 @@ export const TasksDispatchContext = createContext<Dispatch<TasksAction>>(() => n
 
 export const TasksContextProvider: VFC<{ children: ReactNode }> = (props) => {
   const [state, dispatch] = useReducer(tasksReducer, initialState)
+
   return (
     <TasksStateContext.Provider value={state}>
       <TasksDispatchContext.Provider value={dispatch}>{props.children}</TasksDispatchContext.Provider>

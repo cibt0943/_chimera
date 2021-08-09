@@ -1,4 +1,5 @@
 import { VFC } from 'react'
+import Button from 'common/components/atoms/Button'
 import { TaskStatus } from '../types'
 
 type Props = {
@@ -9,13 +10,19 @@ type Props = {
 }
 
 const Task: VFC<Props> = (props) => {
-  const { title, status, onClick } = props
+  const { id, title, status, onClick } = props
 
   return (
-    <li style={{ textDecoration: status == 0 ? 'none' : 'line-through' }}>
-      {title}
-      <button onClick={onClick}>toggle</button>
-    </li>
+    <tr>
+      <td>{id}</td>
+      <td>{title}</td>
+      <td>{status}</td>
+      <td>
+        <Button className="tw-btn-sm" onClick={onClick}>
+          toggle
+        </Button>
+      </td>
+    </tr>
   )
 }
 

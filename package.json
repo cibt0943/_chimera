@@ -15,7 +15,8 @@
     "lint:style": "stylelint './frontend/**/*.{css,scss}'",
     "lint:style:fix": "stylelint --fix './frontend/**/*.{css,scss}'",
     "postinstall": "typesync || :",
-    "prepare": "simple-git-hooks > /dev/null"
+    "prepare": "simple-git-hooks > /dev/null",
+    "build:tailwind": "NODE_ENV=production tailwind build -i ./frontend/assets/css/style.scss -o ./frontend/assets/css/tailwind.scss"
   },
   "simple-git-hooks": {
     "pre-commit": "./pre-commit.sh"
@@ -33,9 +34,9 @@
     ]
   },
   "dependencies": {
-    "@material-ui/core": "^4.11.4",
-    "@material-ui/icons": "^4.11.2",
-    "@material-ui/lab": "^4.0.0-alpha.58",
+    "@headlessui/react": "^1.3.0",
+    "@heroicons/react": "^1.0.2",
+    "classnames": "^2.3.1",
     "ky": "^0.28.3",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
@@ -45,6 +46,7 @@
     "swr": "^0.5.6"
   },
   "devDependencies": {
+    "@tailwindcss/typography": "^0.4.1",
     "@types/eslint": "^7.2.12",
     "@types/mini-css-extract-plugin": "^1.4.3",
     "@types/prettier": "^2.2.3",
@@ -62,6 +64,8 @@
     "@welldone-software/why-did-you-render": "^6.1.4",
     "autoprefixer": "^10.2.6",
     "css-loader": "^5.2.6",
+    "css-minimizer-webpack-plugin": "^3.0.2",
+    "daisyui": "^1.9.0",
     "eslint": "^7.27.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-import": "^2.23.3",
@@ -81,6 +85,7 @@
     "stylelint-config-recess-order": "^2.4.0",
     "stylelint-config-standard": "^22.0.0",
     "stylelint-order": "^4.1.0",
+    "tailwindcss": "^2.2.4",
     "ts-loader": "^9.2.2",
     "typescript": "^4.3.2",
     "typesync": "^0.8.0",
