@@ -1,7 +1,29 @@
-body {
-  color: #444;
+html {
+  height: 100%;
+
+  body {
+    height: 100%;
+
+    @apply tw-bg-gray-200;
+  }
+
+  &[data-theme='dark'] {
+    body {
+      @apply tw-bg-gray-700;
+    }
+  }
 }
 
-.main {
-  padding-top: 40px;
-}
+// .btn {
+//   @apply tw-px-4 tw-py-2 tw-rounded-md;
+// }
+
+// @each $color in $colors {
+//   .btn-#{$color} {
+//     @apply tw-inline-flex;
+//     @apply tw-text-white;
+//     @apply tw-bg-#{$color}-#{$base};
+//     @apply hover:tw-bg-#{$color}-#{$hover};
+//     @apply tw-transition;
+//   }
+// }

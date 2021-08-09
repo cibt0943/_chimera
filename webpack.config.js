@@ -2,6 +2,8 @@ const path = require('path')
 const fs = require('fs')
 const jsYaml = require('js-yaml')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
+const TerserPlugin = require('terser-webpack-plugin')
 const { WebpackManifestPlugin } = require('webpack-manifest-plugin')
 // const glob = require('glob')
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
@@ -24,25 +26,12 @@ module.exports = (env, argv) => {
       filename: '[name]-[contenthash].js',
     },
 
-    devtool: isDevelopment ? 'source-map' : false,
+    devtool: isDevelopment ? 'eval-source-map' : false,
 
     resolve: {
       modules: ['node_modules', path.resolve(__dirname, 'frontend')],
       extensions: ['.ts', '.tsx', '.js', '.jsx', '.scss', '.css'],
     },
-
-    plugins: [
-      new MiniCssExtractPlugin({
-        filename: '[name]-[contenthash].css',
-      }),
-      new WebpackManifestPlugin({
-        // fileName: 'manifest.json',
-        // publicPath: プロダクトにて実際にJSへアクセスする際のパスと同様になるように指定
-        publicPath: `/${config.output_path}/`,
-        writeToFileEmit: true,
-      }),
-      new BundleAnalyzerPlugin(),
-    ],
 
     module: {
       rules: [
@@ -56,7 +45,7 @@ module.exports = (env, argv) => {
                 publicPath: '',
               },
             },
-            // CSSをバンドルするための設定
+            // CSSをJSバンドルするための設定
             {
               loader: 'css-loader',
               options: {
@@ -76,13 +65,6 @@ module.exports = (env, argv) => {
               options: {
                 // PostCSS側でもソースマップを有効にする
                 sourceMap: isDevelopment,
-                postcssOptions: {
-                  plugins: [
-                    // Autoprefixerを有効化
-                    // ベンダープレフィックスを自動付与する
-                    require('autoprefixer')({ grid: true }),
-                  ],
-                },
               },
             },
             // SassをCSSへ変換
@@ -121,6 +103,7 @@ module.exports = (env, argv) => {
     },
 
     optimization: {
+      minimizer: [`...`, new CssMinimizerPlugin()],
       splitChunks: {
         cacheGroups: {
           common: {
@@ -138,6 +121,19 @@ module.exports = (env, argv) => {
         },
       },
     },
+
+    plugins: [
+      new MiniCssExtractPlugin({
+        filename: '[name]-[contenthash].css',
+      }),
+      new WebpackManifestPlugin({
+        // fileName: 'manifest.json',
+        // publicPath: プロダクトにて実際にJSへアクセスする際のパスと同様になるように指定
+        publicPath: `/${config.output_path}/`,
+        writeToFileEmit: true,
+      }),
+      new BundleAnalyzerPlugin(),
+    ],
 
     // Configuration for dev server
     devServer: {

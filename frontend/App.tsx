@@ -1,16 +1,31 @@
 import { VFC } from 'react'
-import { Route, Switch } from 'react-router-dom'
-import Layout from 'common/components/templates/Main'
-import Tasks from 'features/tasks'
+import { BrowserRouter, Route, Switch } from 'react-router-dom'
+import { SWRConfig } from 'swr'
+import Tasks from 'pages/tasks'
+import Memos from 'pages/memos'
+import './assets/css/style'
+
+const options = {
+  suspense: true,
+  revalidateOnFocus: false,
+}
 
 const App: VFC = () => (
-  <Layout>
-    <Switch>
-      <Route exact path="/tasks">
-        <Tasks />
-      </Route>
-    </Switch>
-  </Layout>
+  <SWRConfig value={options}>
+    <BrowserRouter>
+      <Switch>
+        <Route exact path="/tasks">
+          <Tasks />
+        </Route>
+        <Route exact path="/memos">
+          <Memos />
+        </Route>
+        <Route>
+          <Tasks />
+        </Route>
+      </Switch>
+    </BrowserRouter>
+  </SWRConfig>
 )
 
 export default App

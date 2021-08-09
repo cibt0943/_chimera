@@ -1,18 +1,25 @@
-import { VFC, ReactNode } from 'react'
-import Header from '../../organisms/Header'
-import 'semantic-ui-css/semantic.min.css'
-import './style.scss'
+import { VFC, ReactNode, useEffect } from 'react'
+import Sidebar from '../../organisms/Sidebar'
+import './style'
 
 type Props = {
   children: ReactNode
 }
 
 const Main: VFC<Props> = (props) => {
+  useEffect(() => {
+    document.documentElement.dataset.theme = 'dark'
+  }, [])
+
   return (
-    <>
-      <Header />
-      <div className="main">{props.children}</div>
-    </>
+    <div className="tw-flex tw-flex-row tw-h-screen">
+      <div id="sidebar">
+        <Sidebar />
+      </div>
+      <div id="content" className="tw-w-full">
+        {props.children}
+      </div>
+    </div>
   )
 }
 
