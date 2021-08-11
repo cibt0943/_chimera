@@ -1,5 +1,5 @@
 import { VFC, useContext } from 'react'
-import ky from 'ky'
+import { ApiClient } from 'common/utils/ApiClient'
 import useSWR from 'swr'
 import { VisibilityFilter, Tasks } from '../types'
 import { loadTasks, updateTaskStatus } from '../actions'
@@ -10,7 +10,7 @@ const TaskListContainer: VFC = () => {
   const dispatch = useContext(TasksDispatchContext)
 
   const getTasks = async () => {
-    const response = await ky.get('/api/v1/tasks')
+    const response = await ApiClient.get('/api/v1/tasks')
     const tasks = (await response.json()) as Tasks
     dispatch(loadTasks({ tasks }))
     return tasks

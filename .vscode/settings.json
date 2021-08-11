@@ -3,12 +3,11 @@
         "source.fixAll.eslint": true,
         "source.fixAll.stylelint": true,
     },
-    "editor.formatOnSave": false,
     "editor.tabSize": 2,
     "files.insertFinalNewline": true,
     "files.trimTrailingWhitespace": true,
     "editor.renderWhitespace": "all",
     "eslint.packageManager": "yarn",
     "css.validate": false,
-    "scss.validate": false
+    "scss.validate": false,
 }

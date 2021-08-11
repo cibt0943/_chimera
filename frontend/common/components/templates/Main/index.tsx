@@ -12,7 +12,7 @@ const Main: VFC<Props> = (props) => {
   }, [])
 
   return (
-    <div className="tw-flex tw-flex-row tw-h-screen">
+    <div className="tw-flex tw-flex-row tw-min-h-screen">
       <div id="sidebar">
         <Sidebar />
       </div>

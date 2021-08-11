@@ -1,16 +1,17 @@
-import { VFC, useState } from 'react'
+import { VFC } from 'react'
 import { NavLink as RouterLink } from 'react-router-dom'
-import { ClipboardCheckIcon, DocumentTextIcon } from '@heroicons/react/outline'
+import { ClipboardCheckIcon, FolderIcon, DocumentTextIcon } from '@heroicons/react/outline'
 import './style'
 
 type MenuItemProps = {
   text: string
-  iconType: 'todo' | 'note'
+  iconType: 'task' | 'file' | 'note'
   to: string
 }
 
 const iconComponents = {
-  todo: ClipboardCheckIcon,
+  task: ClipboardCheckIcon,
+  file: FolderIcon,
   note: DocumentTextIcon,
 }
 
@@ -27,26 +28,15 @@ const MenuItem: VFC<MenuItemProps> = (props) => {
 }
 
 const Sidebar: VFC = () => {
-  // const [showSideMenu, setShowSideMenu] = useState(true)
-
-  // const handleToggleDrawer = () => {
-  //   setShowSideMenu(!showSideMenu)
-  // }
-
-  {
-    /* <IconButton onClick={handleToggleDrawer}>{showSideMenu ? <ChevronLeftIcon /> : <ChevronRightIcon />}</IconButton> */
-  }
-
   return (
     <div className="sidebar">
       <div className="sidebar-logo">
         <h2 className="tw-text-3xl tw-font-semibold">Cobushi</h2>
       </div>
       <nav className="sidebar-menu">
-        <MenuItem to="/tasks" text="Todo" iconType="todo" />
-        <MenuItem to="/memos" text="Note" iconType="note" />
-        <MenuItem to="/memos" text="Link" iconType="note" />
-        <MenuItem to="/memos" text="File" iconType="note" />
+        <MenuItem to="/tasks" text="Task" iconType="task" />
+        <MenuItem to="/files" text="File" iconType="file" />
+        <MenuItem to="/notes" text="Note" iconType="note" />
       </nav>
     </div>
   )

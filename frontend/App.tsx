@@ -2,7 +2,8 @@ import { VFC } from 'react'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import { SWRConfig } from 'swr'
 import Tasks from 'pages/tasks'
-import Memos from 'pages/memos'
+import Notes from 'pages/notes'
+import Files from 'pages/files'
 import './assets/css/style'
 
 const options = {
@@ -17,8 +18,11 @@ const App: VFC = () => (
         <Route exact path="/tasks">
           <Tasks />
         </Route>
-        <Route exact path="/memos">
-          <Memos />
+        <Route exact path="/notes">
+          <Notes />
+        </Route>
+        <Route exact path="/files">
+          <Files />
         </Route>
         <Route>
           <Tasks />
