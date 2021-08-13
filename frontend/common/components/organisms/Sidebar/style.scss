@@ -1,51 +1,61 @@
 html {
-  #sidebar {
-    .sidebar {
-      @apply tw-h-full tw-w-52;
-      @apply tw-bg-white;
-    }
+  .sidebar {
+    @apply tw-min-h-full tw-flex tw-flex-col;
+    @apply tw-bg-white;
+  }
 
-    .sidebar-logo {
-      @apply tw-h-14 tw-flex tw-items-center tw-justify-center;
-      @apply tw-text-black;
-    }
+  .sidebar-logo {
+    @apply tw-sticky tw-top-0;
+    @apply tw-h-14 tw-flex tw-items-center tw-justify-center;
+    @apply tw-text-3xl tw-font-semibold;
+    @apply tw-bg-white tw-text-black;
+  }
 
-    .sidebar-menu {
-      @apply tw-overflow-y-auto tw-overflow-x-hidden tw-pl-5;
-      @apply tw-text-gray-500;
-    }
+  .sidebar-menu {
+    @apply tw-flex-grow tw-pl-5;
+    @apply tw-text-gray-500;
+  }
 
-    .sidebar-menu-item {
-      @apply tw-flex tw-flex-row tw-p-3 tw-items-center tw-rounded-l-lg  tw-transition-colors;
-      @apply hover:tw-bg-gray-200 hover:tw-text-gray-900;
-    }
+  .sidebar-menu-item {
+    @apply tw-flex tw-flex-row tw-p-3 tw-items-center tw-rounded-l-lg  tw-transition-colors;
+    @apply hover:tw-bg-gray-200 hover:tw-text-gray-900;
+  }
 
-    .sidebar-menu-item-active {
-      @apply tw-bg-gray-200 tw-text-gray-900;
-    }
+  .sidebar-menu-icon {
+    @apply tw-h-6 tw-w-6;
+  }
+
+  .sidebar-menu-label {
+    @apply tw-ml-4 tw-font-medium;
+  }
+
+  .sidebar-menu-item-active {
+    @apply tw-bg-gray-200 tw-text-gray-900;
+  }
+
+  .select-theme {
+    @apply tw-m-5 tw-text-center;
   }
 
   &[data-theme='dark'] {
-    #sidebar {
-      .sidebar {
-        @apply tw-bg-gray-900;
-      }
+    .sidebar {
+      @apply tw-bg-gray-900;
+    }
 
-      .sidebar-logo {
-        @apply tw-text-white;
-      }
+    .sidebar-logo {
+      @apply tw-bg-gray-900 tw-text-white;
+    }
 
-      .sidebar-menu {
-        @apply tw-text-gray-400;
-      }
+    .sidebar-menu {
+      @apply tw-text-gray-400;
+    }
 
-      .sidebar-menu-item {
-        @apply hover:tw-bg-gray-700 hover:tw-text-gray-100;
-      }
+    .sidebar-menu-item {
+      @apply hover:tw-bg-gray-700 hover:tw-text-gray-100;
+    }
 
-      .sidebar-menu-item-active {
-        @apply tw-bg-gray-700 tw-text-gray-100;
-      }
+    .sidebar-menu-item-active {
+      @apply tw-bg-gray-700 tw-text-gray-100;
     }
   }
 }
