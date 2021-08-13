@@ -3,14 +3,12 @@ html {
 
   body {
     height: 100%;
-
-    @apply tw-bg-gray-200;
   }
 
+  @apply tw-bg-gray-200 #{!important};
+
   &[data-theme='dark'] {
-    body {
-      @apply tw-bg-gray-700;
-    }
+    @apply tw-bg-gray-700 #{!important};
   }
 }
 

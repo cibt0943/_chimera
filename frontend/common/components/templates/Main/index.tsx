@@ -1,4 +1,4 @@
-import { VFC, ReactNode, useEffect } from 'react'
+import { VFC, ReactNode, useState, useEffect } from 'react'
 import Sidebar from '../../organisms/Sidebar'
 import './style'
 
@@ -7,16 +7,23 @@ type Props = {
 }
 
 const Main: VFC<Props> = (props) => {
+  const [theme, setTheme] = useState('dark')
+
   useEffect(() => {
-    document.documentElement.dataset.theme = 'dark'
-  }, [])
+    document.documentElement.dataset.theme = theme
+  }, [theme])
+
+  const sidebarProps = {
+    theme: theme,
+    changeTheme: setTheme,
+  }
 
   return (
-    <div className="tw-flex tw-flex-row tw-min-h-screen">
-      <div id="sidebar">
-        <Sidebar />
+    <div className="tw-flex tw-flex-row">
+      <div id="sidebar" className="tw-h-screen tw-w-44 tw-overflow-auto tw-flex-none">
+        <Sidebar {...sidebarProps} />
       </div>
-      <div id="content" className="tw-w-full">
+      <div id="content" className="tw-h-screen tw-w-full tw-overflow-auto">
         {props.children}
       </div>
     </div>

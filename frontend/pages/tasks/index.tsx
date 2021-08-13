@@ -16,7 +16,7 @@ const Tasks: VFC = () => {
         <Header>
           <h3 className="tw-pl-6 tw-text-xl tw-font-semibold">Task</h3>
         </Header>
-        <div className="tw-container tw-mx-auto tw-px-6 tw-py-3">
+        <div className="tw-container tw-px-6 tw-py-3">
           <div className="tw-flex tw-justify-between">
             <AddTask />
             <TaskFilter />
