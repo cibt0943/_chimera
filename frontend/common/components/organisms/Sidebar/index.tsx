@@ -1,12 +1,9 @@
 import { VFC } from 'react'
 import { NavLink as RouterLink } from 'react-router-dom'
 import { ClipboardCheckIcon, DocumentTextIcon, FolderIcon } from '@heroicons/react/outline'
+import LoginButton from 'common/components/organisms/LoginButton'
+import MyselfMenu from 'common/components/organisms/MyselfMenu'
 import './style'
-
-type SidebarProps = {
-  theme: string
-  changeTheme: (theme: string) => void
-}
 
 type MenuItemProps = {
   text: string
@@ -33,32 +30,22 @@ const MenuItem: VFC<MenuItemProps> = (props) => {
   )
 }
 
-const Sidebar: VFC<SidebarProps> = (props) => {
-  const { theme, changeTheme } = props
-
-  const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    changeTheme(event.target.value)
-  }
-
+const Sidebar: VFC = () => {
   return (
     <div className="sidebar">
       <div className="sidebar-logo">
-        <h2>Cobushi</h2>
+        <h2>Kobushi</h2>
       </div>
-      <nav className="sidebar-menu">
-        <MenuItem to="/tasks" text="Task" iconType="task" />
-        <MenuItem to="/notes" text="Note" iconType="note" />
-        <MenuItem to="/files" text="File" iconType="file" />
-      </nav>
-      <div className="select-theme">
-        <select className="tw-select tw-select-sm" value={theme} onChange={handleChange}>
-          <option>light</option>
-          <option>dark</option>
-          <option>cupcake</option>
-          <option>bumblebee</option>
-          <option>emerald</option>
-          <option>corporate</option>
-        </select>
+      <div className="sidebar-main">
+        <nav className="sidebar-menu">
+          <MenuItem to="/tasks" text="Task" iconType="task" />
+          <MenuItem to="/notes" text="Note" iconType="note" />
+          <MenuItem to="/files" text="File" iconType="file" />
+        </nav>
+        <div className="sidebar-account">
+          <LoginButton />
+          <MyselfMenu />
+        </div>
       </div>
     </div>
   )

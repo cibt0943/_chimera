@@ -1,8 +1,7 @@
 import { VFC, Suspense } from 'react'
 import Layout from 'common/components/templates/Main'
 import Header from 'common/components/organisms/Header'
-;<LoadingDialog />
-import LoadingDialog from 'common/components/molecules/LoadingDialog'
+// import LoadingDialog from 'common/components/molecules/LoadingDialog'
 import { TasksContextProvider } from './providers'
 import TaskFilter from './containers/TaskFilter'
 import AddTask from './containers/AddTask'
