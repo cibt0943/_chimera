@@ -7,7 +7,7 @@ import { TaskFormValues } from '../components/TaskForm'
 
 const AddTaskContainer: VFC = () => {
   const postTask = async (data: TaskFormValues) => {
-    const res = await ApiClient.post('/api/v1/tasks', {
+    const res = await ApiClient.post('tasks', {
       json: data,
     }).json()
     return res

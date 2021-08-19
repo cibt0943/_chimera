@@ -10,7 +10,7 @@ const TaskListContainer: VFC = () => {
   const dispatch = useContext(TasksDispatchContext)
 
   const getTasks = async () => {
-    const response = await ApiClient.get('/api/v1/tasks')
+    const response = await ApiClient.get('tasks')
     const tasks = (await response.json()) as Tasks
     dispatch(loadTasks({ tasks }))
     return tasks
