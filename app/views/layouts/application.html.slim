@@ -1,12 +1,12 @@
 doctype html
 html
   head
-    title Cobushi
+    title Kobushi
     = csrf_meta_tags
     = csp_meta_tag
     / = stylesheet_pack_tag 'vendor'
     = stylesheet_pack_tag 'common'
-    = stylesheet_pack_tag 'main'
+    / = stylesheet_pack_tag 'main'
     = yield :stylesheet
   body
     = yield

@@ -1,6 +1,7 @@
 import ky from 'ky'
 
 export const ApiClient = ky.extend({
+  prefixUrl: '/api/v1',
   hooks: {
     beforeRequest: [
       (request) => {

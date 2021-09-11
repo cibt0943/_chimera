@@ -1,28 +1,21 @@
+const webpack = require('webpack')
 const path = require('path')
-const fs = require('fs')
-const jsYaml = require('js-yaml')
+const dotenv = require('dotenv')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
 const TerserPlugin = require('terser-webpack-plugin')
 const { WebpackManifestPlugin } = require('webpack-manifest-plugin')
-// const glob = require('glob')
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 
 module.exports = (env, argv) => {
   const isDevelopment = argv.mode === 'development'
-  const config = jsYaml.safeLoad(fs.readFileSync('config/webpack.yml', 'utf-8'))[argv.mode]
-  // const pages = {}
-  // glob.sync('./frontend/features/*/index.{ts,tsx}').forEach(function (e) {
-  //   // {key:value}の連想配列を生成
-  //   // pages[path.basename(e, '.tsx')] = e
-  //   pages[path.basename(path.dirname(e))] = e
-  // })
+
+  const dotenvParseOutput = dotenv.config().parsed
 
   return {
-    // entry: pages,
     entry: './frontend/index.tsx',
     output: {
-      path: path.resolve(__dirname, config.public_root_path, config.output_path),
+      path: path.resolve(__dirname, process.env.ASSET_ROOT, process.env.ASSET_DIR),
       filename: '[name]-[contenthash].js',
     },
 
@@ -106,16 +99,16 @@ module.exports = (env, argv) => {
       minimizer: [`...`, new CssMinimizerPlugin()],
       splitChunks: {
         cacheGroups: {
+          defaultVendors: {
+            test: /[\\/]node_modules[\\/]/,
+            chunks: 'initial',
+            name: 'vendor',
+            enforce: true,
+          },
           common: {
             test: /common/,
             chunks: 'initial',
             name: 'common',
-            enforce: true,
-          },
-          defaultVendors: {
-            test: /node_modules/,
-            chunks: 'initial',
-            name: 'vendor',
             enforce: true,
           },
         },
@@ -123,13 +116,16 @@ module.exports = (env, argv) => {
     },
 
     plugins: [
+      new webpack.DefinePlugin({
+        'process.env': JSON.stringify(dotenvParseOutput),
+      }),
       new MiniCssExtractPlugin({
         filename: '[name]-[contenthash].css',
       }),
       new WebpackManifestPlugin({
         // fileName: 'manifest.json',
         // publicPath: プロダクトにて実際にJSへアクセスする際のパスと同様になるように指定
-        publicPath: `/${config.output_path}/`,
+        publicPath: `/${process.env.ASSET_DIR}/`,
         writeToFileEmit: true,
       }),
       new BundleAnalyzerPlugin(),
@@ -137,27 +133,36 @@ module.exports = (env, argv) => {
 
     // Configuration for dev server
     devServer: {
-      // publicPath: プロダクトにて実際にJSへアクセスする際のパスと同様になるように指定
-      publicPath: `/${config.output_path}/`,
-      // contentBase: 公開するリソースのルートディレクトリ。未指定の場合はカレントディレクトリが起点になる。
-      contentBase: path.resolve(__dirname, config.public_root_path, config.output_path),
-      // watchContentBase: コンテンツの変更監視をする
-      // watchContentBase: true,
-      host: config.dev_server.host,
+      static: {
+        // directory: 公開するリソースのルートディレクトリ。未指定の場合はカレントディレクトリが起点になる。
+        directory: path.resolve(__dirname, process.env.ASSET_ROOT, process.env.ASSET_DIR),
+      },
+      devMiddleware: {
+        // publicPath: プロダクトにて実際にJSへアクセスする際のパスと同様になるように指定
+        publicPath: `/${process.env.ASSET_DIR}/`,
+      },
+      https: {
+        key: '/etc/nginx/ssl/server.key',
+        cert: '/etc/nginx/ssl/server.crt',
+      },
+      host: process.env.ASSET_HOST,
       // port: ポート番号。未指定の場合は8080が初期値になる。
-      port: config.dev_server.port,
+      port: process.env.ASSET_PORT,
       // inline: ライブリロードを行うための設定。true or falseで指定。未指定の場合はtrue
       // inline: true,
       // hot: Hot Module Replacement(HMR)を有効にします。true or falseで指定。未指定の場合はtrue。
       // hot: true,
-      disableHostCheck: true,
+      // allowedHosts: 'all',
       headers: {
         'Access-Control-Allow-Origin': '*',
       },
-      // vagrantだとファイルシステムの違いから変更を検知できないらしいのでポーリングする
-      watchOptions: {
-        poll: true,
-      },
+      // gzip圧縮を行うか否か
+      compress: true,
+    },
+    // vagrantだとファイルシステムの違いから変更を検知できないらしいのでポーリングする
+    watchOptions: {
+      poll: true,
+      ignored: /node_modules/,
     },
   }
 }

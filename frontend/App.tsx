@@ -1,33 +1,34 @@
 import { VFC } from 'react'
-import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import { SWRConfig } from 'swr'
+import { BrowserRouter, Route, Switch } from 'react-router-dom'
+import { ProtectedRoute } from 'common/utils/Route/ProtectedRoute'
+import Auth0ProviderWithHistory from 'common/utils/Auth'
+import 'common/assets/css/style'
+
+import Home from 'pages/home'
 import Tasks from 'pages/tasks'
 import Notes from 'pages/notes'
 import Files from 'pages/files'
-import './assets/css/style'
+import Settings from 'pages/settings'
 
-const options = {
+const swrOptions = {
   suspense: true,
   revalidateOnFocus: false,
+  dedupingInterval: 0,
 }
 
 const App: VFC = () => (
-  <SWRConfig value={options}>
+  <SWRConfig value={swrOptions}>
     <BrowserRouter>
-      <Switch>
-        <Route exact path="/tasks">
-          <Tasks />
-        </Route>
-        <Route exact path="/notes">
-          <Notes />
-        </Route>
-        <Route exact path="/files">
-          <Files />
-        </Route>
-        <Route>
-          <Tasks />
-        </Route>
-      </Switch>
+      <Auth0ProviderWithHistory>
+        <Switch>
+          <ProtectedRoute path="/tasks" component={Tasks} />
+          <ProtectedRoute path="/notes" component={Notes} />
+          <ProtectedRoute path="/files" component={Files} />
+          <ProtectedRoute path="/settings/account" component={Settings} />
+          <Route component={Home} />
+        </Switch>
+      </Auth0ProviderWithHistory>
     </BrowserRouter>
   </SWRConfig>
 )

@@ -50,14 +50,15 @@ Rails.application.configure do
 
   # Use an evented file watcher to asynchronously detect changes in source code,
   # routes, locales, etc. This feature depends on the listen gem.
-  config.file_watcher = ActiveSupport::EventedFileUpdateChecker
+  # config.file_watcher = ActiveSupport::EventedFileUpdateChecker
+  config.file_watcher = ActiveSupport::FileUpdateChecker
 
   # Rails 6.0からDNS Rebuilding Attack攻撃から守るために、指定されたホストからしかアクセスを受けつない仕様
   config.hosts << ".#{ENV['AP_SERVER_GLOBAL_DOMAIN']}"
 
-  config.web_console.whitelisted_ips = '0.0.0.0/0'
+  config.web_console.permissions = '0.0.0.0/0'
 
   # assetの配信元
-  webpack = config.x.webpack.deep_symbolize_keys
-  config.asset_host = "//#{webpack[:dev_server][:host]}:#{webpack[:dev_server][:port]}"
+  port = ENV['ASSET_PORT'] ? ":#{ENV['ASSET_PORT']}" : ''
+  config.asset_host = "//#{ENV['ASSET_HOST']}#{port}"
 end

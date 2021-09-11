@@ -1,30 +1,29 @@
 import { VFC } from 'react'
 import { NavLink as RouterLink } from 'react-router-dom'
-import { ClipboardCheckIcon, DocumentTextIcon, FolderIcon } from '@heroicons/react/outline'
+import { ClipboardCheckIcon, DocumentTextIcon, FolderIcon, ExclamationCircleIcon, TrashIcon } from '@heroicons/react/outline'
+import MyselfMenu from 'common/components/organisms/MyselfMenu'
 import './style'
-
-type SidebarProps = {
-  theme: string
-  changeTheme: (theme: string) => void
-}
 
 type MenuItemProps = {
   text: string
-  iconType: 'task' | 'note' | 'file'
+  iconType: 'task' | 'note' | 'filer' | 'func_a' | 'func_b' | 'trash'
   to: string
 }
 
 const iconComponents = {
   task: ClipboardCheckIcon,
-  file: FolderIcon,
   note: DocumentTextIcon,
+  filer: FolderIcon,
+  func_a: ExclamationCircleIcon,
+  func_b: ExclamationCircleIcon,
+  trash: TrashIcon,
 }
 
 const MenuItem: VFC<MenuItemProps> = (props) => {
   const IconComponent = iconComponents[props.iconType]
 
   return (
-    <RouterLink to={props.to} className="sidebar-menu-item" activeClassName="sidebar-menu-item-active">
+    <RouterLink to={props.to} exact className="sidebar-menu-item" activeClassName="sidebar-menu-item-active">
       <span>
         <IconComponent className="sidebar-menu-icon" />
       </span>
@@ -33,32 +32,29 @@ const MenuItem: VFC<MenuItemProps> = (props) => {
   )
 }
 
-const Sidebar: VFC<SidebarProps> = (props) => {
-  const { theme, changeTheme } = props
-
-  const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    changeTheme(event.target.value)
-  }
-
+const Sidebar: VFC = () => {
   return (
     <div className="sidebar">
       <div className="sidebar-logo">
-        <h2>Cobushi</h2>
+        <h2>Kobushi</h2>
       </div>
-      <nav className="sidebar-menu">
-        <MenuItem to="/tasks" text="Task" iconType="task" />
-        <MenuItem to="/notes" text="Note" iconType="note" />
-        <MenuItem to="/files" text="File" iconType="file" />
-      </nav>
-      <div className="select-theme">
-        <select className="tw-select tw-select-sm" value={theme} onChange={handleChange}>
-          <option>light</option>
-          <option>dark</option>
-          <option>cupcake</option>
-          <option>bumblebee</option>
-          <option>emerald</option>
-          <option>corporate</option>
-        </select>
+      <div className="sidebar-main">
+        <div className="sidebar-menu">
+          <nav>
+            <MenuItem to="/tasks" text="Task" iconType="task" />
+            <MenuItem to="/notes" text="Note" iconType="note" />
+            <MenuItem to="/files" text="Filer" iconType="filer" />
+            <MenuItem to="/func_a" text="func A" iconType="func_a" />
+            <MenuItem to="/func_b" text="func B" iconType="func_b" />
+          </nav>
+          <div className="tw-mt-7" />
+          <nav>
+            <MenuItem to="/trash" text="Trash" iconType="trash" />
+          </nav>
+        </div>
+        <div className="sidebar-account">
+          <MyselfMenu />
+        </div>
       </div>
     </div>
   )

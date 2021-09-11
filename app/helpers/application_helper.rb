@@ -11,12 +11,8 @@ module ApplicationHelper
 
   private
 
-  def webpack
-    @webpack ||= Rails.application.config.x.webpack.deep_symbolize_keys
-  end
-
   def manifest
-    @manifest ||= JSON.parse(File.read("#{webpack[:public_root_path]}/#{webpack[:output_path]}/manifest.json"))
+    @manifest ||= JSON.parse(File.read("#{ENV['ASSET_ROOT']}/#{ENV['ASSET_DIR']}/manifest.json"))
   end
 
   def asset_bundle_path(name)

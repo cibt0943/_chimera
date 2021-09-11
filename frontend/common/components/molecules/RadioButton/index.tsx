@@ -9,15 +9,17 @@ type Props = {
 }
 
 const RadioButton: VFC<Props> = (props) => {
+  const { value, children, className } = props
+
   return (
     // render propsとなっている。
     <RadioGroup.Option
-      value={props.value}
+      value={value}
       className={({ checked }) => {
-        return classNames('tw-btn', props.className, { 'tw-btn-active': checked })
+        return classNames('tw-btn', className, { 'tw-btn-active': checked })
       }}
     >
-      <span>{props.children}</span>
+      <span>{children}</span>
     </RadioGroup.Option>
   )
 }

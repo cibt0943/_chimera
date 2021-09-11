@@ -1,8 +1,9 @@
 module Api
   module V1
     # Tasksコントローラー
-    class TasksController < ApplicationController
+    class TasksController < PrivateController
       def index
+        # p @auth_payload
         tasks = Task.all
         render json: tasks, each_serializer: TaskSerializer
       end

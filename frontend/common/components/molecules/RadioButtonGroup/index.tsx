@@ -10,11 +10,11 @@ type Props = {
 }
 
 const RadioButtonGroup: VFC<Props> = (props) => {
-  const className = classNames('tw-btn-group', props.className)
+  const { value, onChange, children, className } = props
 
   return (
-    <RadioGroup value={props.value} onChange={props.onChange}>
-      <div className={className}>{props.children}</div>
+    <RadioGroup value={value} onChange={onChange} className={classNames('tw-btn-group', className)}>
+      {children}
     </RadioGroup>
   )
 }
