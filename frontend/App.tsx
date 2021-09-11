@@ -2,14 +2,14 @@ import { VFC } from 'react'
 import { SWRConfig } from 'swr'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import { ProtectedRoute } from 'common/utils/Route/ProtectedRoute'
-import Auth0ProviderWithHistory from 'common/utils/Auth'
+import { Auth0ProviderWithHistory } from 'common/utils/Auth'
 import 'common/assets/css/style'
 
-import Home from 'pages/home'
-import Tasks from 'pages/tasks'
-import Notes from 'pages/notes'
-import Files from 'pages/files'
-import Settings from 'pages/settings'
+import { Home } from 'pages/home'
+import { Tasks } from 'pages/tasks'
+import { Notes } from 'pages/notes'
+import { Files } from 'pages/files'
+import { Settings } from 'pages/settings'
 
 const swrOptions = {
   suspense: true,
@@ -17,7 +17,7 @@ const swrOptions = {
   dedupingInterval: 0,
 }
 
-const App: VFC = () => (
+export const App: VFC = () => (
   <SWRConfig value={swrOptions}>
     <BrowserRouter>
       <Auth0ProviderWithHistory>
@@ -32,5 +32,3 @@ const App: VFC = () => (
     </BrowserRouter>
   </SWRConfig>
 )
-
-export default App

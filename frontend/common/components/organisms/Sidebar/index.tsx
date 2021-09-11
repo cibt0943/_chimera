@@ -1,8 +1,36 @@
 import { VFC } from 'react'
 import { NavLink as RouterLink } from 'react-router-dom'
 import { ClipboardCheckIcon, DocumentTextIcon, FolderIcon, ExclamationCircleIcon, TrashIcon } from '@heroicons/react/outline'
-import MyselfMenu from 'common/components/organisms/MyselfMenu'
+import { MyselfMenu } from 'common/components/organisms/MyselfMenu'
 import './style'
+
+export const Sidebar: VFC = () => {
+  return (
+    <div className="sidebar">
+      <div className="sidebar-logo">
+        <h2>Kobushi</h2>
+      </div>
+      <div className="sidebar-main">
+        <div className="sidebar-menu">
+          <nav>
+            <MenuItem to="/tasks" text="Task" iconType="task" />
+            <MenuItem to="/notes" text="Note" iconType="note" />
+            <MenuItem to="/files" text="Filer" iconType="filer" />
+            <MenuItem to="/func_a" text="func A" iconType="func_a" />
+            <MenuItem to="/func_b" text="func B" iconType="func_b" />
+          </nav>
+          <div className="tw-mt-7" />
+          <nav>
+            <MenuItem to="/trash" text="Trash" iconType="trash" />
+          </nav>
+        </div>
+        <div className="sidebar-account">
+          <MyselfMenu />
+        </div>
+      </div>
+    </div>
+  )
+}
 
 type MenuItemProps = {
   text: string
@@ -31,33 +59,3 @@ const MenuItem: VFC<MenuItemProps> = (props) => {
     </RouterLink>
   )
 }
-
-const Sidebar: VFC = () => {
-  return (
-    <div className="sidebar">
-      <div className="sidebar-logo">
-        <h2>Kobushi</h2>
-      </div>
-      <div className="sidebar-main">
-        <div className="sidebar-menu">
-          <nav>
-            <MenuItem to="/tasks" text="Task" iconType="task" />
-            <MenuItem to="/notes" text="Note" iconType="note" />
-            <MenuItem to="/files" text="Filer" iconType="filer" />
-            <MenuItem to="/func_a" text="func A" iconType="func_a" />
-            <MenuItem to="/func_b" text="func B" iconType="func_b" />
-          </nav>
-          <div className="tw-mt-7" />
-          <nav>
-            <MenuItem to="/trash" text="Trash" iconType="trash" />
-          </nav>
-        </div>
-        <div className="sidebar-account">
-          <MyselfMenu />
-        </div>
-      </div>
-    </div>
-  )
-}
-
-export default Sidebar

@@ -1,11 +1,11 @@
 import { VFC } from 'react'
 import { ApiClient } from 'common/utils/ApiClient'
 // import { addTask } from '../actions'
-import AddTask from '../components/AddTask'
+import { AddTask } from '../components/AddTask'
 import { TaskFormValues } from '../components/TaskForm'
 // import { Task } from '../types'
 
-const AddTaskContainer: VFC = () => {
+export const AddTaskContainer: VFC = () => {
   const postTask = async (data: TaskFormValues) => {
     const res = await ApiClient.post('tasks', {
       json: data,
@@ -21,5 +21,3 @@ const AddTaskContainer: VFC = () => {
 
   return <AddTask {...dispatchProps} />
 }
-
-export default AddTaskContainer

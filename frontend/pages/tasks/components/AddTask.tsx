@@ -1,13 +1,13 @@
 import { VFC, MouseEvent, useState } from 'react'
-import Modal, { ModalTitle, ModalAction } from 'common/components/molecules/Modal'
-import Button from 'common/components/atoms/Button'
-import TaskForm, { TaskFormValues } from './TaskForm'
+import { Modal, ModalTitle, ModalAction } from 'common/components/molecules/Modal'
+import { Button } from 'common/components/atoms/Button'
+import { TaskForm, TaskFormValues } from './TaskForm'
 
-type Props = {
+type AddTaskProps = {
   addTask: (data: TaskFormValues) => void
 }
 
-const AddTask: VFC<Props> = (props) => {
+export const AddTask: VFC<AddTaskProps> = (props) => {
   const { addTask } = props
 
   const [showModal, setShowModal] = useState(false)
@@ -38,5 +38,3 @@ const AddTask: VFC<Props> = (props) => {
     </div>
   )
 }
-
-export default AddTask

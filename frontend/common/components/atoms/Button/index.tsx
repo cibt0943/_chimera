@@ -1,7 +1,7 @@
 import { VFC, MouseEvent, ReactNode } from 'react'
 import classNames from 'classnames'
 
-type Props = {
+type ButtonProps = {
   children: ReactNode
   type?: 'button' | 'submit' | 'reset'
   className?: string
@@ -9,7 +9,7 @@ type Props = {
   form?: string
 }
 
-const Button: VFC<Props> = (props) => {
+export const Button: VFC<ButtonProps> = (props) => {
   const { children, className, ...buttonProps } = props
 
   return (
@@ -18,5 +18,3 @@ const Button: VFC<Props> = (props) => {
     </button>
   )
 }
-
-export default Button

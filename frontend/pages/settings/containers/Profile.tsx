@@ -1,8 +1,8 @@
 import { VFC, useState } from 'react'
 import { useAuth0 } from '@auth0/auth0-react'
-import Profile from '../components/Profile'
+import { Profile } from '../components/Profile'
 
-const ProfileContainer: VFC = () => {
+export const ProfileContainer: VFC = () => {
   const { isAuthenticated, user = {} } = useAuth0()
 
   const strorageTheme = localStorage.getItem('theme') || 'dark'
@@ -22,5 +22,3 @@ const ProfileContainer: VFC = () => {
 
   return <Profile {...profileProps} />
 }
-
-export default ProfileContainer

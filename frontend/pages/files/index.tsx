@@ -1,8 +1,8 @@
 import { VFC } from 'react'
-import Layout from 'common/components/templates/Main'
-import Header from 'common/components/organisms/Header'
+import { Main as Layout } from 'common/components/templates/Main'
+import { Header } from 'common/components/organisms/Header'
 
-const Files: VFC = () => {
+export const Files: VFC = () => {
   return (
     <Layout>
       <Header>
@@ -21,5 +21,3 @@ const Files: VFC = () => {
     </Layout>
   )
 }
-
-export default Files

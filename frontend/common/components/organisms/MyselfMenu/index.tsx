@@ -3,7 +3,7 @@ import { NavLink as RouterLink } from 'react-router-dom'
 import { useAuth0 } from '@auth0/auth0-react'
 import { Menu } from '@headlessui/react'
 
-const MyselfMenu: VFC = () => {
+export const MyselfMenu: VFC = () => {
   const { isAuthenticated, user, logout } = useAuth0()
 
   if (!isAuthenticated) return null
@@ -41,5 +41,3 @@ const MyselfMenu: VFC = () => {
     </Menu>
   )
 }
-
-export default MyselfMenu

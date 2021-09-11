@@ -1,9 +1,9 @@
 import { VFC } from 'react'
-import Layout from 'common/components/templates/Main'
-import Header from 'common/components/organisms/Header'
-import LoginButton from 'common/components/organisms/LoginButton'
+import { Main as Layout } from 'common/components/templates/Main'
+import { Header } from 'common/components/organisms/Header'
+import { LoginButton } from 'common/components/organisms/LoginButton'
 
-const Home: VFC = () => {
+export const Home: VFC = () => {
   return (
     <Layout>
       <Header>
@@ -16,5 +16,3 @@ const Home: VFC = () => {
     </Layout>
   )
 }
-
-export default Home

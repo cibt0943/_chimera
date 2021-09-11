@@ -5,9 +5,9 @@ import useSWR from 'swr'
 import { VisibilityFilter, Tasks } from '../types'
 import { loadTasks, updateTaskStatus } from '../actions'
 import { TasksStateContext, TasksDispatchContext } from '../providers'
-import TaskList from '../components/TaskList'
+import { TaskList } from '../components/TaskList'
 
-const TaskListContainer: VFC = () => {
+export const TaskListContainer: VFC = () => {
   const { getAccessTokenSilently } = useAuth0()
   const dispatch = useContext(TasksDispatchContext)
 
@@ -53,5 +53,3 @@ const TaskListContainer: VFC = () => {
 
   return <TaskList {...{ ...stateProps, ...dispatchProps }} />
 }
-
-export default TaskListContainer

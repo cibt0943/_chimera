@@ -10,7 +10,7 @@ const AUTO0_DOMAIN = process.env.AUTO0_DOMAIN || ''
 const AUTO0_CLIENT_ID = process.env.AUTO0_CLIENT_ID || ''
 const AUTH0_API_AUDIENCE = process.env.AUTH0_API_AUDIENCE || ''
 
-const Auth0ProviderWithHistory: VFC<Props> = (props) => {
+export const Auth0ProviderWithHistory: VFC<Props> = (props) => {
   const history = useHistory()
   const onRedirectCallback = (appState: AppState) => {
     history.push(appState?.returnTo || window.location.pathname)
@@ -22,5 +22,3 @@ const Auth0ProviderWithHistory: VFC<Props> = (props) => {
     </Auth0Provider>
   )
 }
-
-export default Auth0ProviderWithHistory

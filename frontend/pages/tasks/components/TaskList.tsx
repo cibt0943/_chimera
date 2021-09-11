@@ -1,13 +1,13 @@
 import { VFC } from 'react'
 import { Tasks } from '../types'
-import Task from './Task'
+import { Task } from './Task'
 
-type Props = {
+type TaskListProps = {
   tasks: Tasks
   updateTaskStatus: (id: number) => void
 }
 
-const TaskList: VFC<Props> = (props) => {
+export const TaskList: VFC<TaskListProps> = (props) => {
   const { tasks, updateTaskStatus } = props
 
   return (
@@ -28,8 +28,6 @@ const TaskList: VFC<Props> = (props) => {
     </table>
   )
 }
-
-export default TaskList
 
 export const TaskListPlaceholder: VFC = () => {
   return (

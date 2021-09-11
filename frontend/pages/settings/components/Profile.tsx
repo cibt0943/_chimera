@@ -8,6 +8,28 @@ type ProfileProps = {
   changeTheme: (theme: string) => void
 }
 
+export const Profile: VFC<ProfileProps> = (props) => {
+  const { theme, changeTheme, ...accountProps } = props
+
+  const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    changeTheme(event.target.value)
+  }
+
+  return (
+    <div>
+      <Account {...accountProps} />
+      <select className="tw-select" value={theme} onChange={handleChange}>
+        <option value="light">light</option>
+        <option value="dark">dark</option>
+        <option value="cupcake">cupcake</option>
+        <option value="bumblebee">bumblebee</option>
+        <option value="emerald">emerald</option>
+        <option value="corporate">corporate</option>
+      </select>
+    </div>
+  )
+}
+
 type AccountProps = Pick<ProfileProps, 'isAuthenticated' | 'user'>
 
 const Account: VFC<AccountProps> = (props) => {
@@ -30,27 +52,3 @@ const Account: VFC<AccountProps> = (props) => {
     </div>
   )
 }
-
-const Profile: VFC<ProfileProps> = (props) => {
-  const { theme, changeTheme, ...accountProps } = props
-
-  const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    changeTheme(event.target.value)
-  }
-
-  return (
-    <div>
-      <Account {...accountProps} />
-      <select className="tw-select" value={theme} onChange={handleChange}>
-        <option value="light">light</option>
-        <option value="dark">dark</option>
-        <option value="cupcake">cupcake</option>
-        <option value="bumblebee">bumblebee</option>
-        <option value="emerald">emerald</option>
-        <option value="corporate">corporate</option>
-      </select>
-    </div>
-  )
-}
-
-export default Profile

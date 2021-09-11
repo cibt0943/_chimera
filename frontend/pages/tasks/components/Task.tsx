@@ -1,15 +1,15 @@
 import { VFC } from 'react'
-import Button from 'common/components/atoms/Button'
+import { Button } from 'common/components/atoms/Button'
 import { TaskStatus } from '../types'
 
-type Props = {
+type TaskProps = {
   id: number
   title: string
   status: TaskStatus
   onClick: () => void
 }
 
-const Task: VFC<Props> = (props) => {
+export const Task: VFC<TaskProps> = (props) => {
   const { id, title, status, onClick } = props
 
   return (
@@ -25,5 +25,3 @@ const Task: VFC<Props> = (props) => {
     </tr>
   )
 }
-
-export default Task

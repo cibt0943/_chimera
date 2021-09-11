@@ -1,8 +1,8 @@
 import { VFC } from 'react'
 import { useAuth0 } from '@auth0/auth0-react'
-import Button from 'common/components/atoms/Button'
+import { Button } from 'common/components/atoms/Button'
 
-const LoginButton: VFC = () => {
+export const LoginButton: VFC = () => {
   const { isAuthenticated, loginWithRedirect } = useAuth0()
 
   if (isAuthenticated) return null
@@ -13,5 +13,3 @@ const LoginButton: VFC = () => {
     </Button>
   )
 }
-
-export default LoginButton

@@ -1,8 +1,8 @@
 import { VFC } from 'react'
 import { useForm, SubmitHandler } from 'react-hook-form'
-import InputField from 'common/components/atoms/InputField'
+import { InputField } from 'common/components/atoms/InputField'
 
-type Props = {
+type TaskFormProps = {
   addTask: (data: TaskFormValues) => void
   titleValue?: string
 }
@@ -11,7 +11,7 @@ export type TaskFormValues = {
   title: string
 }
 
-const TaskForm: VFC<Props> = (props) => {
+export const TaskForm: VFC<TaskFormProps> = (props) => {
   const { addTask, titleValue = '' } = props
 
   const {
@@ -36,5 +36,3 @@ const TaskForm: VFC<Props> = (props) => {
     </form>
   )
 }
-
-export default TaskForm
