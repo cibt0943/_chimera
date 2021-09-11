@@ -141,7 +141,7 @@ GEM
     pry-byebug (3.9.0)
       byebug (~> 11.0)
       pry (~> 0.13.0)
-    pry-doc (1.1.0)
+    pry-doc (1.2.0)
       pry (~> 0.11)
       yard (~> 0.9.11)
     pry-rails (0.3.9)
@@ -235,7 +235,7 @@ GEM
       unicode-display_width (>= 1.4.0, < 3.0)
     rubocop-ast (1.11.0)
       parser (>= 3.0.1.1)
-    rubocop-rails (2.11.3)
+    rubocop-rails (2.12.2)
       activesupport (>= 4.2.0)
       rack (>= 1.1)
       rubocop (>= 1.7.0, < 2.0)
@@ -323,4 +323,4 @@ RUBY VERSION
    ruby 2.7.2p137
 
 BUNDLED WITH
-   2.2.26
+   2.2.27
