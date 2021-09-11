@@ -4,24 +4,4 @@ html {
   body {
     height: 100%;
   }
-
-  @apply tw-bg-gray-200 #{!important};
-
-  &[data-theme='dark'] {
-    @apply tw-bg-gray-700 #{!important};
-  }
 }
-
-// .btn {
-//   @apply tw-px-4 tw-py-2 tw-rounded-md;
-// }
-
-// @each $color in $colors {
-//   .btn-#{$color} {
-//     @apply tw-inline-flex;
-//     @apply tw-text-white;
-//     @apply tw-bg-#{$color}-#{$base};
-//     @apply hover:tw-bg-#{$color}-#{$hover};
-//     @apply tw-transition;
-//   }
-// }

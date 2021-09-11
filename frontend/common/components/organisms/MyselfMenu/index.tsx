@@ -22,13 +22,13 @@ const MyselfMenu: VFC = () => {
           </div>
         </div>
       </Menu.Button>
-      <Menu.Items as="ul" className="tw-dropdown-content tw-menu tw-py-3 tw-shadow-lg tw-bg-base-100 tw-rounded-lg">
+      <Menu.Items as="ul" className="tw-dropdown-content tw-menu tw-p-2 tw-shadow-lg tw-bg-base-100 tw-rounded-lg tw-whitespace-nowrap">
         <Menu.Item as="li">
-          <div className="tw-avatar tw-px-4 tw-py-3">
-            <div className="tw-rounded-full tw-w-6 tw-h-6">
+          <div className="tw-avatar tw-px-4 tw-py-3 tw-items-center">
+            <div className="tw-rounded-full tw-w-8 tw-h-8">
               <img src={user?.picture} />
             </div>
-            <div className="tw-ml-2">{user?.email}</div>
+            <div className="tw-ml-2">{user?.name}</div>
           </div>
         </Menu.Item>
         <Menu.Item as="li">

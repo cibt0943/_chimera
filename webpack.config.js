@@ -13,7 +13,6 @@ module.exports = (env, argv) => {
   const dotenvParseOutput = dotenv.config().parsed
 
   return {
-    // entry: pages,
     entry: './frontend/index.tsx',
     output: {
       path: path.resolve(__dirname, process.env.ASSET_ROOT, process.env.ASSET_DIR),
@@ -100,16 +99,16 @@ module.exports = (env, argv) => {
       minimizer: [`...`, new CssMinimizerPlugin()],
       splitChunks: {
         cacheGroups: {
+          defaultVendors: {
+            test: /[\\/]node_modules[\\/]/,
+            chunks: 'initial',
+            name: 'vendor',
+            enforce: true,
+          },
           common: {
             test: /common/,
             chunks: 'initial',
             name: 'common',
-            enforce: true,
-          },
-          defaultVendors: {
-            test: /node_modules/,
-            chunks: 'initial',
-            name: 'vendor',
             enforce: true,
           },
         },
@@ -134,12 +133,18 @@ module.exports = (env, argv) => {
 
     // Configuration for dev server
     devServer: {
-      // publicPath: プロダクトにて実際にJSへアクセスする際のパスと同様になるように指定
-      publicPath: `/${process.env.ASSET_DIR}/`,
-      // contentBase: 公開するリソースのルートディレクトリ。未指定の場合はカレントディレクトリが起点になる。
-      contentBase: path.resolve(__dirname, process.env.ASSET_ROOT, process.env.ASSET_DIR),
-      // watchContentBase: コンテンツの変更監視をする
-      // watchContentBase: true,
+      static: {
+        // directory: 公開するリソースのルートディレクトリ。未指定の場合はカレントディレクトリが起点になる。
+        directory: path.resolve(__dirname, process.env.ASSET_ROOT, process.env.ASSET_DIR),
+      },
+      devMiddleware: {
+        // publicPath: プロダクトにて実際にJSへアクセスする際のパスと同様になるように指定
+        publicPath: `/${process.env.ASSET_DIR}/`,
+      },
+      https: {
+        key: '/etc/nginx/ssl/server.key',
+        cert: '/etc/nginx/ssl/server.crt',
+      },
       host: process.env.ASSET_HOST,
       // port: ポート番号。未指定の場合は8080が初期値になる。
       port: process.env.ASSET_PORT,
@@ -147,14 +152,17 @@ module.exports = (env, argv) => {
       // inline: true,
       // hot: Hot Module Replacement(HMR)を有効にします。true or falseで指定。未指定の場合はtrue。
       // hot: true,
-      disableHostCheck: true,
+      // allowedHosts: 'all',
       headers: {
         'Access-Control-Allow-Origin': '*',
       },
-      // vagrantだとファイルシステムの違いから変更を検知できないらしいのでポーリングする
-      watchOptions: {
-        poll: true,
-      },
+      // gzip圧縮を行うか否か
+      compress: true,
+    },
+    // vagrantだとファイルシステムの違いから変更を検知できないらしいのでポーリングする
+    watchOptions: {
+      poll: true,
+      ignored: /node_modules/,
     },
   }
 }

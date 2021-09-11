@@ -1,36 +1,36 @@
 import { VFC } from 'react'
-import { BrowserRouter, Switch } from 'react-router-dom'
-import { Auth0Provider } from '@auth0/auth0-react'
 import { SWRConfig } from 'swr'
+import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import { ProtectedRoute } from 'common/utils/Route/ProtectedRoute'
+import Auth0ProviderWithHistory from 'common/utils/Auth'
+import 'common/assets/css/style'
+
+import Home from 'pages/home'
 import Tasks from 'pages/tasks'
 import Notes from 'pages/notes'
 import Files from 'pages/files'
 import Settings from 'pages/settings'
-import './assets/css/style'
 
-const options = {
+const swrOptions = {
   suspense: true,
   revalidateOnFocus: false,
+  dedupingInterval: 0,
 }
 
-const AUTO0_DOMAIN = process.env.AUTO0_DOMAIN || ''
-const AUTO0_CLIENT_ID = process.env.AUTO0_CLIENT_ID || ''
-
 const App: VFC = () => (
-  <Auth0Provider domain={AUTO0_DOMAIN} clientId={AUTO0_CLIENT_ID} redirectUri={window.location.origin}>
-    <SWRConfig value={options}>
-      <BrowserRouter>
+  <SWRConfig value={swrOptions}>
+    <BrowserRouter>
+      <Auth0ProviderWithHistory>
         <Switch>
-          <ProtectedRoute exact path="/tasks" component={Tasks} />
-          <ProtectedRoute exact path="/notes" component={Notes} />
-          <ProtectedRoute exact path="/files" component={Files} />
-          <ProtectedRoute exact path="/settings/account" component={Settings} />
-          <ProtectedRoute component={Tasks} />
+          <ProtectedRoute path="/tasks" component={Tasks} />
+          <ProtectedRoute path="/notes" component={Notes} />
+          <ProtectedRoute path="/files" component={Files} />
+          <ProtectedRoute path="/settings/account" component={Settings} />
+          <Route component={Home} />
         </Switch>
-      </BrowserRouter>
-    </SWRConfig>
-  </Auth0Provider>
+      </Auth0ProviderWithHistory>
+    </BrowserRouter>
+  </SWRConfig>
 )
 
 export default App

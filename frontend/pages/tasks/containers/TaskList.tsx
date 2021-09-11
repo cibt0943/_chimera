@@ -1,4 +1,5 @@
 import { VFC, useContext } from 'react'
+import { useAuth0 } from '@auth0/auth0-react'
 import { ApiClient } from 'common/utils/ApiClient'
 import useSWR from 'swr'
 import { VisibilityFilter, Tasks } from '../types'
@@ -7,10 +8,16 @@ import { TasksStateContext, TasksDispatchContext } from '../providers'
 import TaskList from '../components/TaskList'
 
 const TaskListContainer: VFC = () => {
+  const { getAccessTokenSilently } = useAuth0()
   const dispatch = useContext(TasksDispatchContext)
 
   const getTasks = async () => {
-    const response = await ApiClient.get('tasks')
+    const accessToken = await getAccessTokenSilently()
+    const response = await ApiClient.get('tasks', {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    })
     const tasks = (await response.json()) as Tasks
     dispatch(loadTasks({ tasks }))
     return tasks

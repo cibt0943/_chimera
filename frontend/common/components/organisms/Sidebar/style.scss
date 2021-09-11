@@ -7,8 +7,8 @@ html {
   .sidebar-logo {
     @apply tw-sticky tw-top-0;
     @apply tw-h-14 tw-flex tw-items-center tw-justify-center;
-    @apply tw-text-3xl tw-font-semibold;
-    @apply tw-bg-white tw-text-black;
+    @apply tw-text-2xl tw-font-semibold;
+    @apply tw-text-black;
   }
 
   .sidebar-main {
@@ -16,11 +16,11 @@ html {
   }
 
   .sidebar-menu {
-    @apply tw-flex-grow tw-pl-5;
+    @apply tw-flex-grow tw-pl-8;
     @apply tw-text-gray-500;
 
     .sidebar-menu-item {
-      @apply tw-flex tw-flex-row tw-p-3 tw-items-center tw-rounded-l-lg tw-transition-colors;
+      @apply tw-flex tw-flex-row tw-p-3 tw-items-center tw-rounded-l-2xl tw-transition-colors;
       @apply hover:tw-bg-gray-200 hover:tw-text-gray-900;
     }
 
@@ -29,7 +29,7 @@ html {
     }
 
     .sidebar-menu-label {
-      @apply tw-ml-4 tw-font-medium;
+      @apply tw-ml-2 tw-font-medium;
     }
 
     .sidebar-menu-item-active {
@@ -47,7 +47,7 @@ html {
     }
 
     .sidebar-logo {
-      @apply tw-bg-gray-900 tw-text-white;
+      @apply tw-text-white;
     }
 
     .sidebar-menu {

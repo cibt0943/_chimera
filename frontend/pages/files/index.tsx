@@ -12,7 +12,7 @@ const Files: VFC = () => {
         <div className="tw-mb-5 tw-text-error tw-text-xl">This feature is currently under development</div>
         <div>ローカルファイル用のファイラーを作りたい</div>
         <ul className="tw-list-disc tw-list-inside">
-          <li>ブラウザプラグインかelectronしか無理かな</li>
+          <li>nexeかelectronでパッケージ化したexeを配布してここからは起動だけできるようにしたいな</li>
           <li>unixコマンドでの操作</li>
           <li>クリックによる移動やdeleteキーによる削除などwindowsライクな操作</li>
         </ul>

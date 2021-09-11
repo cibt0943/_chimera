@@ -11,6 +11,7 @@ type Props = {
 
 const Button: VFC<Props> = (props) => {
   const { children, className, ...buttonProps } = props
+
   return (
     <button className={classNames('tw-btn', className)} {...buttonProps}>
       {children}
