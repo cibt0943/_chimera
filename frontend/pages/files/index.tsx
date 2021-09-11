@@ -13,8 +13,9 @@ const Files: VFC = () => {
         <div>ローカルファイル用のファイラーを作りたい</div>
         <ul className="tw-list-disc tw-list-inside">
           <li>nexeかelectronでパッケージ化したexeを配布してここからは起動だけできるようにしたいな</li>
-          <li>unixコマンドでの操作</li>
-          <li>クリックによる移動やdeleteキーによる削除などwindowsライクな操作</li>
+          <li>例：Cloud Commander</li>
+          <li>unixコマンドでの操作と</li>
+          <li>windowのショートカット、クリックによる移動やdeleteキーによる削除などwindowsライクな操作の両方</li>
         </ul>
       </div>
     </Layout>
