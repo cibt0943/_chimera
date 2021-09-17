@@ -1,12 +1,10 @@
 import { VFC, ReactNode } from 'react'
 import './style'
 
-type Props = {
+type HeaderProps = {
   children: ReactNode
 }
 
-const Header: VFC<Props> = (props) => {
+export const Header: VFC<HeaderProps> = (props) => {
   return <div className="header">{props.children}</div>
 }
-
-export default Header

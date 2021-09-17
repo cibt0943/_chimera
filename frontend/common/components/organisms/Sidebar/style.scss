@@ -8,6 +8,7 @@ html {
     @apply tw-sticky tw-top-0;
     @apply tw-h-14 tw-flex tw-items-center tw-justify-center;
     @apply tw-text-2xl tw-font-semibold;
+    @apply tw-bg-white;
     @apply tw-text-black;
   }
 
@@ -47,6 +48,7 @@ html {
     }
 
     .sidebar-logo {
+      @apply tw-bg-gray-900;
       @apply tw-text-white;
     }
 

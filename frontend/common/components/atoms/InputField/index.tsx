@@ -6,6 +6,18 @@ type InputFieldProps = InputHTMLAttributes<HTMLInputElement> & {
   register: UseFormRegisterReturn
   labelText?: string
 }
+
+export const InputField: VFC<InputFieldProps> = (props) => {
+  const { register, labelText, type = 'text', className, ...inputProps } = props
+
+  return (
+    <div className="tw-form-control">
+      <Label name={register.name} labelText={labelText} />
+      <input type={type} id={register.name} {...register} {...inputProps} className={classNames('tw-input tw-input-bordered', className)} />
+    </div>
+  )
+}
+
 type LabelProps = Pick<InputFieldProps, 'name' | 'labelText'>
 
 const Label: VFC<LabelProps> = (props) => {
@@ -21,16 +33,3 @@ const Label: VFC<LabelProps> = (props) => {
     </label>
   )
 }
-
-const InputField: VFC<InputFieldProps> = (props) => {
-  const { register, labelText, type = 'text', className, ...inputProps } = props
-
-  return (
-    <div className="tw-form-control">
-      <Label name={register.name} labelText={labelText} />
-      <input type={type} id={register.name} {...register} {...inputProps} className={classNames('tw-input tw-input-bordered', className)} />
-    </div>
-  )
-}
-
-export default InputField

@@ -8,18 +8,7 @@ type ModalProps = {
   children: ReactNode
 }
 
-type ModalTitleProps = {
-  children: ReactNode
-  as?: ElementType
-  className?: string
-}
-
-type ModalActionProps = {
-  children: ReactNode
-  className?: string
-}
-
-const Modal: VFC<ModalProps> = (props) => {
+export const Modal: VFC<ModalProps> = (props) => {
   const { show, onClose, children } = props
 
   const cancelButtonRef = useRef(null)
@@ -45,7 +34,11 @@ const Modal: VFC<ModalProps> = (props) => {
   )
 }
 
-export default Modal
+type ModalTitleProps = {
+  children: ReactNode
+  as?: ElementType
+  className?: string
+}
 
 export const ModalTitle: VFC<ModalTitleProps> = (props) => {
   const { as = 'h3', className = '', children } = props
@@ -55,6 +48,11 @@ export const ModalTitle: VFC<ModalTitleProps> = (props) => {
       {children}
     </Dialog.Title>
   )
+}
+
+type ModalActionProps = {
+  children: ReactNode
+  className?: string
 }
 
 export const ModalAction: VFC<ModalActionProps> = (props) => {

@@ -1,15 +1,15 @@
 import { VFC, ReactNode } from 'react'
-import Sidebar from 'common/components/organisms/Sidebar'
+import { Sidebar } from 'common/components/organisms/Sidebar'
 import './style'
 
-type Props = {
+type MainProps = {
   children: ReactNode
 }
 
-const Main: VFC<Props> = (props) => {
+export const Main: VFC<MainProps> = (props) => {
   return (
     <div className="tw-flex tw-flex-row">
-      <div id="sidebar" className="tw-h-screen tw-w-40 tw-flex-none">
+      <div id="sidebar" className="tw-h-screen tw-w-40 tw-flex-none tw-overflow-y-auto">
         <Sidebar />
       </div>
       <div id="content" className="tw-h-screen tw-w-full tw-overflow-auto">
@@ -18,5 +18,3 @@ const Main: VFC<Props> = (props) => {
     </div>
   )
 }
-
-export default Main

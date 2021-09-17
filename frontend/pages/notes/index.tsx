@@ -1,8 +1,8 @@
 import { VFC } from 'react'
-import Layout from 'common/components/templates/Main'
-import Header from 'common/components/organisms/Header'
+import { Main as Layout } from 'common/components/templates/Main'
+import { Header } from 'common/components/organisms/Header'
 
-const Notes: VFC = () => {
+export const Notes: VFC = () => {
   return (
     <Layout>
       <Header>
@@ -23,5 +23,3 @@ const Notes: VFC = () => {
     </Layout>
   )
 }
-
-export default Notes

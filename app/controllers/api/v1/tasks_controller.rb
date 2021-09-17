@@ -5,15 +5,15 @@ module Api
       def index
         # p @auth_payload
         tasks = Task.all
-        render json: tasks, each_serializer: TaskSerializer
+        render json: { status: :ok, data: tasks }, each_serializer: TaskSerializer
       end
 
       def create
         task = Task.new(task_params)
         if task.save
-          render json: { status: 'SUCCESS', data: task }
+          render json: { status: :ok, data: task }
         else
-          render json: { status: 'ERROR', data: task.errors }
+          render json: { status: :bad_request, errors: task.errors }
         end
       end
 

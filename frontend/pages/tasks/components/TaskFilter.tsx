@@ -1,14 +1,14 @@
 import { VFC } from 'react'
 import { VisibilityFilter } from '../types'
-import RadioButtonGroup from 'common/components/molecules/RadioButtonGroup'
-import RadioButton from 'common/components/molecules/RadioButton'
+import { RadioButtonGroup } from 'common/components/molecules/RadioButtonGroup'
+import { RadioButton } from 'common/components/molecules/RadioButton'
 
-type Props = {
+type TaskFilterProps = {
   visibilityFilter: VisibilityFilter
   toggleFilter: (filter: VisibilityFilter) => void
 }
 
-const TaskFilter: VFC<Props> = (props) => {
+export const TaskFilter: VFC<TaskFilterProps> = (props) => {
   const { visibilityFilter, toggleFilter } = props
 
   const handleChange = (filter: VisibilityFilter) => {
@@ -23,5 +23,3 @@ const TaskFilter: VFC<Props> = (props) => {
     </RadioButtonGroup>
   )
 }
-
-export default TaskFilter

@@ -1,15 +1,13 @@
-import { VFC } from 'react'
+import { VFC, Fragment } from 'react'
 import { Tasks } from '../types'
-import Task from './Task'
+import { TaskRow } from './TaskRow'
 
-type Props = {
+type TaskListProps = {
   tasks: Tasks
   updateTaskStatus: (id: number) => void
 }
 
-const TaskList: VFC<Props> = (props) => {
-  const { tasks, updateTaskStatus } = props
-
+export const TaskList: VFC<TaskListProps> = (props) => {
   return (
     <table className="tw-table tw-w-full">
       <thead>
@@ -21,15 +19,31 @@ const TaskList: VFC<Props> = (props) => {
         </tr>
       </thead>
       <tbody>
-        {tasks.map((task) => (
-          <Task key={task.id} onClick={() => updateTaskStatus(task.id)} {...task} />
-        ))}
+        <Tasks {...props} />
       </tbody>
     </table>
   )
 }
 
-export default TaskList
+const Tasks: VFC<TaskListProps> = (props) => {
+  const { tasks, updateTaskStatus } = props
+
+  if (tasks.length === 0) {
+    return (
+      <tr>
+        <td colSpan={4}>タスクはありません</td>
+      </tr>
+    )
+  }
+
+  return (
+    <Fragment>
+      {tasks.map((task) => (
+        <TaskRow key={task.id} onClick={() => updateTaskStatus(task.id)} {...task} />
+      ))}
+    </Fragment>
+  )
+}
 
 export const TaskListPlaceholder: VFC = () => {
   return (

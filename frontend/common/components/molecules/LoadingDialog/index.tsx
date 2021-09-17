@@ -1,7 +1,7 @@
 import { VFC } from 'react'
 import './style'
 
-const LoadingDialog: VFC = () => {
+export const LoadingDialog: VFC = () => {
   const circleCommonClasses = 'tw-h-3 tw-w-3 tw-bg-current tw-rounded-full'
 
   return (
@@ -14,5 +14,3 @@ const LoadingDialog: VFC = () => {
     </div>
   )
 }
-
-export default LoadingDialog

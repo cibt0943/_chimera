@@ -6,37 +6,6 @@ export const initialState: TasksState = {
   visibilityFilter: VisibilityFilter.SHOW_ALL,
 }
 
-const idGenarater = ((init = 0) => {
-  let id = init
-  return () => {
-    return id++
-  }
-})()
-
-/* taskを作成 */
-const buildTask = (payload: actions.AddTaskPayload): Task => {
-  return {
-    title: payload.title,
-    id: idGenarater(),
-    status: TaskStatus.ACTIVE,
-  }
-}
-
-/* 指定idのtaskを削除 */
-const deleteTask = (tasks: Tasks, payload: actions.DeleteTaskPayload): Tasks => {
-  return tasks.filter((task) => task.id !== payload.id)
-}
-
-/* 指定idのtaskのcompletedを反転 */
-const updateTaskStatus = (tasks: Tasks, payload: actions.UpdateTaskStatusPayload): Tasks => {
-  return tasks.map((task) => {
-    if (task.id === payload.id) {
-      task.status = task.status === TaskStatus.ACTIVE ? TaskStatus.COMPLETED : TaskStatus.ACTIVE
-    }
-    return task
-  })
-}
-
 export const tasksReducer = (state: TasksState, action: actions.TasksAction): TasksState => {
   switch (action.type) {
     case actions.TasksActionType.LOAD_TASKS:
@@ -67,4 +36,24 @@ export const tasksReducer = (state: TasksState, action: actions.TasksAction): Ta
     default:
       return state
   }
+}
+
+/* taskを作成 */
+const buildTask = (payload: actions.AddTaskPayload): Task => {
+  return payload.task
+}
+
+/* 指定idのtaskを削除 */
+const deleteTask = (tasks: Tasks, payload: actions.DeleteTaskPayload): Tasks => {
+  return tasks.filter((task) => task.id !== payload.id)
+}
+
+/* 指定idのtaskのcompletedを反転 */
+const updateTaskStatus = (tasks: Tasks, payload: actions.UpdateTaskStatusPayload): Tasks => {
+  return tasks.map((task) => {
+    if (task.id === payload.id) {
+      task.status = task.status === TaskStatus.ACTIVE ? TaskStatus.COMPLETED : TaskStatus.ACTIVE
+    }
+    return task
+  })
 }

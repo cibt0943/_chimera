@@ -1,14 +1,14 @@
 import { VFC, Suspense } from 'react'
-import Layout from 'common/components/templates/Main'
-import Header from 'common/components/organisms/Header'
+import { Main as Layout } from 'common/components/templates/Main'
+import { Header } from 'common/components/organisms/Header'
 // import LoadingDialog from 'common/components/molecules/LoadingDialog'
 import { TasksContextProvider } from './providers'
-import TaskFilter from './containers/TaskFilter'
-import AddTask from './containers/AddTask'
-import TaskList from './containers/TaskList'
+import { TaskFilterContainer } from './containers/TaskFilter'
+import { AddTaskContainer } from './containers/AddTask'
+import { TaskListContainer } from './containers/TaskList'
 import { TaskListPlaceholder } from './components/TaskList'
 
-const Tasks: VFC = () => {
+export const Tasks: VFC = () => {
   return (
     <TasksContextProvider>
       <Layout>
@@ -17,12 +17,12 @@ const Tasks: VFC = () => {
         </Header>
         <div className="tw-container tw-px-6 tw-py-3">
           <div className="tw-flex tw-justify-between">
-            <AddTask />
-            <TaskFilter />
+            <AddTaskContainer />
+            <TaskFilterContainer />
           </div>
           <div className="tw-mt-6">
             <Suspense fallback={<TaskListPlaceholder />}>
-              <TaskList />
+              <TaskListContainer />
             </Suspense>
           </div>
         </div>
@@ -30,5 +30,3 @@ const Tasks: VFC = () => {
     </TasksContextProvider>
   )
 }
-
-export default Tasks

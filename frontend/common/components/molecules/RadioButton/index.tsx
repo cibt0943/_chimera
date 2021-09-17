@@ -2,13 +2,13 @@ import { VFC, ReactNode } from 'react'
 import { RadioGroup } from '@headlessui/react'
 import classNames from 'classnames'
 
-type Props = {
+type RadioButtonProps = {
   value: string
   children: ReactNode
   className?: string
 }
 
-const RadioButton: VFC<Props> = (props) => {
+export const RadioButton: VFC<RadioButtonProps> = (props) => {
   const { value, children, className } = props
 
   return (
@@ -23,5 +23,3 @@ const RadioButton: VFC<Props> = (props) => {
     </RadioGroup.Option>
   )
 }
-
-export default RadioButton

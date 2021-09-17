@@ -1,8 +1,8 @@
 import { VFC } from 'react'
-import Layout from 'common/components/templates/Main'
-import Header from 'common/components/organisms/Header'
+import { Main as Layout } from 'common/components/templates/Main'
+import { Header } from 'common/components/organisms/Header'
 
-const Files: VFC = () => {
+export const Files: VFC = () => {
   return (
     <Layout>
       <Header>
@@ -13,12 +13,11 @@ const Files: VFC = () => {
         <div>ローカルファイル用のファイラーを作りたい</div>
         <ul className="tw-list-disc tw-list-inside">
           <li>nexeかelectronでパッケージ化したexeを配布してここからは起動だけできるようにしたいな</li>
-          <li>unixコマンドでの操作</li>
-          <li>クリックによる移動やdeleteキーによる削除などwindowsライクな操作</li>
+          <li>例：Cloud Commander</li>
+          <li>unixコマンドでの操作と</li>
+          <li>windowのショートカット、クリックによる移動やdeleteキーによる削除などwindowsライクな操作の両方</li>
         </ul>
       </div>
     </Layout>
   )
 }
-
-export default Files
