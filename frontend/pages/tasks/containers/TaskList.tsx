@@ -7,18 +7,24 @@ import { loadTasks, updateTaskStatus } from '../actions'
 import { TasksStateContext, TasksDispatchContext } from '../providers'
 import { TaskList } from '../components/TaskList'
 
+type ResponseJson = {
+  status: string
+  data: Tasks
+}
+
 export const TaskListContainer: VFC = () => {
   const { getAccessTokenSilently } = useAuth0()
   const dispatch = useContext(TasksDispatchContext)
 
   const getTasks = async () => {
     const accessToken = await getAccessTokenSilently()
-    const response = await ApiClient.get('tasks', {
+    const res = await ApiClient.get('tasks', {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
-    })
-    const tasks = (await response.json()) as Tasks
+    }).json<ResponseJson>()
+
+    const tasks = res.data
     dispatch(loadTasks({ tasks }))
     return tasks
   }

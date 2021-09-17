@@ -9,7 +9,7 @@ type MainProps = {
 export const Main: VFC<MainProps> = (props) => {
   return (
     <div className="tw-flex tw-flex-row">
-      <div id="sidebar" className="tw-h-screen tw-w-40 tw-flex-none">
+      <div id="sidebar" className="tw-h-screen tw-w-40 tw-flex-none tw-overflow-y-auto">
         <Sidebar />
       </div>
       <div id="content" className="tw-h-screen tw-w-full tw-overflow-auto">

@@ -38,20 +38,9 @@ export const tasksReducer = (state: TasksState, action: actions.TasksAction): Ta
   }
 }
 
-const idGenarater = ((init = 0) => {
-  let id = init
-  return () => {
-    return id++
-  }
-})()
-
 /* taskを作成 */
 const buildTask = (payload: actions.AddTaskPayload): Task => {
-  return {
-    title: payload.title,
-    id: idGenarater(),
-    status: TaskStatus.ACTIVE,
-  }
+  return payload.task
 }
 
 /* 指定idのtaskを削除 */

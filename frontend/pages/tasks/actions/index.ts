@@ -1,4 +1,4 @@
-import { VisibilityFilter, Tasks } from '../types'
+import { VisibilityFilter, Tasks, Task } from '../types'
 
 /*
  * action types
@@ -22,7 +22,7 @@ export type LoadTasksPayload = {
 }
 
 export type AddTaskPayload = {
-  title: string
+  task: Task
 }
 
 export type DeleteTaskPayload = {
