@@ -35,8 +35,12 @@
   },
   "dependencies": {
     "@auth0/auth0-react": "^1.7.0",
+    "@chakra-ui/react": "^1.6.7",
+    "@emotion/react": "^11",
+    "@emotion/styled": "^11",
     "@heroicons/react": "^1.0.2",
     "classnames": "^2.3.1",
+    "framer-motion": "^4",
     "ky": "^0.28.3",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",

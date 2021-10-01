@@ -1,4 +1,5 @@
 import { VFC, Suspense } from 'react'
+import { Heading, Box } from '@chakra-ui/react'
 import { Main as Layout } from 'common/components/templates/Main'
 import { Header } from 'common/components/organisms/Header'
 // import LoadingDialog from 'common/components/molecules/LoadingDialog'
@@ -13,19 +14,21 @@ export const Tasks: VFC = () => {
     <TasksContextProvider>
       <Layout>
         <Header>
-          <h3 className="tw-pl-6 tw-text-xl tw-font-semibold">Task</h3>
+          <Heading as="h3" fontSize="2xl" pl={6}>
+            Task
+          </Heading>
         </Header>
-        <div className="tw-container tw-px-6 tw-py-3">
-          <div className="tw-flex tw-justify-between">
+        <Box px={6} py={3}>
+          <Box display="flex" justifyContent="space-between">
             <AddTaskContainer />
             <TaskFilterContainer />
-          </div>
-          <div className="tw-mt-6">
+          </Box>
+          <Box mt={6}>
             <Suspense fallback={<TaskListPlaceholder />}>
               <TaskListContainer />
             </Suspense>
-          </div>
-        </div>
+          </Box>
+        </Box>
       </Layout>
     </TasksContextProvider>
   )

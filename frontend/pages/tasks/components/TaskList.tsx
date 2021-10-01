@@ -1,4 +1,5 @@
 import { VFC, Fragment } from 'react'
+import { Table, Thead, Tbody, Tr, Th, Td, Stack, Skeleton } from '@chakra-ui/react'
 import { Tasks } from '../types'
 import { TaskRow } from './TaskRow'
 
@@ -9,19 +10,19 @@ type TaskListProps = {
 
 export const TaskList: VFC<TaskListProps> = (props) => {
   return (
-    <table className="tw-table tw-w-full">
-      <thead>
-        <tr>
-          <th>id</th>
-          <th>タスク</th>
-          <th>状態</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
+    <Table variant="simple">
+      <Thead>
+        <Tr>
+          <Th>id</Th>
+          <Th>タスク</Th>
+          <Th>状態</Th>
+          <Th></Th>
+        </Tr>
+      </Thead>
+      <Tbody>
         <Tasks {...props} />
-      </tbody>
-    </table>
+      </Tbody>
+    </Table>
   )
 }
 
@@ -30,9 +31,9 @@ const Tasks: VFC<TaskListProps> = (props) => {
 
   if (tasks.length === 0) {
     return (
-      <tr>
-        <td colSpan={4}>タスクはありません</td>
-      </tr>
+      <Tr>
+        <Td colSpan={4}>タスクはありません</Td>
+      </Tr>
     )
   }
 
@@ -47,11 +48,10 @@ const Tasks: VFC<TaskListProps> = (props) => {
 
 export const TaskListPlaceholder: VFC = () => {
   return (
-    <div className="tw-w-full tw-animate-pulse">
-      <div data-placeholder className="tw-h-5 tw-w-full tw-mb-3 tw-rounded-full tw-overflow-hidden tw-relative tw-bg-base-200"></div>
-      <div data-placeholder className="tw-h-5 tw-w-full tw-mb-3 tw-rounded-full tw-overflow-hidden tw-relative tw-bg-base-200"></div>
-      <div data-placeholder className="tw-h-5 tw-w-full tw-mb-3 tw-rounded-full tw-overflow-hidden tw-relative tw-bg-base-200"></div>
-      <div data-placeholder className="tw-h-5 tw-w-full tw-mb-3 tw-rounded-full tw-overflow-hidden tw-relative tw-bg-base-200"></div>
-    </div>
+    <Stack mt={16}>
+      <Skeleton height="10px" />
+      <Skeleton height="10px" />
+      <Skeleton height="10px" />
+    </Stack>
   )
 }

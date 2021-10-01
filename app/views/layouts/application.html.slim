@@ -6,11 +6,8 @@ html
     = csp_meta_tag
     / = stylesheet_pack_tag 'vendor'
     = stylesheet_pack_tag 'common'
-    / = stylesheet_pack_tag 'main'
-    = yield :stylesheet
+    = javascript_pack_tag 'vendor', defer: true
+    = javascript_pack_tag 'common', defer: true
+    = javascript_pack_tag 'main', defer: true
   body
     = yield
-    = javascript_pack_tag 'vendor'
-    = javascript_pack_tag 'common'
-    = javascript_pack_tag 'main'
-    = yield :javascript

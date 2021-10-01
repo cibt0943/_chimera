@@ -1,10 +1,14 @@
 import { VFC, ReactNode } from 'react'
-import './style'
+import { Box } from '@chakra-ui/react'
 
 type HeaderProps = {
   children: ReactNode
 }
 
 export const Header: VFC<HeaderProps> = (props) => {
-  return <div className="header">{props.children}</div>
+  return (
+    <Box display="flex" alignItems="center" height={14}>
+      {props.children}
+    </Box>
+  )
 }

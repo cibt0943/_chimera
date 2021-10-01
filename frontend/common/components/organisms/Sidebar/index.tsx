@@ -1,17 +1,24 @@
 import { VFC } from 'react'
 import { NavLink as RouterLink } from 'react-router-dom'
 import { ClipboardCheckIcon, DocumentTextIcon, FolderIcon, ExclamationCircleIcon, TrashIcon } from '@heroicons/react/outline'
+import { Heading, Box, useColorModeValue, Flex } from '@chakra-ui/react'
 import { MyselfMenu } from 'common/components/organisms/MyselfMenu'
 import './style'
 
 export const Sidebar: VFC = () => {
+  const bgColor = useColorModeValue('gray.800', 'black')
+  const color = useColorModeValue('white', 'white')
+  const menuItemColor = useColorModeValue('gray.400', 'gray.400')
+
   return (
-    <div className="sidebar">
-      <div className="sidebar-logo">
-        <h2>Kobushi</h2>
-      </div>
-      <div className="sidebar-main">
-        <div className="sidebar-menu">
+    <Box bgColor={bgColor} display="flex" flexDirection="column" minHeight="full">
+      <Box bgColor={bgColor} color={color} height={14} display="flex" alignItems="center" justifyContent="center" position="sticky" top="0">
+        <Heading as="h2" fontSize={28}>
+          Kobushi
+        </Heading>
+      </Box>
+      <Box display="flex" flexDirection="column" flex="1">
+        <Box color={menuItemColor} flexGrow={1} pl={8}>
           <nav>
             <MenuItem to="/tasks" text="Task" iconType="task" />
             <MenuItem to="/notes" text="Note" iconType="note" />
@@ -19,16 +26,16 @@ export const Sidebar: VFC = () => {
             <MenuItem to="/func_a" text="func A" iconType="func_a" />
             <MenuItem to="/func_b" text="func B" iconType="func_b" />
           </nav>
-          <div className="tw-mt-7" />
+          <Box mt={7} />
           <nav>
             <MenuItem to="/trash" text="Trash" iconType="trash" />
           </nav>
-        </div>
-        <div className="sidebar-account">
+        </Box>
+        <Box mb={3} textAlign="center">
           <MyselfMenu />
-        </div>
-      </div>
-    </div>
+        </Box>
+      </Box>
+    </Box>
   )
 }
 
@@ -51,11 +58,15 @@ const MenuItem: VFC<MenuItemProps> = (props) => {
   const IconComponent = iconComponents[props.iconType]
 
   return (
-    <RouterLink to={props.to} exact className="sidebar-menu-item" activeClassName="sidebar-menu-item-active">
-      <span>
-        <IconComponent className="sidebar-menu-icon" />
-      </span>
-      <span className="sidebar-menu-label">{props.text}</span>
+    <RouterLink to={props.to} exact activeClassName="sidebar-menu-item-active">
+      <Flex p={3} alignItems="center" borderLeftRadius={20} className="sidebar-menu-item" transition="all 0.2s">
+        <Box as="span" height={6} width={6}>
+          <IconComponent />
+        </Box>
+        <Box as="span" ml={2} fontWeight="medium">
+          {props.text}
+        </Box>
+      </Flex>
     </RouterLink>
   )
 }

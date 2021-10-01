@@ -1,20 +1,12 @@
-import { VFC, MouseEvent, ReactNode } from 'react'
-import classNames from 'classnames'
-
-type ButtonProps = {
-  children: ReactNode
-  type?: 'button' | 'submit' | 'reset'
-  className?: string
-  onClick?: (event: MouseEvent<HTMLElement>) => void
-  form?: string
-}
+import { VFC } from 'react'
+import { Button as ChakraButton, ButtonProps } from '@chakra-ui/react'
 
 export const Button: VFC<ButtonProps> = (props) => {
-  const { children, className, ...buttonProps } = props
+  const { children, colorScheme = 'blue', ...buttonProps } = props
 
   return (
-    <button className={classNames('tw-btn', className)} {...buttonProps}>
+    <ChakraButton colorScheme={colorScheme} {...buttonProps}>
       {children}
-    </button>
+    </ChakraButton>
   )
 }

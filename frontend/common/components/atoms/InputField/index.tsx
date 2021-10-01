@@ -1,35 +1,13 @@
-import { VFC, InputHTMLAttributes } from 'react'
+import { VFC } from 'react'
 import { UseFormRegisterReturn } from 'react-hook-form'
-import classNames from 'classnames'
+import { Input, InputProps } from '@chakra-ui/react'
 
-type InputFieldProps = InputHTMLAttributes<HTMLInputElement> & {
+type InputFieldProps = InputProps & {
   register: UseFormRegisterReturn
-  labelText?: string
 }
 
 export const InputField: VFC<InputFieldProps> = (props) => {
-  const { register, labelText, type = 'text', className, ...inputProps } = props
+  const { type = 'text', size = 'md', register, ...inputProps } = props
 
-  return (
-    <div className="tw-form-control">
-      <Label name={register.name} labelText={labelText} />
-      <input type={type} id={register.name} {...register} {...inputProps} className={classNames('tw-input tw-input-bordered', className)} />
-    </div>
-  )
-}
-
-type LabelProps = Pick<InputFieldProps, 'name' | 'labelText'>
-
-const Label: VFC<LabelProps> = (props) => {
-  const { name, labelText } = props
-
-  if (!labelText) {
-    return null
-  }
-
-  return (
-    <label htmlFor={name} className="tw-label">
-      <span className="tw-label-text">{labelText}</span>
-    </label>
-  )
+  return <Input type={type} size={size} id={register.name} {...register} {...inputProps} />
 }

@@ -1,4 +1,5 @@
 import { VFC } from 'react'
+import { Stack } from '@chakra-ui/react'
 import { VisibilityFilter } from '../types'
 import { RadioButtonGroup } from 'common/components/molecules/RadioButtonGroup'
 import { RadioButton } from 'common/components/molecules/RadioButton'
@@ -17,9 +18,11 @@ export const TaskFilter: VFC<TaskFilterProps> = (props) => {
 
   return (
     <RadioButtonGroup value={visibilityFilter} onChange={handleChange}>
-      <RadioButton value={VisibilityFilter.SHOW_ALL}>All</RadioButton>
-      <RadioButton value={VisibilityFilter.SHOW_ACTIVE}>Active</RadioButton>
-      <RadioButton value={VisibilityFilter.SHOW_COMPLETED}>Completed</RadioButton>
+      <Stack spacing={4} direction="row">
+        <RadioButton value={VisibilityFilter.SHOW_ALL}>All</RadioButton>
+        <RadioButton value={VisibilityFilter.SHOW_ACTIVE}>Active</RadioButton>
+        <RadioButton value={VisibilityFilter.SHOW_COMPLETED}>Completed</RadioButton>
+      </Stack>
     </RadioButtonGroup>
   )
 }

@@ -1,26 +1,14 @@
-import { VFC, ReactNode, Fragment } from 'react'
-// import { RadioGroup } from '@headlessui/react'
-import classNames from 'classnames'
+import { VFC } from 'react'
+import { Radio, RadioProps } from '@chakra-ui/react'
 
-type RadioButtonProps = {
-  value: string
-  children: ReactNode
-  className?: string
-}
+type RadioButtonProps = RadioProps
 
 export const RadioButton: VFC<RadioButtonProps> = (props) => {
-  const { value, children, className } = props
+  const { children, ...radioButtonProps } = props
 
-  return <Fragment></Fragment>
-  // return (
-  // render propsとなっている。
-  // <RadioGroup.Option
-  //   value={value}
-  //   className={({ checked }) => {
-  //     return classNames('tw-btn', className, { 'tw-btn-active': checked })
-  //   }}
-  // >
-  //   <span>{children}</span>
-  // </RadioGroup.Option>
-  // )
+  return (
+    <Radio {...radioButtonProps}>
+      <span>{children}</span>
+    </Radio>
+  )
 }

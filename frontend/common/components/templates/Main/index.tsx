@@ -1,4 +1,5 @@
 import { VFC, ReactNode } from 'react'
+import { Box } from '@chakra-ui/react'
 import { Sidebar } from 'common/components/organisms/Sidebar'
 import './style'
 
@@ -8,13 +9,13 @@ type MainProps = {
 
 export const Main: VFC<MainProps> = (props) => {
   return (
-    <div className="tw-flex tw-flex-row">
-      <div id="sidebar" className="tw-h-screen tw-w-40 tw-flex-none tw-overflow-y-auto">
+    <Box display="flex" flexDirection="row">
+      <Box id="sidebar" height="100vh" width={40} overflowY="auto" flex="none">
         <Sidebar />
-      </div>
-      <div id="content" className="tw-h-screen tw-w-full tw-overflow-auto">
+      </Box>
+      <Box id="content" height="100vh" width="full" overflowY="auto">
         {props.children}
-      </div>
-    </div>
+      </Box>
+    </Box>
   )
 }

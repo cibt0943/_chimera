@@ -1,21 +1,10 @@
-import { VFC, ReactNode, Fragment } from 'react'
-// import { RadioGroup } from '@headlessui/react'
-// import classNames from 'classnames'
+import { VFC } from 'react'
+import { RadioGroup, RadioGroupProps } from '@chakra-ui/react'
 
-type RadioButtonGroupProps = {
-  value: string
-  onChange: (value: any) => void
-  children: ReactNode
-  className?: string
-}
+type RadioButtonGroupProps = RadioGroupProps
 
 export const RadioButtonGroup: VFC<RadioButtonGroupProps> = (props) => {
-  const { value, onChange, children, className } = props
+  const { children, ...radioButtonGroupProps } = props
 
-  return <Fragment></Fragment>
-  // return (
-  //   <RadioGroup value={value} onChange={onChange} className={classNames('tw-btn-group', className)}>
-  //     { children }
-  //   </RadioGroup>
-  // )
+  return <RadioGroup {...radioButtonGroupProps}>{children}</RadioGroup>
 }

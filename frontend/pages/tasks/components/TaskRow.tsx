@@ -1,4 +1,5 @@
 import { VFC } from 'react'
+import { Tr, Td } from '@chakra-ui/react'
 import { Button } from 'common/components/atoms/Button'
 import { TaskStatus } from '../types'
 
@@ -13,15 +14,15 @@ export const TaskRow: VFC<TaskRowProps> = (props) => {
   const { id, title, status, onClick } = props
 
   return (
-    <tr>
-      <td>{id}</td>
-      <td>{title}</td>
-      <td>{status}</td>
-      <td>
-        <Button className="tw-btn-sm" onClick={onClick}>
+    <Tr>
+      <Td>{id}</Td>
+      <Td>{title}</Td>
+      <Td>{status}</Td>
+      <Td>
+        <Button onClick={onClick} size="xs">
           toggle
         </Button>
-      </td>
-    </tr>
+      </Td>
+    </Tr>
   )
 }
