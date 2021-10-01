@@ -1,6 +1,7 @@
-import { VFC, MouseEvent, useState } from 'react'
-import { Modal, ModalTitle, ModalAction } from 'common/components/molecules/Modal'
+import { VFC, MouseEvent } from 'react'
+import { useDisclosure, ModalBody, ModalCloseButton, ModalFooter } from '@chakra-ui/react'
 import { Button } from 'common/components/atoms/Button'
+import { Modal, ModalTitle } from 'common/components/molecules/Modal'
 import { TaskForm, TaskFormValues } from './TaskForm'
 
 type AddTaskProps = {
@@ -10,30 +11,31 @@ type AddTaskProps = {
 export const AddTask: VFC<AddTaskProps> = (props) => {
   const { addTask } = props
 
-  const [showModal, setShowModal] = useState(false)
+  const { isOpen, onOpen, onClose } = useDisclosure()
 
-  const handleAddClick = (event: MouseEvent<HTMLElement>) => {
+  const handleAddClick = (event: MouseEvent) => {
     event.preventDefault()
-    setShowModal(true)
+    onOpen()
   }
 
   const handleClose = () => {
-    setShowModal(false)
+    onClose()
   }
 
   return (
     <div>
-      <Button className="tw-btn-primary" onClick={handleAddClick}>
-        タスクを追加
-      </Button>
-      <Modal show={showModal} onClose={handleClose}>
+      <Button onClick={handleAddClick}>タスクを追加</Button>
+      <Modal isOpen={isOpen} onClose={handleClose}>
         <ModalTitle>タスクを追加</ModalTitle>
-        <TaskForm addTask={addTask} />
-        <ModalAction>
+        <ModalCloseButton />
+        <ModalBody>
+          <TaskForm addTask={addTask} />
+        </ModalBody>
+        <ModalFooter>
           <Button type="submit" form="addTask">
             追加する
           </Button>
-        </ModalAction>
+        </ModalFooter>
       </Modal>
     </div>
   )

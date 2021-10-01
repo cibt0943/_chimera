@@ -8,7 +8,7 @@ export const LoginButton: VFC = () => {
   if (isAuthenticated) return null
 
   return (
-    <Button className="tw-btn-accent tw-btn-sm" onClick={loginWithRedirect}>
+    <Button colorScheme="blue" onClick={loginWithRedirect}>
       Log in
     </Button>
   )

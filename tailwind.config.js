@@ -7,32 +7,10 @@ module.exports = {
   purge: ['frontend/**/*.{tsx}'],
   darkMode: 'class', // or 'media' or 'class'
   theme: {
-    extend: {
-      colors: {
-        // blueGray: colors.blueGray,
-        // rose: colors.rose,
-        // orange: colors.orange,
-        // primary: colors.orange,
-        // secondary: colors.blueGray,
-        // danger: colors.rose,
-      },
-      spacing: {
-        // 12: '2.5rem',
-      },
-    },
+    extend: {},
   },
   variants: {
     extend: {},
   },
-  plugins: [require('@tailwindcss/typography'), require('daisyui')],
-  daisyui: {
-    themes: [
-      'light', // first one will be the default theme
-      'dark',
-      'cupcake',
-      'bumblebee',
-      'emerald',
-      'corporate',
-    ],
-  },
+  plugins: [require('@tailwindcss/typography')],
 }

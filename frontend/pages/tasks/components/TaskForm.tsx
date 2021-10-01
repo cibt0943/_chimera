@@ -1,5 +1,6 @@
 import { VFC } from 'react'
 import { useForm, SubmitHandler } from 'react-hook-form'
+import { FormControl, FormLabel, FormErrorMessage } from '@chakra-ui/react'
 import { InputField } from 'common/components/atoms/InputField'
 
 type TaskFormProps = {
@@ -31,8 +32,11 @@ export const TaskForm: VFC<TaskFormProps> = (props) => {
 
   return (
     <form id="addTask" onSubmit={handleSubmit(onSubmitHandler)}>
-      <InputField labelText="タスク名" register={register('title')} />
-      {errors?.title?.type === 'required' && <p>This field is required</p>}
+      <FormControl id="task_title" isRequired>
+        <FormLabel>タスク名</FormLabel>
+        <InputField register={register('title')} />
+        <FormErrorMessage>{errors.title}</FormErrorMessage>
+      </FormControl>
     </form>
   )
 }
