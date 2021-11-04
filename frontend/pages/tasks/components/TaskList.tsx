@@ -1,11 +1,11 @@
 import { VFC, Fragment } from 'react'
 import { Table, Thead, Tbody, Tr, Th, Td, Stack, Skeleton } from '@chakra-ui/react'
-import { Tasks } from '../types'
+import { Tasks, Task } from '../types'
 import { TaskRow } from './TaskRow'
 
 type TaskListProps = {
   tasks: Tasks
-  updateTaskStatus: (id: number) => void
+  updateTaskStatus: (targetTask: Task) => void
 }
 
 export const TaskList: VFC<TaskListProps> = (props) => {
@@ -40,7 +40,7 @@ const Tasks: VFC<TaskListProps> = (props) => {
   return (
     <Fragment>
       {tasks.map((task) => (
-        <TaskRow key={task.id} onClick={() => updateTaskStatus(task.id)} {...task} />
+        <TaskRow key={task.id} onClick={() => updateTaskStatus(task)} {...task} />
       ))}
     </Fragment>
   )
@@ -49,9 +49,12 @@ const Tasks: VFC<TaskListProps> = (props) => {
 export const TaskListPlaceholder: VFC = () => {
   return (
     <Stack mt={16}>
-      <Skeleton height="10px" />
-      <Skeleton height="10px" />
-      <Skeleton height="10px" />
+      <Skeleton height="20px" borderRadius="md" />
+      <Skeleton height="20px" borderRadius="md" />
+      <Skeleton height="20px" borderRadius="md" />
+      <Skeleton height="20px" borderRadius="md" />
+      <Skeleton height="20px" borderRadius="md" />
+      <Skeleton height="20px" borderRadius="md" />
     </Stack>
   )
 }

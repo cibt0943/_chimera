@@ -17,6 +17,7 @@ export const Notes: VFC = () => {
         </Box>
         <Box>さっと書けるメモ帳</Box>
         <UnorderedList>
+          <ListItem>Taskとデータを共有</ListItem>
           <ListItem>リアルタイムにlocal strageへ保存</ListItem>
           <ListItem>File System Access APIを利用して実ファイルとして保存</ListItem>
           <ListItem>階層構造を持ったタブによるフィルタリング</ListItem>
