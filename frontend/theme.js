@@ -7,6 +7,9 @@ export const theme = extendTheme({
       body: {
         backgroundColor: mode('white', 'gray.700')(props),
       },
+      '.bg-color': {
+        backgroundColor: mode('white', 'gray.700')(props),
+      },
     }),
   },
 })

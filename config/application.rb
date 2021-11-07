@@ -27,7 +27,10 @@ module Chimera
     # -- all .rb files in that directory are automatically loaded after loading
     # the framework and any gems in your application.
 
-    # lib配下のファイルをdevelopmentではauto_load,productionではeager_laodする
+    # lib配下のファイルをdevelopmentではauto_load,productionではeager_loadする
     config.paths.add 'lib', eager_load: true
+
+    # i18nで使われるデフォルトのロケールファイルの指定
+    config.i18n.default_locale = :ja
   end
 end

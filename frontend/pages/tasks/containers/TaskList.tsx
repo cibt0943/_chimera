@@ -1,61 +1,56 @@
-import { VFC, useContext } from 'react'
-import { useAuth0 } from '@auth0/auth0-react'
-import { ApiClient } from 'common/utils/ApiClient'
-import useSWR from 'swr'
-import { VisibilityFilter, Tasks } from '../types'
-import { loadTasks, updateTaskStatus } from '../actions'
-import { TasksStateContext, TasksDispatchContext } from '../providers'
-import { TaskList } from '../components/TaskList'
+import { VFC } from 'react'
+import { Tasks, Task, TaskStatus, VisibilityFilter } from '../types'
+import { useGetTasks, useUpdateTask } from '../hooks/useFetchTasks'
+import { TaskList, TaskListPlaceholder } from '../components/TaskList'
 
-type ResponseJson = {
-  status: string
-  data: Tasks
+type TaskListProps = {
+  visibilityFilter: VisibilityFilter
 }
 
-export const TaskListContainer: VFC = () => {
-  const { getAccessTokenSilently } = useAuth0()
-  const dispatch = useContext(TasksDispatchContext)
+export const TaskListContainer: VFC<TaskListProps> = (props) => {
+  const { visibilityFilter } = props
 
-  const getTasks = async () => {
-    const accessToken = await getAccessTokenSilently()
-    const res = await ApiClient.get('tasks', {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    }).json<ResponseJson>()
-
-    const tasks = res.data
-    dispatch(loadTasks({ tasks }))
-    return tasks
-  }
+  const { data: tasks } = useGetTasks()
+  const { updateFetcher } = useUpdateTask()
 
   // apiアクセス
-  useSWR('tasks', getTasks)
+  if (!tasks) {
+    return <TaskListPlaceholder />
+  }
 
-  const { tasks, visibilityFilter } = useContext(TasksStateContext)
-
-  const taskFilter = (): Tasks => {
+  const taskStatusFilter = (tasks: Tasks): Tasks => {
     switch (visibilityFilter) {
       case VisibilityFilter.SHOW_ALL:
         return tasks
       case VisibilityFilter.SHOW_ACTIVE:
-        return tasks.filter((e) => e.status == 0)
+        return tasks.filter((e) => e.status === TaskStatus.ACTIVE)
       case VisibilityFilter.SHOW_COMPLETED:
-        return tasks.filter((e) => e.status == 1)
+        return tasks.filter((e) => e.status === TaskStatus.COMPLETED)
       default:
         throw new Error('Unknown filter.')
     }
   }
 
-  const stateProps = {
-    tasks: taskFilter(),
+  const toggleTaskStatus = (statsu: TaskStatus) => {
+    switch (statsu) {
+      case TaskStatus.ACTIVE:
+        return TaskStatus.COMPLETED
+      case TaskStatus.COMPLETED:
+        return TaskStatus.ACTIVE
+      default:
+        throw TaskStatus.ACTIVE
+    }
   }
 
-  const dispatchProps = {
-    updateTaskStatus: (id: number): void => {
-      dispatch(updateTaskStatus({ id }))
-    },
+  const updateTaskStatus = async (task: Task) => {
+    const nextTask = { ...task, status: toggleTaskStatus(task.status) }
+    return await updateFetcher(nextTask)
   }
 
-  return <TaskList {...{ ...stateProps, ...dispatchProps }} />
+  const taskListProps = {
+    tasks: taskStatusFilter(tasks),
+    updateTaskStatus,
+  }
+
+  return <TaskList {...taskListProps} />
 }
