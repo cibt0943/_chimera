@@ -42,15 +42,13 @@ export const TaskListContainer: VFC<TaskListProps> = (props) => {
     }
   }
 
-  const viewTasks = taskStatusFilter(tasks)
-
-  const updateTaskStatus = (task: Task) => {
+  const updateTaskStatus = async (task: Task) => {
     const nextTask = { ...task, status: toggleTaskStatus(task.status) }
-    return updateFetcher(nextTask)
+    return await updateFetcher(nextTask)
   }
 
   const taskListProps = {
-    tasks: viewTasks,
+    tasks: taskStatusFilter(tasks),
     updateTaskStatus,
   }
 

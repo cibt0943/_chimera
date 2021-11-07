@@ -7,11 +7,11 @@ type TaskRowProps = {
   id: number
   title: string
   status: TaskStatus
-  onClick: () => void
+  onClickToggle: () => void
 }
 
 export const TaskRow: VFC<TaskRowProps> = (props) => {
-  const { id, title, status, onClick } = props
+  const { id, title, status, onClickToggle } = props
 
   return (
     <Tr>
@@ -19,7 +19,7 @@ export const TaskRow: VFC<TaskRowProps> = (props) => {
       <Td>{title}</Td>
       <Td>{status}</Td>
       <Td>
-        <Button onClick={onClick} size="xs">
+        <Button onClick={onClickToggle} size="xs">
           toggle
         </Button>
       </Td>

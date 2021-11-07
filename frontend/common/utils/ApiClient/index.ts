@@ -5,4 +5,9 @@ export const apiClient = ky.extend({
   headers: {
     'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '',
   },
+  throwHttpErrors: false,
 })
+
+export type Errors = {
+  errors: JSON
+}

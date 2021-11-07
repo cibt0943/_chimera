@@ -1,7 +1,7 @@
 import { VFC } from 'react'
 import { User } from '@auth0/auth0-react'
 import { MoonIcon, SunIcon } from '@heroicons/react/solid'
-import { Image, useColorMode, IconButton } from '@chakra-ui/react'
+import { Box, Image, useColorMode, IconButton } from '@chakra-ui/react'
 
 type ProfileProps = {
   isAuthenticated: boolean
@@ -17,11 +17,11 @@ export const Profile: VFC<ProfileProps> = (props) => {
   }
 
   return (
-    <div>
+    <Box>
       <Image src={user.picture} alt={user.name} boxSize="150px" objectFit="cover" />
       <p>{user.name}</p>
       <p>{user.email}</p>
       <IconButton size="sm" aria-label="Toggle Color Mode" icon={colorMode === 'light' ? <MoonIcon /> : <SunIcon />} onClick={toggleColorMode} />
-    </div>
+    </Box>
   )
 }
