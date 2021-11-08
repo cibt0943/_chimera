@@ -26,10 +26,6 @@ export const Sidebar: VFC = () => {
             <MenuItem to="/func_a" text="func A" iconType="func_a" />
             <MenuItem to="/func_b" text="func B" iconType="func_b" />
           </nav>
-          <Box mt={7} />
-          <nav>
-            <MenuItem to="/trash" text="Trash" iconType="trash" />
-          </nav>
         </Box>
         <Box mb={3} textAlign="center">
           <MyselfMenu />
@@ -41,7 +37,7 @@ export const Sidebar: VFC = () => {
 
 type MenuItemProps = {
   text: string
-  iconType: 'task' | 'note' | 'filer' | 'func_a' | 'func_b' | 'trash'
+  iconType: 'task' | 'note' | 'filer' | 'func_a' | 'func_b'
   to: string
 }
 
@@ -51,14 +47,13 @@ const iconComponents = {
   filer: FolderIcon,
   func_a: ExclamationCircleIcon,
   func_b: ExclamationCircleIcon,
-  trash: TrashIcon,
 }
 
 const MenuItem: VFC<MenuItemProps> = (props) => {
   const IconComponent = iconComponents[props.iconType]
 
   return (
-    <RouterLink to={props.to} exact activeClassName="sidebar-menu-item-active">
+    <RouterLink to={props.to} end className={({ isActive }) => (isActive ? 'sidebar-menu-item-active' : '')}>
       <Flex p={3} alignItems="center" borderLeftRadius={20} className="sidebar-menu-item" transition="all 0.2s">
         <Box as="span" height={6} width={6}>
           <IconComponent />

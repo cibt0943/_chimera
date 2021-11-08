@@ -1,5 +1,5 @@
 import { VFC, ReactNode } from 'react'
-import { useHistory } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { Auth0Provider, AppState } from '@auth0/auth0-react'
 
 type Props = {
@@ -11,9 +11,9 @@ const AUTO0_CLIENT_ID = process.env.AUTO0_CLIENT_ID || ''
 const AUTH0_API_AUDIENCE = process.env.AUTH0_API_AUDIENCE || ''
 
 export const Auth0ProviderWithHistory: VFC<Props> = (props) => {
-  const history = useHistory()
+  const navigate = useNavigate()
   const onRedirectCallback = (appState: AppState) => {
-    history.push(appState?.returnTo || window.location.pathname)
+    navigate(appState?.returnTo || window.location.pathname)
   }
 
   return (

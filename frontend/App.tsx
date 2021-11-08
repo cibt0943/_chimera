@@ -1,14 +1,14 @@
 import { VFC } from 'react'
 import { SWRConfig } from 'swr'
 import { ChakraProvider } from '@chakra-ui/react'
-import { BrowserRouter, Route, Switch } from 'react-router-dom'
-import { ProtectedRoute } from 'common/utils/Route/ProtectedRoute'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { withAuthenticationRequired } from '@auth0/auth0-react'
 import { Auth0ProviderWithHistory } from 'common/utils/Auth'
 import { theme } from './theme'
 import 'common/assets/css/style'
 
 import { Home } from 'pages/home'
-import { TasksApp } from 'pages/tasks'
+import { Tasks } from 'pages/tasks'
 import { Notes } from 'pages/notes'
 import { Files } from 'pages/files'
 import { Settings } from 'pages/settings'
@@ -19,18 +19,23 @@ const swrOptions = {
   dedupingInterval: 0,
 }
 
+const ProtectedTasksApp = withAuthenticationRequired(Tasks)
+const ProtectedNotes = withAuthenticationRequired(Notes)
+const ProtectedFiles = withAuthenticationRequired(Files)
+const ProtectedSettings = withAuthenticationRequired(Settings)
+
 export const App: VFC = () => (
   <SWRConfig value={swrOptions}>
     <BrowserRouter>
       <Auth0ProviderWithHistory>
         <ChakraProvider theme={theme}>
-          <Switch>
-            <ProtectedRoute path="/tasks" component={TasksApp} />
-            <ProtectedRoute path="/notes" component={Notes} />
-            <ProtectedRoute path="/files" component={Files} />
-            <ProtectedRoute path="/settings/account" component={Settings} />
-            <Route component={Home} />
-          </Switch>
+          <Routes>
+            <Route path="/tasks" element={<ProtectedTasksApp />} />
+            <Route path="/notes" element={<ProtectedNotes />} />
+            <Route path="/files" element={<ProtectedFiles />} />
+            <Route path="/settings/account" element={<ProtectedSettings />} />
+            <Route path="*" element={<Home />} />
+          </Routes>
         </ChakraProvider>
       </Auth0ProviderWithHistory>
     </BrowserRouter>

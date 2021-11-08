@@ -9,7 +9,7 @@ import { TaskFormValues } from './components/TaskForm'
 import { TaskFilter } from './components/TaskFilter'
 import { TaskListContainer } from './containers/TaskList'
 
-export const TasksApp: VFC = () => {
+export const Tasks: VFC = () => {
   const { addFetcher } = useAddTask()
   const [visibilityFilter, setVisibilityFilter] = useState<VisibilityFilter>(VisibilityFilter.SHOW_ALL)
 
