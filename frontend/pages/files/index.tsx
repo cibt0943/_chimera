@@ -1,27 +1,27 @@
-import { VFC } from 'react'
-import { Heading, Box, ListItem, UnorderedList } from '@chakra-ui/react'
-import { Main as Layout } from 'common/components/templates/Main'
+import React from 'react'
+import { Box, Typography } from '@mui/material'
+import Layout from 'common/components/templates/Main'
 import { Header } from 'common/components/organisms/Header'
 
-export const Files: VFC = () => {
+export const Files: React.VFC = () => {
   return (
     <Layout>
       <Header>
-        <Heading as="h3" fontSize="2xl" pl={6}>
+        <Typography variant="h6" fontWeight="bold">
           File
-        </Heading>
+        </Typography>
       </Header>
-      <Box px={6} py={3}>
-        <Box mb={5} color="red.400" fontSize="xl">
+      <Box>
+        <Box mb={5} fontSize="xl">
           This feature is currently under development
         </Box>
         <Box>ローカルファイル用のファイラーを作りたい</Box>
-        <UnorderedList>
-          <ListItem>nexeかelectronでパッケージ化したexeを配布してここからは起動だけできるようにしたいな</ListItem>
-          <ListItem>例：Cloud Commander</ListItem>
-          <ListItem>unixコマンドでの操作と</ListItem>
-          <ListItem>windowのショートカット、クリックによる移動やdeleteキーによる削除などwindowsライクな操作の両方</ListItem>
-        </UnorderedList>
+        <ul>
+          <li>nexeかelectronでパッケージ化したexeを配布してここからは起動だけできるようにしたいな</li>
+          <li>例：Cloud Commander</li>
+          <li>unixコマンドでの操作と</li>
+          <li>windowのショートカット、クリックによる移動やdeleteキーによる削除などwindowsライクな操作の両方</li>
+        </ul>
       </Box>
     </Layout>
   )

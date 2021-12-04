@@ -1,6 +1,6 @@
-import { VFC } from 'react'
-import { Spinner } from '@chakra-ui/react'
+import React from 'react'
+import CircularProgress from '@mui/material/CircularProgress'
 
-export const LoadingDialog: VFC = () => {
-  return <Spinner />
+export const LoadingDialog: React.VFC = () => {
+  return <CircularProgress />
 }

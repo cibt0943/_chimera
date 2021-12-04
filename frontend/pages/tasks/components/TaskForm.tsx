@@ -1,7 +1,7 @@
-import { VFC } from 'react'
+import React from 'react'
 import { useForm, SubmitHandler } from 'react-hook-form'
-import { FormControl, FormLabel, FormErrorMessage } from '@chakra-ui/react'
-import { InputField } from 'common/components/atoms/InputField'
+import Box from '@mui/material/Box'
+import { TextField } from 'common/components/atoms/TextField'
 import { Task } from '../types'
 
 export type TaskFormValues = {
@@ -19,7 +19,7 @@ type TaskFormProps = {
   task?: Task
 }
 
-export const TaskForm: VFC<TaskFormProps> = (props) => {
+export const TaskForm: React.VFC<TaskFormProps> = (props) => {
   const { onSubmit, onClose, task } = props
 
   const {
@@ -42,12 +42,8 @@ export const TaskForm: VFC<TaskFormProps> = (props) => {
   }
 
   return (
-    <form id="addTask" onSubmit={handleSubmit(onSubmitHandler)}>
-      <FormControl id="task_title" isRequired isInvalid={!!errors.title}>
-        <FormLabel>タスク名</FormLabel>
-        <InputField register={register('title')} />
-        <FormErrorMessage>{errors.title?.message}</FormErrorMessage>
-      </FormControl>
-    </form>
+    <Box component="form" id="addTask" onSubmit={handleSubmit(onSubmitHandler)}>
+      <TextField id="task_title" label="タスク名" required variant="outlined" register={register('title')} error={Boolean(errors.title)} helperText={errors.title?.message} />
+    </Box>
   )
 }

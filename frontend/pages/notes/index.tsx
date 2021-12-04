@@ -1,30 +1,30 @@
-import { VFC } from 'react'
-import { Heading, Box, ListItem, UnorderedList } from '@chakra-ui/react'
-import { Main as Layout } from 'common/components/templates/Main'
+import React from 'react'
+import { Box, Typography } from '@mui/material'
+import Layout from 'common/components/templates/Main'
 import { Header } from 'common/components/organisms/Header'
 
-export const Notes: VFC = () => {
+export const Notes: React.VFC = () => {
   return (
     <Layout>
       <Header>
-        <Heading as="h3" fontSize="2xl" pl={6}>
+        <Typography variant="h6" fontWeight="bold">
           Note
-        </Heading>
+        </Typography>
       </Header>
-      <Box px={6} py={3}>
-        <Box mb={5} color="red.400" fontSize="xl">
+      <Box>
+        <Box mb={5} fontSize="xl">
           This feature is currently under development
         </Box>
         <Box>さっと書けるメモ帳</Box>
-        <UnorderedList>
-          <ListItem>Taskとデータを共有</ListItem>
-          <ListItem>リアルタイムにlocal strageへ保存</ListItem>
-          <ListItem>File System Access APIを利用して実ファイルとして保存</ListItem>
-          <ListItem>階層構造を持ったタブによるフィルタリング</ListItem>
-          <ListItem>日付等によるソート</ListItem>
-          <ListItem>1行目がタイトル</ListItem>
-          <ListItem>タイトルなくても良い</ListItem>
-        </UnorderedList>
+        <ul>
+          <li>Taskとデータを共有</li>
+          <li>リアルタイムにlocal strageへ保存</li>
+          <li>File System Access APIを利用して実ファイルとして保存</li>
+          <li>階層構造を持ったタブによるフィルタリング</li>
+          <li>日付等によるソート</li>
+          <li>1行目がタイトル</li>
+          <li>タイトルなくても良い</li>
+        </ul>
       </Box>
     </Layout>
   )

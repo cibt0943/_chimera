@@ -1,6 +1,6 @@
 import useSWR, { useSWRConfig } from 'swr'
 import { TaskFormValues } from '../components/TaskForm'
-import { useAuthReqestHeaders } from 'common/utils/hooks/useAuthFetch'
+import { useAuthReqestHeaders } from 'common/hooks/useAuthFetch'
 import { apiClient, Errors } from 'common/utils/ApiClient'
 import { Tasks, Task } from '../types'
 

@@ -1,13 +1,13 @@
-import { VFC, ReactNode } from 'react'
-import { Box } from '@chakra-ui/react'
+import React from 'react'
+import Box from '@mui/material/Box'
 
 type HeaderProps = {
-  children: ReactNode
+  children: React.ReactNode
 }
 
-export const Header: VFC<HeaderProps> = (props) => {
+export const Header: React.VFC<HeaderProps> = (props) => {
   return (
-    <Box display="flex" alignItems="center" height={14}>
+    <Box display="flex" alignItems="center" height="3.5rem" pl="1rem">
       {props.children}
     </Box>
   )

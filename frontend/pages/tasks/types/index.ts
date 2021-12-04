@@ -1,13 +1,19 @@
 export const VisibilityFilter = {
   SHOW_ALL: 'SHOW_ALL',
-  SHOW_ACTIVE: 'SHOW_ACTIVE',
-  SHOW_COMPLETED: 'SHOW_COMPLETED',
+  SHOW_NEW: 'SHOW_NEW',
+  SHOW_DONE: 'SHOW_DONE',
+  SHOW_DOING: 'SHOW_DOING',
+  SHOW_CANCELED: 'SHOW_CANCELED',
+  SHOW_PENDING: 'SHOW_PENDING',
 } as const
 export type VisibilityFilter = typeof VisibilityFilter[keyof typeof VisibilityFilter]
 
 export const TaskStatus = {
-  ACTIVE: 0,
-  COMPLETED: 1,
+  NEW: 0,
+  DONE: 1,
+  DOING: 2,
+  CANCELED: 3,
+  PENDING: 4,
 } as const
 export type TaskStatus = typeof TaskStatus[keyof typeof TaskStatus]
 

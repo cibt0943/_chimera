@@ -3,7 +3,7 @@
 # Table name: tasks
 #
 #  id         :bigint           not null, primary key
-#  status     :integer          default("active"), not null
+#  status     :integer          default("new"), not null
 #  title      :string(255)      not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null

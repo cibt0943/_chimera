@@ -1,28 +1,26 @@
-import { VFC } from 'react'
-import { Stack } from '@chakra-ui/react'
+import React from 'react'
 import { VisibilityFilter } from '../types'
-import { RadioButtonGroup } from 'common/components/molecules/RadioButtonGroup'
-import { RadioButton } from 'common/components/molecules/RadioButton'
+import { ToggleButtonGroup } from 'common/components/molecules/ToggleButtonGroup'
+import { ToggleButton } from 'common/components/molecules/ToggleButton'
 
 type TaskFilterProps = {
   visibilityFilter: VisibilityFilter
   toggleFilter: (filter: VisibilityFilter) => void
 }
 
-export const TaskFilter: VFC<TaskFilterProps> = (props) => {
+export const TaskFilter: React.VFC<TaskFilterProps> = (props) => {
   const { visibilityFilter, toggleFilter } = props
 
-  const handleChange = (filter: VisibilityFilter) => {
+  const handleChange = (event: React.MouseEvent<HTMLElement>, filter: VisibilityFilter) => {
     toggleFilter(filter)
   }
 
   return (
-    <RadioButtonGroup value={visibilityFilter} onChange={handleChange}>
-      <Stack spacing={4} direction="row">
-        <RadioButton value={VisibilityFilter.SHOW_ALL}>All</RadioButton>
-        <RadioButton value={VisibilityFilter.SHOW_ACTIVE}>Active</RadioButton>
-        <RadioButton value={VisibilityFilter.SHOW_COMPLETED}>Completed</RadioButton>
-      </Stack>
-    </RadioButtonGroup>
+    <ToggleButtonGroup value={visibilityFilter} exclusive size="small" onChange={handleChange}>
+      <ToggleButton value={VisibilityFilter.SHOW_ALL}>All</ToggleButton>
+      <ToggleButton value={VisibilityFilter.SHOW_NEW}>New</ToggleButton>
+      <ToggleButton value={VisibilityFilter.SHOW_DOING}>Doing</ToggleButton>
+      <ToggleButton value={VisibilityFilter.SHOW_DONE}>Done</ToggleButton>
+    </ToggleButtonGroup>
   )
 }

@@ -1,33 +1,30 @@
-import { VFC } from 'react'
+import React from 'react'
 import { NavLink as RouterLink } from 'react-router-dom'
-import { ClipboardCheckIcon, DocumentTextIcon, FolderIcon, ExclamationCircleIcon, TrashIcon } from '@heroicons/react/outline'
-import { Heading, Box, useColorModeValue, Flex } from '@chakra-ui/react'
+import { HiOutlineClipboardCheck, HiOutlineDocumentText, HiOutlineFolder, HiOutlineExclamationCircle } from 'react-icons/hi'
+import { Box, Typography, List, ListItem, ListItemButton, ListItemIcon, ListItemText } from '@mui/material'
+import { useThemeUtil } from 'common/hooks/useThemeUtil'
 import { MyselfMenu } from 'common/components/organisms/MyselfMenu'
-import './style'
 
-export const Sidebar: VFC = () => {
-  const bgColor = useColorModeValue('gray.800', 'black')
-  const color = useColorModeValue('white', 'white')
-  const menuItemColor = useColorModeValue('gray.400', 'gray.400')
+export const Sidebar: React.VFC = () => {
+  const { palette, modeValue } = useThemeUtil()
+  const bgColor = modeValue(palette.grey[800], 'black')
 
   return (
-    <Box bgColor={bgColor} display="flex" flexDirection="column" minHeight="full">
-      <Box bgColor={bgColor} color={color} height={14} display="flex" alignItems="center" justifyContent="center" position="sticky" top="0">
-        <Heading as="h2" fontSize={28}>
+    <Box bgcolor={bgColor} minHeight="100%" display="flex" flexDirection="column">
+      <Box bgcolor={bgColor} color="white" height="3.5rem" display="flex" alignItems="center" justifyContent="center" position="sticky" top="0" zIndex="1">
+        <Typography variant="h6" fontWeight="bold">
           Kobushi
-        </Heading>
+        </Typography>
       </Box>
-      <Box display="flex" flexDirection="column" flex="1">
-        <Box color={menuItemColor} flexGrow={1} pl={8}>
-          <nav>
-            <MenuItem to="/tasks" text="Task" iconType="task" />
-            <MenuItem to="/notes" text="Note" iconType="note" />
-            <MenuItem to="/files" text="Filer" iconType="filer" />
-            <MenuItem to="/func_a" text="func A" iconType="func_a" />
-            <MenuItem to="/func_b" text="func B" iconType="func_b" />
-          </nav>
-        </Box>
-        <Box mb={3} textAlign="center">
+      <Box ml="20px" display="flex" flexDirection="column" flex="1">
+        <List sx={{ flexGrow: 1 }}>
+          <MenuItem to="/tasks" text="Task" iconType="task" />
+          <MenuItem to="/notes" text="Note" iconType="note" />
+          <MenuItem to="/files" text="Filer" iconType="filer" />
+          <MenuItem to="/func_a" text="func A" iconType="func_a" />
+          <MenuItem to="/func_b" text="func B" iconType="func_b" />
+        </List>
+        <Box mb="20px" textAlign="center">
           <MyselfMenu />
         </Box>
       </Box>
@@ -42,26 +39,46 @@ type MenuItemProps = {
 }
 
 const iconComponents = {
-  task: ClipboardCheckIcon,
-  note: DocumentTextIcon,
-  filer: FolderIcon,
-  func_a: ExclamationCircleIcon,
-  func_b: ExclamationCircleIcon,
+  task: HiOutlineClipboardCheck,
+  note: HiOutlineDocumentText,
+  filer: HiOutlineFolder,
+  func_a: HiOutlineExclamationCircle,
+  func_b: HiOutlineExclamationCircle,
 }
 
-const MenuItem: VFC<MenuItemProps> = (props) => {
+const MenuItem: React.VFC<MenuItemProps> = (props) => {
   const IconComponent = iconComponents[props.iconType]
 
+  // <Box display="flex" p="0.75rem" alignItems="center" borderRadius="20px 0 0 20px" className="sidebar-menu-item" transition="all 0.2s">
+  // const className = useMatch(props.to) ? 'sidebar-menu-item-active' : ''
+
+  const { palette, modeValue } = useThemeUtil()
+  const baseColor = modeValue(palette.grey[400], palette.grey[400])
+  const activeColor = modeValue('black', 'white')
+  const bgColor = modeValue('white', palette.grey[700])
+
   return (
-    <RouterLink to={props.to} end className={({ isActive }) => (isActive ? 'sidebar-menu-item-active' : '')}>
-      <Flex p={3} alignItems="center" borderLeftRadius={20} className="sidebar-menu-item" transition="all 0.2s">
-        <Box as="span" height={6} width={6}>
-          <IconComponent />
-        </Box>
-        <Box as="span" ml={2} fontWeight="medium">
-          {props.text}
-        </Box>
-      </Flex>
-    </RouterLink>
+    <ListItem disablePadding>
+      <ListItemButton
+        component={RouterLink}
+        to={props.to}
+        sx={{
+          borderRadius: '20px 0 0 20px',
+          color: baseColor,
+          '&:hover': {
+            color: 'white',
+          },
+          '&.active': {
+            color: activeColor,
+            backgroundColor: bgColor,
+          },
+        }}
+      >
+        <ListItemIcon sx={{ minWidth: '36px', color: 'inherit' }}>
+          <IconComponent size="1.5rem" />
+        </ListItemIcon>
+        <ListItemText>{props.text}</ListItemText>
+      </ListItemButton>
+    </ListItem>
   )
 }

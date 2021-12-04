@@ -1,7 +1,7 @@
-import { VFC } from 'react'
-import { Box, useDisclosure, ModalBody, ModalCloseButton, ModalFooter } from '@chakra-ui/react'
+import React from 'react'
+import { Box } from '@mui/material'
 import { Button } from 'common/components/atoms/Button'
-import { Modal, ModalTitle } from 'common/components/molecules/Modal'
+import { Dialog } from 'common/components/molecules/Dialog'
 import { Task } from '../types'
 import { TaskForm, TaskFormValues } from './TaskForm'
 
@@ -9,28 +9,28 @@ type AddTaskProps = {
   addTask: (data: TaskFormValues) => Promise<Task>
 }
 
-export const AddTask: VFC<AddTaskProps> = (props) => {
+export const AddTask: React.VFC<AddTaskProps> = (props) => {
   const { addTask } = props
 
-  const { isOpen, onOpen, onClose } = useDisclosure()
+  const [open, setOpen] = React.useState(false)
+
+  const handleClickOpen = () => {
+    setOpen(true)
+  }
+
+  const handleClose = () => {
+    setOpen(false)
+  }
 
   return (
     <Box>
-      <Button onClick={onOpen} size="sm">
-        タスクを追加
-      </Button>
-      <Modal isOpen={isOpen} onClose={onClose} isCentered>
-        <ModalTitle>タスクを追加</ModalTitle>
-        <ModalCloseButton />
-        <ModalBody>
-          <TaskForm onSubmit={addTask} onClose={onClose} />
-        </ModalBody>
-        <ModalFooter>
-          <Button type="submit" form="addTask">
-            追加する
-          </Button>
-        </ModalFooter>
-      </Modal>
+      <Button onClick={handleClickOpen}>タスクを追加</Button>
+      <Dialog open={open} onClose={handleClose}>
+        <TaskForm onSubmit={addTask} onClose={handleClose} />
+        <Button type="submit" form="addTask">
+          追加する
+        </Button>
+      </Dialog>
     </Box>
   )
 }

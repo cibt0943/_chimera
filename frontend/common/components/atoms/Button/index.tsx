@@ -1,12 +1,12 @@
-import { VFC } from 'react'
-import { Button as ChakraButton, ButtonProps } from '@chakra-ui/react'
+import React from 'react'
+import { Button as MUIButton, ButtonProps } from '@mui/material'
 
-export const Button: VFC<ButtonProps> = (props) => {
-  const { children, colorScheme = 'blue', ...buttonProps } = props
+export const Button: React.VFC<ButtonProps> = (props) => {
+  const { children, variant = 'contained', ...buttonProps } = props
 
   return (
-    <ChakraButton colorScheme={colorScheme} {...buttonProps}>
+    <MUIButton variant={variant} {...buttonProps}>
       {children}
-    </ChakraButton>
+    </MUIButton>
   )
 }

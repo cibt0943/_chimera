@@ -1,33 +1,49 @@
-import { VFC, MouseEvent } from 'react'
+import React from 'react'
 import { NavLink as RouterLink } from 'react-router-dom'
 import { useAuth0 } from '@auth0/auth0-react'
-import { Menu, MenuButton, MenuList, MenuItem, Avatar, Box } from '@chakra-ui/react'
+import { HiOutlineCog, HiLogout } from 'react-icons/hi'
+import { Box, IconButton, Avatar, Menu, MenuItem, ListItemIcon } from '@mui/material'
 
-export const MyselfMenu: VFC = () => {
+export const MyselfMenu: React.VFC = () => {
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
   const { isAuthenticated, user, logout } = useAuth0()
 
   if (!isAuthenticated) return null
 
-  const handleOnClickLogout = (event: MouseEvent<HTMLElement>) => {
+  const open = Boolean(anchorEl)
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setAnchorEl(event.currentTarget)
+  }
+  const handleClose = () => {
+    setAnchorEl(null)
+  }
+
+  const handleOnClickLogout = (event: React.MouseEvent<HTMLElement>) => {
     event?.preventDefault()
     logout({ returnTo: window.location.origin })
   }
 
   return (
-    <Menu>
-      <MenuButton>
-        <Avatar name={user?.name} src={user?.picture} />
-      </MenuButton>
-      <MenuList>
-        <MenuItem>
-          <Avatar size="sm" name={user?.name} src={user?.picture} />
-          <Box ml={2}>{user?.name}</Box>
+    <>
+      <Box>
+        <IconButton onClick={handleClick}>
+          <Avatar alt={user?.name} src={user?.picture} sx={{ width: '3rem', height: '3rem' }} />
+        </IconButton>
+      </Box>
+      <Menu anchorEl={anchorEl} open={open} onClose={handleClose} onClick={handleClose}>
+        <MenuItem component={RouterLink} to="/settings/account">
+          <ListItemIcon>
+            <HiOutlineCog />
+          </ListItemIcon>
+          Settings
         </MenuItem>
-        <MenuItem>
-          <RouterLink to="/settings/account">Account Settings</RouterLink>
+        <MenuItem onClick={handleOnClickLogout}>
+          <ListItemIcon>
+            <HiLogout />
+          </ListItemIcon>
+          Logout
         </MenuItem>
-        <MenuItem onClick={handleOnClickLogout}>Log out</MenuItem>
-      </MenuList>
-    </Menu>
+      </Menu>
+    </>
   )
 }

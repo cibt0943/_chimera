@@ -1,4 +1,4 @@
-import { VFC } from 'react'
+import React from 'react'
 import { Tasks, Task, TaskStatus, VisibilityFilter } from '../types'
 import { useGetTasks, useUpdateTask } from '../hooks/useFetchTasks'
 import { TaskList, TaskListPlaceholder } from '../components/TaskList'
@@ -7,7 +7,7 @@ type TaskListProps = {
   visibilityFilter: VisibilityFilter
 }
 
-export const TaskListContainer: VFC<TaskListProps> = (props) => {
+export const TaskListContainer: React.VFC<TaskListProps> = (props) => {
   const { visibilityFilter } = props
 
   const { data: tasks } = useGetTasks()
@@ -22,10 +22,12 @@ export const TaskListContainer: VFC<TaskListProps> = (props) => {
     switch (visibilityFilter) {
       case VisibilityFilter.SHOW_ALL:
         return tasks
-      case VisibilityFilter.SHOW_ACTIVE:
-        return tasks.filter((e) => e.status === TaskStatus.ACTIVE)
-      case VisibilityFilter.SHOW_COMPLETED:
-        return tasks.filter((e) => e.status === TaskStatus.COMPLETED)
+      case VisibilityFilter.SHOW_NEW:
+        return tasks.filter((e) => e.status === TaskStatus.NEW)
+      case VisibilityFilter.SHOW_DONE:
+        return tasks.filter((e) => e.status === TaskStatus.DONE)
+      case VisibilityFilter.SHOW_DOING:
+        return tasks.filter((e) => e.status === TaskStatus.DOING)
       default:
         throw new Error('Unknown filter.')
     }
@@ -33,12 +35,12 @@ export const TaskListContainer: VFC<TaskListProps> = (props) => {
 
   const toggleTaskStatus = (statsu: TaskStatus) => {
     switch (statsu) {
-      case TaskStatus.ACTIVE:
-        return TaskStatus.COMPLETED
-      case TaskStatus.COMPLETED:
-        return TaskStatus.ACTIVE
+      case TaskStatus.NEW:
+        return TaskStatus.DONE
+      case TaskStatus.DONE:
+        return TaskStatus.NEW
       default:
-        throw TaskStatus.ACTIVE
+        throw TaskStatus.NEW
     }
   }
 
