@@ -1,11 +1,3 @@
-app_dir = '/var/www/rails_app/chimera'
-puma_dir = '/var/run/puma/chimera'
-
-directory app_dir
-pidfile "#{puma_dir}/puma.pid"
-state_path "#{puma_dir}/puma.state"
-bind "unix:#{puma_dir}/puma.sock"
-
 # Puma can serve each request in a thread from an internal thread pool.
 # The `threads` method setting takes two numbers: a minimum and maximum.
 # Any libraries that use thread pools should be configured to match
@@ -18,7 +10,9 @@ threads min_threads_count, max_threads_count
 
 # Specifies the `port` that Puma will listen on to receive requests; default is 3000.
 #
-port        ENV.fetch('PORT', 3000)
+# port ENV.fetch('PORT', 3000)
+bind "unix://#{Rails.root}/tmp/sockets/puma.sock"
+
 
 # Specifies the `environment` that Puma will run in.
 #
