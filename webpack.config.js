@@ -141,10 +141,10 @@ module.exports = (env, argv) => {
         // publicPath: プロダクトにて実際にJSへアクセスする際のパスと同様になるように指定
         publicPath: `/${process.env.ASSET_DIR}/`,
       },
-      https: {
-        key: '/etc/nginx/ssl/server.key',
-        cert: '/etc/nginx/ssl/server.crt',
-      },
+      // https: {
+      //   key: '/etc/nginx/ssl/server.key',
+      //   cert: '/etc/nginx/ssl/server.crt',
+      // },
       host: process.env.ASSET_HOST,
       // port: ポート番号。未指定の場合は8080が初期値になる。
       port: process.env.ASSET_PORT,

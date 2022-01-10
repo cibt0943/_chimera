@@ -33,12 +33,12 @@ const columns: GridColumns = [
       return result
     },
   },
-  {
-    field: 'actions',
-    type: 'actions',
-    width: 80,
-    getActions: (params: GridRowParams) => [<GridActionsCellItem icon={<BiCircle />} label="Delete" onClick={deleteTask(params.id)} />],
-  },
+  // {
+  //   field: 'actions',
+  //   type: 'actions',
+  //   width: 80,
+  //   getActions: (params: GridRowParams) => [<GridActionsCellItem icon={<BiCircle />} label="Delete" onClick={deleteTask(params.id)} />],
+  // },
 ]
 
 export const TaskList: React.VFC<TaskListProps> = (props) => {

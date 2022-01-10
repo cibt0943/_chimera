@@ -12,7 +12,7 @@
 
 ActiveRecord::Schema.define(version: 2020_10_11_142605) do
 
-  create_table "tasks", charset: "utf8", force: :cascade do |t|
+  create_table "tasks", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "title", null: false
     t.integer "status", limit: 1, default: 0, null: false
     t.datetime "created_at", precision: 6, null: false

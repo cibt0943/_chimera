@@ -1,11 +1,11 @@
 FROM nginx
 
-ENV RAILS_ROOT /app
-ENV NGINX_SERVER_NAME aaa
-WORKDIR $RAILS_ROOT
+ARG NGINX_SERVER_NAME
 
 RUN apt update && \
-    apt upgrade
+    apt upgrade && \
+    # 運用のために入れとく
+    apt -y install vim
 
 # SSL証明書作成
 RUN mkdir /etc/nginx/ssl && \
@@ -14,9 +14,4 @@ RUN mkdir /etc/nginx/ssl && \
     sh -c 'openssl x509 -req -days 3650 -signkey /etc/nginx/ssl/server.key < /etc/nginx/ssl/server.csr > /etc/nginx/ssl/server.crt'
 
 # nginxのdefault.confファイルを作成
-COPY ./docker/web/tpl/nginx.conf /tmp/docker.nginx
-RUN envsubst '$NGINX_SERVER_NAME' < /tmp/docker.nginx > /etc/nginx/conf.d/default.conf
-
-RUN mkdir log
-
-CMD ["nginx", "-g", "daemon off;"]
+COPY ./docker/web/tpl/nginx.conf /etc/nginx/conf.d/default.conf
