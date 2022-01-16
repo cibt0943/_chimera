@@ -105,5 +105,6 @@ Rails.application.configure do
   # config.active_record.database_resolver_context = ActiveRecord::Middleware::DatabaseSelector::Resolver::Session
 
   # assetの配信元
-  config.asset_host = "//#{ENV['ASSET_HOST']}"
+  port = ENV['ASSET_PORT'] ? ":#{ENV['ASSET_PORT']}" : ''
+  config.asset_host = "//#{ENV['ASSET_HOST']}#{port}"
 end

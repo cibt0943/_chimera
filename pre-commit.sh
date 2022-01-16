@@ -1,4 +1,4 @@
-#!/bin/bash
+# #!/bin/bash
 
 # if [ -e /vagrant ]; then
 #   yarn lint-staged

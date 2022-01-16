@@ -7,26 +7,26 @@
     "build:development": "webpack --mode=development --progress",
     "build:production": "webpack --mode=production --progress",
     "fix": "npm run -s format && npm run -s lint:fix",
-    "format": "prettier --write --loglevel=warn './frontend/**/*.{js,jsx,ts,tsx,json}'",
+    "format": "prettier --write --loglevel=warn './src/**/*.{js,jsx,ts,tsx,json}'",
     "lint": "npm run -s lint:style && npm run -s lint:es",
     "lint:fix": "npm run -s lint:style:fix && npm run -s lint:es:fix",
-    "lint:es": "eslint './frontend/**/*.{js,jsx,ts,tsx}'",
-    "lint:es:fix": "eslint --fix './frontend/**/*.{js,jsx,ts,tsx}'",
-    "lint:style": "stylelint './frontend/**/*.{css,scss}'",
-    "lint:style:fix": "stylelint --fix './frontend/**/*.{css,scss}'",
+    "lint:es": "eslint './src/**/*.{js,jsx,ts,tsx}'",
+    "lint:es:fix": "eslint --fix './src/**/*.{js,jsx,ts,tsx}'",
+    "lint:style": "stylelint './src/**/*.{css,scss}'",
+    "lint:style:fix": "stylelint --fix './src/**/*.{css,scss}'",
     "postinstall": "typesync || :",
     "prepare": "simple-git-hooks > /dev/null",
-    "build:tailwind": "NODE_ENV=production tailwind build -i ./frontend/assets/css/style.scss -o ./frontend/assets/css/tailwind.scss"
+    "build:tailwind": "NODE_ENV=production tailwind build -i ./src/assets/css/style.scss -o ./src/assets/css/tailwind.scss"
   },
   "simple-git-hooks": {
     "pre-commit": "./pre-commit.sh"
   },
   "lint-staged": {
-    "frontend/**/*.{ts,tsx}": [
+    "src/**/*.{ts,tsx}": [
       "prettier --loglevel=warn",
       "eslint"
     ],
-    "frontend/**/*.{css,scss}": [
+    "src/**/*.{css,scss}": [
       "stylelint"
     ],
     "*.{rb,rake}": [
@@ -69,7 +69,6 @@
     "autoprefixer": "^10.4.0",
     "css-loader": "^6.5.1",
     "css-minimizer-webpack-plugin": "^3.1.2",
-    "dotenv": "^10.0.0",
     "eslint": "^8.2.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-import": "^2.25.2",

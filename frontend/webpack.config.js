@@ -1,6 +1,5 @@
 const webpack = require('webpack')
 const path = require('path')
-const dotenv = require('dotenv')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
 const TerserPlugin = require('terser-webpack-plugin')
@@ -10,19 +9,17 @@ const { WebpackManifestPlugin } = require('webpack-manifest-plugin')
 module.exports = (env, argv) => {
   const isDevelopment = argv.mode === 'development'
 
-  const dotenvParseOutput = dotenv.config().parsed
-
   return {
-    entry: './frontend/index.tsx',
+    entry: './src/index.tsx',
     output: {
-      path: path.resolve(__dirname, process.env.ASSET_ROOT, process.env.ASSET_DIR),
+      path: path.resolve(__dirname, process.env.ASSET_DIR),
       filename: '[name]-[contenthash].js',
     },
 
     devtool: isDevelopment ? 'eval-source-map' : false,
 
     resolve: {
-      modules: ['node_modules', path.resolve(__dirname, 'frontend')],
+      modules: ['node_modules', path.resolve(__dirname, 'src')],
       extensions: ['.ts', '.tsx', '.js', '.jsx', '.scss', '.css'],
     },
 
@@ -117,13 +114,12 @@ module.exports = (env, argv) => {
 
     plugins: [
       new webpack.DefinePlugin({
-        'process.env': JSON.stringify(dotenvParseOutput),
+        'process.env': JSON.stringify(process.env),
       }),
       new MiniCssExtractPlugin({
         filename: '[name]-[contenthash].css',
       }),
       new WebpackManifestPlugin({
-        // fileName: 'manifest.json',
         // publicPath: プロダクトにて実際にJSへアクセスする際のパスと同様になるように指定
         publicPath: `/${process.env.ASSET_DIR}/`,
         writeToFileEmit: true,
@@ -135,7 +131,7 @@ module.exports = (env, argv) => {
     devServer: {
       static: {
         // directory: 公開するリソースのルートディレクトリ。未指定の場合はカレントディレクトリが起点になる。
-        directory: path.resolve(__dirname, process.env.ASSET_ROOT, process.env.ASSET_DIR),
+        directory: path.resolve(__dirname, process.env.ASSET_DIR),
       },
       devMiddleware: {
         // publicPath: プロダクトにて実際にJSへアクセスする際のパスと同様になるように指定
@@ -152,7 +148,7 @@ module.exports = (env, argv) => {
       // inline: true,
       // hot: Hot Module Replacement(HMR)を有効にします。true or falseで指定。未指定の場合はtrue。
       // hot: true,
-      // allowedHosts: 'all',
+      allowedHosts: 'all',
       headers: {
         'Access-Control-Allow-Origin': '*',
       },
@@ -161,7 +157,6 @@ module.exports = (env, argv) => {
     },
     // vagrantだとファイルシステムの違いから変更を検知できないらしいのでポーリングする
     watchOptions: {
-      poll: true,
       ignored: /node_modules/,
     },
   }
