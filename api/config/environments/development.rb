@@ -61,4 +61,13 @@ Rails.application.configure do
   # assetの配信元
   port = ENV['ASSET_PORT'] ? ":#{ENV['ASSET_PORT']}" : ''
   config.asset_host = "//#{ENV['ASSET_HOST']}#{port}"
+
+  # 標準出力とログファイルの両方に出力
+  std_logger = ActiveSupport::Logger.new(STDOUT)
+  logger = ActiveSupport::Logger.new("log/#{Rails.env}.log")
+  logger.formatter = ::Logger::Formatter.new
+  logger.extend(ActiveSupport::Logger.broadcast(std_logger))
+  config.logger = logger
+  # 標準出力のみ
+  # config.logger = ActiveSupport::TaggedLogging.new(Logger.new(STDOUT))
 end

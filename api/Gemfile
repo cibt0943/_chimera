@@ -31,7 +31,7 @@ gem "net-smtp", require: false
 gem 'slim-rails'
 
 # Session Store
-gem 'redis-rails'
+# gem 'redis-rails'
 
 # Json Serializer
 gem 'active_model_serializers'
@@ -47,14 +47,9 @@ gem 'jwt'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug', platforms: %i[mri mingw x64_mingw]
+  gem 'debug', platforms: %i[mri mingw x64_mingw]
 
   ## Add Gem ##
-
-  # デバッガ
-  gem 'pry-byebug'
-  gem 'pry-doc'
-  gem 'pry-rails'
 
   # N+1問題検出
   gem 'bullet'

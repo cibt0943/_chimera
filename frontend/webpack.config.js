@@ -149,9 +149,9 @@ module.exports = (env, argv) => {
       // hot: Hot Module Replacement(HMR)を有効にします。true or falseで指定。未指定の場合はtrue。
       // hot: true,
       allowedHosts: 'all',
-      headers: {
-        'Access-Control-Allow-Origin': '*',
-      },
+      // headers: {
+      //   'Access-Control-Allow-Origin': '*',
+      // },
       // gzip圧縮を行うか否か
       compress: true,
     },

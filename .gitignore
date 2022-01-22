@@ -5,36 +5,36 @@
 #   git config --global core.excludesfile '~/.gitignore_global'
 
 # Ignore bundler config.
-/api/.bundle
-/api/vendor/bundle
+api/.bundle
+api/vendor/bundle
 
 # Ignore all logfiles and tempfiles.
-/api/log/*
-/api/tmp/*
-!/api/log/.keep
-!/api/tmp/.keep
+api/log/*
+api/tmp/*
+!api/log/.keep
+!api/tmp/.keep
 
 # Ignore uploaded files in development
-/api/storage/*
-!/api/storage/.keep
+api/storage/*
+!api/storage/.keep
 
 # Ignore master key for decrypting credentials and more.
-/api/config/master.key
+api/config/master.key
 
 
-/frontend/node_modules
-/frontend/yarn-error.log
+frontend/node_modules
+frontend/yarn-error.log
 
-/frontend/dist
+frontend/assets
 
 
 # Ignore env setting
-/.env
-/.env.*
+.env
+.env.*
 
 
 # Ignore storybook output directory
-/storybook-static
+storybook-static
 
 # VSCode
 *.code-workspace

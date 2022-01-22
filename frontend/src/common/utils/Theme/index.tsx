@@ -31,8 +31,8 @@ export const AppThemeProvider: React.VFC<AppThemeProviderProps> = (props) => {
             A700: '#2D3748',
           },
           background: {
-            default: mode === 'light' ? 'white' : '#2D3748',
-            paper: mode === 'light' ? 'white' : '#2D3748',
+            default: mode === 'light' ? '#FFF' : '#2D3748',
+            paper: mode === 'light' ? '#FFF' : '#2D3748',
           },
         },
         components: {

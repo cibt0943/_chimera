@@ -47,6 +47,7 @@ services:
         bundle install
         bundle exec puma -C config/puma.rb"
     env_file: .env
+    tty: true
   web:
     container_name: chimera-web
     build:
@@ -55,5 +56,6 @@ services:
       - 80:80
     depends_on:
       - api
+    tty: true
 volumes:
   mysql_data:
