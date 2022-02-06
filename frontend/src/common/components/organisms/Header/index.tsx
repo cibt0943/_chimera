@@ -1,5 +1,5 @@
 import React from 'react'
-import Box from '@mui/material/Box'
+import { Box } from '@mui/material'
 
 type HeaderProps = {
   children: React.ReactNode

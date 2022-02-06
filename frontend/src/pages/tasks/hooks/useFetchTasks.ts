@@ -59,5 +59,21 @@ export const useUpdateTask = () => {
     return updatedTask
   }
 
-  return { updateFetcher }
+  const deleteFetcher = async (task: Task) => {
+    // データ削除
+    const authReqestHeaders = await getAuthReqestHeaders()
+    const kyOptions = { ...authReqestHeaders }
+    const res = await apiClient.delete(`tasks/${task.id}`, kyOptions)
+    if (!res.ok) throw ((await res.json()) as Errors).errors
+
+    // レスポンスデータでローカルを削除
+    const updateCache = (tasks: Tasks) => {
+      return tasks.filter((e) => e.id !== task.id)
+    }
+    await mutate('tasks', updateCache, false)
+
+    return true
+  }
+
+  return { updateFetcher, deleteFetcher }
 }

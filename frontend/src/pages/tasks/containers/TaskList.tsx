@@ -11,7 +11,7 @@ export const TaskListContainer: React.VFC<TaskListProps> = (props) => {
   const { visibilityFilter } = props
 
   const { data: tasks } = useGetTasks()
-  const { updateFetcher } = useUpdateTask()
+  const { updateFetcher, deleteFetcher } = useUpdateTask()
 
   // apiアクセス
   if (!tasks) {
@@ -44,14 +44,19 @@ export const TaskListContainer: React.VFC<TaskListProps> = (props) => {
     }
   }
 
-  const updateTaskStatus = async (task: Task) => {
+  const updateTaskStatus = (task: Task) => {
     const nextTask = { ...task, status: toggleTaskStatus(task.status) }
-    return await updateFetcher(nextTask)
+    return updateFetcher(nextTask)
+  }
+
+  const deleteTask = (task: Task) => {
+    return deleteFetcher(task)
   }
 
   const taskListProps = {
     tasks: taskStatusFilter(tasks),
     updateTaskStatus,
+    deleteTask,
   }
 
   return <TaskList {...taskListProps} />

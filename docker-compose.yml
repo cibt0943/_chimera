@@ -27,6 +27,7 @@ services:
         yarn install
         yarn start"
     env_file: .env
+    tty: true
   api:
     container_name: chimera-api
     build:
@@ -47,6 +48,7 @@ services:
         bundle install
         bundle exec puma -C config/puma.rb"
     env_file: .env
+    stdin_open: true
     tty: true
   web:
     container_name: chimera-web

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box } from '@mui/material'
+import { Box, DialogActions, DialogContent, DialogTitle } from '@mui/material'
 import { Button } from 'common/components/atoms/Button'
 import { Dialog } from 'common/components/molecules/Dialog'
 import { Task } from '../types'
@@ -26,10 +26,15 @@ export const AddTask: React.VFC<AddTaskProps> = (props) => {
     <Box>
       <Button onClick={handleClickOpen}>タスクを追加</Button>
       <Dialog open={open} onClose={handleClose}>
-        <TaskForm onSubmit={addTask} onClose={handleClose} />
-        <Button type="submit" form="addTask">
-          追加する
-        </Button>
+        <DialogTitle>タスク追加</DialogTitle>
+        <DialogContent>
+          <TaskForm onSubmit={addTask} onClose={handleClose} />
+        </DialogContent>
+        <DialogActions>
+          <Button type="submit" form="addTask">
+            追加する
+          </Button>
+        </DialogActions>
       </Dialog>
     </Box>
   )

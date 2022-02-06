@@ -2,7 +2,7 @@ import React from 'react'
 import { NavLink as RouterLink } from 'react-router-dom'
 import { useAuth0 } from '@auth0/auth0-react'
 import { HiOutlineCog, HiLogout } from 'react-icons/hi'
-import { Box, IconButton, Avatar, Menu, MenuItem, ListItemIcon } from '@mui/material'
+import { Box, Avatar, Menu, MenuItem, IconButton, ListItemIcon } from '@mui/material'
 
 export const MyselfMenu: React.VFC = () => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)

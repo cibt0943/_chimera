@@ -1,6 +1,8 @@
 import React from 'react'
 import { useForm, SubmitHandler } from 'react-hook-form'
-import Box from '@mui/material/Box'
+import { yupResolver } from '@hookform/resolvers/yup'
+import * as yup from 'yup'
+import { Box } from '@mui/material'
 import { TextField } from 'common/components/atoms/TextField'
 import { Task } from '../types'
 
@@ -19,6 +21,10 @@ type TaskFormProps = {
   task?: Task
 }
 
+const taskFormSchema = yup.object().shape({
+  title: yup.string().required('必須入力項目です'),
+})
+
 export const TaskForm: React.VFC<TaskFormProps> = (props) => {
   const { onSubmit, onClose, task } = props
 
@@ -31,19 +37,25 @@ export const TaskForm: React.VFC<TaskFormProps> = (props) => {
     defaultValues: {
       title: task?.title,
     },
+    resolver: yupResolver(taskFormSchema),
   })
 
   const onSubmitHandler: SubmitHandler<TaskFormValues> = (data, event) => {
     event?.preventDefault()
-    onSubmit(data).catch((errors: TaskFormErrorMessages) => {
-      setError('title', { message: errors.title })
-    })
-    onClose()
+    onSubmit(data)
+      .then(() => {
+        onClose()
+      })
+      .catch((errors: TaskFormErrorMessages) => {
+        setError('title', { message: errors.title })
+        return
+      })
   }
 
   return (
     <Box component="form" id="addTask" onSubmit={handleSubmit(onSubmitHandler)}>
-      <TextField id="task_title" label="タスク名" required variant="outlined" register={register('title')} error={Boolean(errors.title)} helperText={errors.title?.message} />
+      {/* <TextField autoFocus id="task_title" label="タスク名" register={register('title', { required: '必須項目です。', maxLength: { value: 2, message: 'error message' } })} error={Boolean(errors.title)} helperText={errors.title?.message} /> */}
+      <TextField autoFocus id="task_title" label="タイトル" register={register('title')} error={Boolean(errors.title)} helperText={errors.title?.message} />
     </Box>
   )
 }

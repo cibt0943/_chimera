@@ -6,4 +6,4 @@ ja:
     attributes:
       task:
         status: 状態  #g
-        title: 題名  #g
+        title: タイトル  #g

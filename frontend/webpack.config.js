@@ -138,8 +138,8 @@ module.exports = (env, argv) => {
         publicPath: `/${process.env.ASSET_DIR}/`,
       },
       // https: {
-      //   key: '/etc/nginx/ssl/server.key',
-      //   cert: '/etc/nginx/ssl/server.crt',
+      //   key: '/app/ssl/server.key',
+      //   cert: '/app/ssl/server.crt',
       // },
       host: process.env.ASSET_HOST,
       // port: ポート番号。未指定の場合は8080が初期値になる。

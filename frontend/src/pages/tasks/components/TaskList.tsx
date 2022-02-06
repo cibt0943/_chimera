@@ -1,51 +1,60 @@
 import React from 'react'
-import { Box, Chip, Skeleton } from '@mui/material'
-import { DataGrid, GridColumns, GridRowParams, GridRenderCellParams, GridActionsCellItem, GridRowId } from '@mui/x-data-grid'
-import { BiCircle, BiCheckCircle } from 'react-icons/bi'
+import { Box, Chip, Tooltip, IconButton, Skeleton } from '@mui/material'
+import { DataGrid, GridColumns, GridRenderCellParams } from '@mui/x-data-grid'
+import { BiX } from 'react-icons/bi'
 import { Tasks, Task, TaskStatus } from '../types'
 
 type TaskListProps = {
   tasks: Tasks
   updateTaskStatus: (task: Task) => Promise<Task>
+  deleteTask: (task: Task) => Promise<boolean>
 }
-
-const deleteTask = (id: GridRowId) => {
-  console.log(id)
-}
-
-const columns: GridColumns = [
-  { field: 'id', headerName: 'id', type: 'number', width: 80 },
-  { field: 'title', headerName: 'タイトル', flex: 1 },
-  {
-    field: 'status',
-    headerName: '状態',
-    width: 100,
-    renderCell: (params: GridRenderCellParams<TaskStatus>) => {
-      let result
-      switch (params.value) {
-        case TaskStatus.NEW:
-          result = <Chip icon={<BiCircle />} label="New" color="primary" size="small" />
-          break
-        case TaskStatus.DONE:
-          result = <Chip icon={<BiCheckCircle />} label="Done" color="success" size="small" />
-          break
-      }
-      return result
-    },
-  },
-  // {
-  //   field: 'actions',
-  //   type: 'actions',
-  //   width: 80,
-  //   getActions: (params: GridRowParams) => [<GridActionsCellItem icon={<BiCircle />} label="Delete" onClick={deleteTask(params.id)} />],
-  // },
-]
 
 export const TaskList: React.VFC<TaskListProps> = (props) => {
-  const { tasks, updateTaskStatus } = props
+  const { tasks, deleteTask } = props
+
+  const handleClickDelete = (params: GridRenderCellParams<Task, Task>) => async () => {
+    await deleteTask(params.row)
+  }
+
+  const columns: GridColumns = [
+    { field: 'id', headerName: 'id', type: 'number', width: 80 },
+    { field: 'title', headerName: 'タイトル', flex: 1 },
+    {
+      field: 'status',
+      headerName: '状態',
+      width: 100,
+      renderCell: (params: GridRenderCellParams<TaskStatus, TaskStatus>) => {
+        let result
+        switch (params.value) {
+          case TaskStatus.NEW:
+            result = <Chip label="New" color="primary" size="small" />
+            break
+          case TaskStatus.DONE:
+            result = <Chip label="Done" color="success" size="small" />
+            break
+        }
+        return result
+      },
+    },
+    {
+      field: 'actions',
+      headerName: '操作',
+      width: 80,
+      renderCell: (params: GridRenderCellParams<Task, Task>) => {
+        return (
+          <Tooltip title="削除">
+            <IconButton aria-label="delete" size="small" onClick={handleClickDelete(params)}>
+              <BiX />
+            </IconButton>
+          </Tooltip>
+        )
+      },
+    },
+  ]
 
   return (
-    <Box style={{ height: 'calc(100vh - 200px)', width: '100%' }}>
+    <Box style={{ height: 'calc(100vh - 160px)', width: '100%' }}>
       <DataGrid rows={tasks} columns={columns} />
     </Box>
   )
