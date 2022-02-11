@@ -7,6 +7,7 @@ import { Auth0ProviderWithHistory } from 'common/utils/Auth'
 import { ColorModeContextProvider } from 'common/context/ColorModeContext'
 import { AppThemeProvider } from 'common/utils/Theme'
 import 'common/assets/css/style'
+import 'i18n'
 
 import { Home } from 'pages/home'
 import { Tasks } from 'pages/tasks'
