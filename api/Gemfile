@@ -25,7 +25,7 @@ gem 'bootsnap', require: false
 ## Add Gem ##
 
 # Mail SMTP
-gem "net-smtp", require: false
+gem 'net-smtp', require: false
 
 # View Template
 gem 'slim-rails'
