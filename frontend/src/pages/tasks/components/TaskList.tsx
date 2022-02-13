@@ -1,6 +1,6 @@
 import React from 'react'
 import { Box, Chip, Tooltip, IconButton, Skeleton } from '@mui/material'
-import { DataGrid, GridColumns, GridRenderCellParams } from '@mui/x-data-grid'
+import { DataGrid, GridColumns, GridRenderCellParams, jaJP } from '@mui/x-data-grid'
 import { BiX } from 'react-icons/bi'
 import { Tasks, Task, TaskStatus } from '../types'
 
@@ -22,6 +22,7 @@ export const TaskList: React.VFC<TaskListProps> = (props) => {
     { field: 'title', headerName: 'タイトル', flex: 1 },
     {
       field: 'status',
+      type: 'singleSelect',
       headerName: '状態',
       width: 100,
       renderCell: (params: GridRenderCellParams<TaskStatus, TaskStatus>) => {
@@ -36,10 +37,15 @@ export const TaskList: React.VFC<TaskListProps> = (props) => {
         }
         return result
       },
+      valueOptions: [
+        { value: TaskStatus.NEW, label: 'New' },
+        { value: TaskStatus.DOING, label: 'Doing' },
+        { value: TaskStatus.DONE, label: 'Done' },
+      ],
     },
     {
       field: 'actions',
-      headerName: '操作',
+      type: 'actions',
       width: 80,
       renderCell: (params: GridRenderCellParams<Task, Task>) => {
         return (
@@ -55,7 +61,7 @@ export const TaskList: React.VFC<TaskListProps> = (props) => {
 
   return (
     <Box style={{ height: 'calc(100vh - 160px)', width: '100%' }}>
-      <DataGrid rows={tasks} columns={columns} />
+      <DataGrid rows={tasks} columns={columns} localeText={jaJP.components.MuiDataGrid.defaultProps.localeText} />
     </Box>
   )
 }

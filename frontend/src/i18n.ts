@@ -4,12 +4,12 @@ import { initReactI18next } from 'react-i18next'
 const resources = {
   en: {
     translation: {
-      required: 'This field is a required',
+      'validation.required': 'This field is a required',
     },
   },
   ja: {
     translation: {
-      required: '必須項目です',
+      'validation.required': '必須項目です',
     },
   },
 }
