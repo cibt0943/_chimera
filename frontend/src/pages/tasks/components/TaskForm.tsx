@@ -24,7 +24,7 @@ type TaskFormProps = {
 
 const getTaskFormSchema = (t: TFunction) => {
   return yup.object({
-    title: yup.string().required(t('required')),
+    title: yup.string().required(t('validation.required')),
   })
 }
 
