@@ -15,8 +15,11 @@ type ColorModeContextProviderProps = {
   children: React.ReactNode
 }
 
-export const ColorModeContextProvider: React.VFC<ColorModeContextProviderProps> = (props) => {
-  const initMode = localStorage.getItem('colorMode') === 'light' ? 'light' : 'dark'
+export const ColorModeContextProvider: React.VFC<
+  ColorModeContextProviderProps
+> = (props) => {
+  const initMode =
+    localStorage.getItem('colorMode') === 'light' ? 'light' : 'dark'
   const [mode, setMode] = React.useState<PaletteMode>(initMode)
 
   const colorMode = React.useMemo(
@@ -31,5 +34,9 @@ export const ColorModeContextProvider: React.VFC<ColorModeContextProviderProps> 
     [mode],
   )
 
-  return <ColorModeContext.Provider value={colorMode}>{props.children}</ColorModeContext.Provider>
+  return (
+    <ColorModeContext.Provider value={colorMode}>
+      {props.children}
+    </ColorModeContext.Provider>
+  )
 }

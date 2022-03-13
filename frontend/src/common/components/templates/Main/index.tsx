@@ -17,7 +17,13 @@ const Main: React.VFC<MainProps> = (props) => {
         color: 'text.primary',
       }}
     >
-      <Box id="sidebar" height="100vh" width="10rem" overflow="auto" flex="none">
+      <Box
+        id="sidebar"
+        height="100vh"
+        width="10rem"
+        overflow="auto"
+        flex="none"
+      >
         <Sidebar />
       </Box>
       <Box id="content" height="100vh" width="100%" overflow="auto">

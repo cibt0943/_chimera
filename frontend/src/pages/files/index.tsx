@@ -17,10 +17,14 @@ export const Files: React.VFC = () => {
         </Box>
         <Box>ローカルファイル用のファイラーを作りたい</Box>
         <ul>
-          <li>nexeかelectronでパッケージ化したexeを配布してここからは起動だけできるようにしたいな</li>
+          <li>
+            nexeかelectronでパッケージ化したexeを配布してここからは起動だけできるようにしたいな
+          </li>
           <li>例：Cloud Commander</li>
           <li>unixコマンドでの操作と</li>
-          <li>windowのショートカット、クリックによる移動やdeleteキーによる削除などwindowsライクな操作の両方</li>
+          <li>
+            windowのショートカット、クリックによる移動やdeleteキーによる削除などwindowsライクな操作の両方
+          </li>
         </ul>
       </Box>
     </Layout>

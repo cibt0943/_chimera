@@ -1,32 +1,30 @@
-import useSWR, { useSWRConfig } from 'swr'
-import { TaskFormValues } from '../components/TaskForm'
+import useSWR, { useSWRConfig, SWRConfiguration } from 'swr'
 import { useAuthReqestHeaders } from 'common/hooks/useAuthFetch'
-import { apiClient, Errors } from 'common/utils/ApiClient'
+import { apiClient } from 'common/utils/ApiClient'
 import { Tasks, Task } from '../types'
 
-export const useGetTasks = () => {
+export const useGetTasks = (options?: SWRConfiguration) => {
   const { getAuthReqestHeaders } = useAuthReqestHeaders()
 
   const fetcher = async (): Promise<Tasks> => {
     const authReqestHeaders = await getAuthReqestHeaders()
     return apiClient.get('tasks', authReqestHeaders).json()
   }
-  return useSWR<Tasks, Error>('tasks', fetcher)
+  return useSWR<Tasks, Error>('tasks', fetcher, options)
 }
 
-export const useAddTask = () => {
+export const useTaskFetcher = () => {
   const { getAuthReqestHeaders } = useAuthReqestHeaders()
   const { mutate } = useSWRConfig()
 
-  const addFetcher = async (data: TaskFormValues) => {
+  const addFetcher = async (data: Task) => {
     // データ追加
     const authReqestHeaders = await getAuthReqestHeaders()
     const kyOptions = { ...authReqestHeaders, json: { ...data } }
     const res = await apiClient.post('tasks/', kyOptions)
-    if (!res.ok) throw ((await res.json()) as Errors).errors
     const addedTask = (await res.json()) as Task
 
-    // レスポンスデータでローカル上書き
+    // レスポンスデータでキャッシュを上書き
     const updateCache = (tasks: Tasks) => {
       return [addedTask, ...tasks]
     }
@@ -35,22 +33,14 @@ export const useAddTask = () => {
     return addedTask
   }
 
-  return { addFetcher }
-}
-
-export const useUpdateTask = () => {
-  const { getAuthReqestHeaders } = useAuthReqestHeaders()
-  const { mutate } = useSWRConfig()
-
   const updateFetcher = async (task: Task) => {
     // データ更新
     const authReqestHeaders = await getAuthReqestHeaders()
     const kyOptions = { ...authReqestHeaders, json: { ...task } }
     const res = await apiClient.patch(`tasks/${task.id}`, kyOptions)
-    if (!res.ok) throw ((await res.json()) as Errors).errors
     const updatedTask = (await res.json()) as Task
 
-    // レスポンスデータでローカル上書き
+    // レスポンスデータでキャッシュを上書き
     const updateCache = (tasks: Tasks) => {
       return tasks.map((e) => (e.id !== updatedTask.id ? e : updatedTask))
     }
@@ -63,17 +53,14 @@ export const useUpdateTask = () => {
     // データ削除
     const authReqestHeaders = await getAuthReqestHeaders()
     const kyOptions = { ...authReqestHeaders }
-    const res = await apiClient.delete(`tasks/${task.id}`, kyOptions)
-    if (!res.ok) throw ((await res.json()) as Errors).errors
+    await apiClient.delete(`tasks/${task.id}`, kyOptions)
 
-    // レスポンスデータでローカルを削除
+    // レスポンスデータでキャッシュを削除
     const updateCache = (tasks: Tasks) => {
       return tasks.filter((e) => e.id !== task.id)
     }
     await mutate('tasks', updateCache, false)
-
-    return true
   }
 
-  return { updateFetcher, deleteFetcher }
+  return { addFetcher, updateFetcher, deleteFetcher }
 }

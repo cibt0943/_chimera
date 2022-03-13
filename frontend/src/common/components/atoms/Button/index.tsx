@@ -1,5 +1,10 @@
 import React from 'react'
-import { Button as MUIButton, ButtonProps, IconButton as MUIIconButton, IconButtonProps as MUIIconButtonProps } from '@mui/material'
+import {
+  Button as MUIButton,
+  ButtonProps,
+  IconButton as MUIIconButton,
+  IconButtonProps as MUIIconButtonProps,
+} from '@mui/material'
 
 export const Button: React.VFC<ButtonProps> = (props) => {
   const { children, variant = 'contained', ...buttonProps } = props

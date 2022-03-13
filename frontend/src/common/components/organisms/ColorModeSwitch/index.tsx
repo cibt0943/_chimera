@@ -11,5 +11,12 @@ export const ColorModeSwitch: React.VFC<SwitchProps> = (props) => {
   const { isDark } = useThemeUtil()
 
   const className = classNames(propClassName, 'color-mode-switch')
-  return <Switch checked={isDark} onChange={toggleColorMode} className={className} {...other} />
+  return (
+    <Switch
+      checked={isDark}
+      onChange={toggleColorMode}
+      className={className}
+      {...other}
+    />
+  )
 }

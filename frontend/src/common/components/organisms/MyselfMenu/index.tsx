@@ -2,7 +2,14 @@ import React from 'react'
 import { NavLink as RouterLink } from 'react-router-dom'
 import { useAuth0 } from '@auth0/auth0-react'
 import { HiOutlineCog, HiLogout } from 'react-icons/hi'
-import { Box, Avatar, Menu, MenuItem, IconButton, ListItemIcon } from '@mui/material'
+import {
+  Box,
+  Avatar,
+  Menu,
+  MenuItem,
+  IconButton,
+  ListItemIcon,
+} from '@mui/material'
 
 export const MyselfMenu: React.VFC = () => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
@@ -27,10 +34,19 @@ export const MyselfMenu: React.VFC = () => {
     <>
       <Box>
         <IconButton onClick={handleClick}>
-          <Avatar alt={user?.name} src={user?.picture} sx={{ width: '3rem', height: '3rem' }} />
+          <Avatar
+            alt={user?.name}
+            src={user?.picture}
+            sx={{ width: '3rem', height: '3rem' }}
+          />
         </IconButton>
       </Box>
-      <Menu anchorEl={anchorEl} open={open} onClose={handleClose} onClick={handleClose}>
+      <Menu
+        anchorEl={anchorEl}
+        open={open}
+        onClose={handleClose}
+        onClick={handleClose}
+      >
         <MenuItem component={RouterLink} to="/settings/account">
           <ListItemIcon>
             <HiOutlineCog />

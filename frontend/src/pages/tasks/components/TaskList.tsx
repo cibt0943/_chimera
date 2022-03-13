@@ -1,29 +1,120 @@
 import React from 'react'
-import { Box, Chip, Tooltip, IconButton, Skeleton } from '@mui/material'
-import { DataGrid, GridColumns, GridRenderCellParams, jaJP } from '@mui/x-data-grid'
-import { BiX } from 'react-icons/bi'
+import { useTranslation } from 'react-i18next'
+import { BiDotsVerticalRounded, BiTrash, BiEditAlt } from 'react-icons/bi'
+import * as yup from 'yup'
+import {
+  Box,
+  Chip,
+  Skeleton,
+  IconButton,
+  Menu,
+  MenuItem,
+  ListItemIcon,
+  ListItemText,
+} from '@mui/material'
+import {
+  DataGrid,
+  GridColumns,
+  GridRenderCellParams,
+  GridCellEditCommitParams,
+  GridCellParams,
+  MuiEvent,
+  GridPreProcessEditCellProps,
+  jaJP,
+} from '@mui/x-data-grid'
 import { Tasks, Task, TaskStatus } from '../types'
+import { EditTask } from './EditTask'
 
 type TaskListProps = {
   tasks: Tasks
-  updateTaskStatus: (task: Task) => Promise<Task>
-  deleteTask: (task: Task) => Promise<boolean>
+  updateTask: (task: Task) => Promise<Task>
+  deleteTask: (task: Task) => Promise<void>
 }
 
 export const TaskList: React.VFC<TaskListProps> = (props) => {
-  const { tasks, deleteTask } = props
+  const { t } = useTranslation()
+  const { tasks, updateTask, deleteTask } = props
+  const [rows, setRows] = React.useState<Tasks>(tasks)
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
+  const [selectedCellParams, setSelectedCellParams] =
+    React.useState<GridCellParams<Task, Task>>()
+  const [openEditDialog, setOpenEditDialog] = React.useState(false)
 
-  const handleClickDelete = (params: GridRenderCellParams<Task, Task>) => async () => {
-    await deleteTask(params.row)
+  const handleClickMenu = React.useCallback(
+    (params: GridRenderCellParams<Task, Task>) =>
+      (event: React.MouseEvent<HTMLButtonElement>) => {
+        setSelectedCellParams(params)
+        setAnchorEl(event.currentTarget)
+      },
+    [],
+  )
+
+  const handleCloseMenu = () => {
+    setAnchorEl(null)
   }
+
+  const handleClickEdit = React.useCallback(() => {
+    if (selectedCellParams) {
+      setOpenEditDialog(true)
+    }
+    handleCloseMenu()
+  }, [selectedCellParams])
+
+  const handleClickDelete = React.useCallback(() => {
+    if (selectedCellParams) {
+      void deleteTask(selectedCellParams.row)
+    }
+    handleCloseMenu()
+  }, [selectedCellParams, deleteTask])
+
+  const handleCellEditCommit = React.useCallback(
+    (params: GridCellEditCommitParams) => {
+      const target = tasks.find((e) => e.id === params.id) //ここどうにかしたい。cellからrowの値取れないの？
+      if (!target) return
+
+      const nextTask = { ...target, [params.field]: params.value }
+      updateTask(nextTask)
+        .then((value: Task) => {
+          setRows((prev) =>
+            prev.map((row) =>
+              row.id === value.id ? { ...row, ...value } : row,
+            ),
+          )
+        })
+        .catch(() => {
+          setRows((prev) => [...prev])
+        })
+    },
+    [tasks, updateTask],
+  )
+
+  const handleCellKeyDown = React.useCallback(
+    (params: GridCellParams, event: MuiEvent<React.KeyboardEvent>) => {
+      // DataGridのデフォルト動作であるBackspaceキー、Deleteキーを押すと値が削除される処理を無効化
+      event.defaultMuiPrevented = ['Delete', 'Backspace'].includes(event.key)
+    },
+    [],
+  )
 
   const columns: GridColumns = [
     { field: 'id', headerName: 'id', type: 'number', width: 80 },
-    { field: 'title', headerName: 'タイトル', flex: 1 },
+    {
+      field: 'title',
+      headerName: t('task.model.title'),
+      flex: 1,
+      editable: true,
+      preProcessEditCellProps: (params: GridPreProcessEditCellProps) => {
+        const isValid = yup
+          .string()
+          .required(t('validation.required'))
+          .isValidSync(params.props.value)
+        return { ...params.props, error: !isValid }
+      },
+    },
     {
       field: 'status',
       type: 'singleSelect',
-      headerName: '状態',
+      headerName: t('task.model.status'),
       width: 100,
       renderCell: (params: GridRenderCellParams<TaskStatus, TaskStatus>) => {
         let result
@@ -34,6 +125,9 @@ export const TaskList: React.VFC<TaskListProps> = (props) => {
           case TaskStatus.DONE:
             result = <Chip label="Done" color="success" size="small" />
             break
+          case TaskStatus.DOING:
+            result = <Chip label="Doing" color="secondary" size="small" />
+            break
         }
         return result
       },
@@ -42,6 +136,7 @@ export const TaskList: React.VFC<TaskListProps> = (props) => {
         { value: TaskStatus.DOING, label: 'Doing' },
         { value: TaskStatus.DONE, label: 'Done' },
       ],
+      editable: true,
     },
     {
       field: 'actions',
@@ -49,19 +144,57 @@ export const TaskList: React.VFC<TaskListProps> = (props) => {
       width: 80,
       renderCell: (params: GridRenderCellParams<Task, Task>) => {
         return (
-          <Tooltip title="削除">
-            <IconButton aria-label="delete" size="small" onClick={handleClickDelete(params)}>
-              <BiX />
+          <Box>
+            <IconButton
+              aria-label="more"
+              size="small"
+              onClick={handleClickMenu(params)}
+            >
+              <BiDotsVerticalRounded />
             </IconButton>
-          </Tooltip>
+          </Box>
         )
       },
     },
   ]
 
+  // tasksが更新された時のみ設定
+  React.useEffect(() => {
+    setRows(tasks)
+  }, [tasks])
+
   return (
     <Box style={{ height: 'calc(100vh - 160px)', width: '100%' }}>
-      <DataGrid rows={tasks} columns={columns} localeText={jaJP.components.MuiDataGrid.defaultProps.localeText} />
+      <DataGrid
+        rows={rows}
+        columns={columns}
+        onCellKeyDown={handleCellKeyDown}
+        onCellEditCommit={handleCellEditCommit}
+        localeText={jaJP.components.MuiDataGrid.defaultProps.localeText}
+      />
+      <Menu
+        anchorEl={anchorEl}
+        open={Boolean(anchorEl)}
+        onClose={handleCloseMenu}
+      >
+        <MenuItem key="edit" onClick={handleClickEdit}>
+          <ListItemIcon>
+            <BiEditAlt />
+          </ListItemIcon>
+          <ListItemText>{t('common.edit')}</ListItemText>
+        </MenuItem>
+        <MenuItem key="delete" onClick={handleClickDelete}>
+          <ListItemIcon>
+            <BiTrash />
+          </ListItemIcon>
+          <ListItemText>{t('common.delete')}</ListItemText>
+        </MenuItem>
+      </Menu>
+      <EditTask
+        updateTask={updateTask}
+        task={selectedCellParams?.row}
+        stateOpen={{ value: openEditDialog, setValue: setOpenEditDialog }}
+      />
     </Box>
   )
 }

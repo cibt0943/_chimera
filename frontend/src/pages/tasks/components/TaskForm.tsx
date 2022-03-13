@@ -1,15 +1,13 @@
 import React from 'react'
+import { HTTPError } from 'ky'
 import { useTranslation, TFunction } from 'react-i18next'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
 import { Box } from '@mui/material'
 import { TextField } from 'common/components/atoms/TextField'
+import { apiErrorHandler } from 'common/utils/ErrorHandler'
 import { Task } from '../types'
-
-export type TaskFormValues = {
-  title: string
-}
 
 type TaskFormErrorMessages = {
   title: string
@@ -17,9 +15,9 @@ type TaskFormErrorMessages = {
 }
 
 type TaskFormProps = {
-  onSubmit: (data: TaskFormValues) => Promise<Task>
+  task: Task
+  onSubmit: (data: Task) => Promise<Task>
   onClose: () => void
-  task?: Task
 }
 
 const getTaskFormSchema = (t: TFunction) => {
@@ -29,7 +27,7 @@ const getTaskFormSchema = (t: TFunction) => {
 }
 
 export const TaskForm: React.VFC<TaskFormProps> = (props) => {
-  const { onSubmit, onClose, task } = props
+  const { task, onSubmit, onClose } = props
   const { t } = useTranslation()
 
   const {
@@ -37,28 +35,32 @@ export const TaskForm: React.VFC<TaskFormProps> = (props) => {
     handleSubmit,
     setError,
     formState: { errors },
-  } = useForm<TaskFormValues>({
-    defaultValues: {
-      title: task?.title,
-    },
+  } = useForm<Task>({
+    defaultValues: task,
     resolver: yupResolver(getTaskFormSchema(t)),
   })
 
-  const onSubmitHandler: SubmitHandler<TaskFormValues> = (data, event) => {
-    event?.preventDefault()
+  const onSubmitHandler: SubmitHandler<Task> = (data) => {
     onSubmit(data)
       .then(() => {
         onClose()
       })
-      .catch((errors: TaskFormErrorMessages) => {
-        setError('title', { message: errors.title })
-        return
+      .catch(async (error: HTTPError) => {
+        const invalidError = await apiErrorHandler<TaskFormErrorMessages>(error)
+        return setError('title', { message: invalidError.title })
       })
   }
 
   return (
-    <Box component="form" id="addTask" onSubmit={handleSubmit(onSubmitHandler)}>
-      <TextField autoFocus id="task_title" label="タイトル" register={register('title')} error={Boolean(errors.title)} helperText={errors.title?.message} />
+    <Box component="form" id="task" onSubmit={handleSubmit(onSubmitHandler)}>
+      <TextField
+        autoFocus
+        id="task_title"
+        label={t('task.model.title')}
+        register={register('title')}
+        error={Boolean(errors.title)}
+        helperText={errors.title?.message}
+      />
     </Box>
   )
 }

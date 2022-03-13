@@ -1,4 +1,4 @@
-export const VisibilityFilter = {
+export const TaskStatusFilter = {
   SHOW_ALL: 'SHOW_ALL',
   SHOW_NEW: 'SHOW_NEW',
   SHOW_DONE: 'SHOW_DONE',
@@ -6,7 +6,8 @@ export const VisibilityFilter = {
   SHOW_CANCELED: 'SHOW_CANCELED',
   SHOW_PENDING: 'SHOW_PENDING',
 } as const
-export type VisibilityFilter = typeof VisibilityFilter[keyof typeof VisibilityFilter]
+export type TaskStatusFilter =
+  typeof TaskStatusFilter[keyof typeof TaskStatusFilter]
 
 export const TaskStatus = {
   NEW: 0,
@@ -28,5 +29,5 @@ export type Tasks = Task[]
 /* stateの型を定義する。 */
 export type TasksState = {
   tasks: Tasks
-  visibilityFilter: VisibilityFilter
+  taskStatusFilter: TaskStatusFilter
 }
