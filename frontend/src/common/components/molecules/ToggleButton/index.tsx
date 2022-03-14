@@ -1,5 +1,8 @@
 import React from 'react'
-import { ToggleButton as MUIToggleButton, ToggleButtonProps } from '@mui/material'
+import {
+  ToggleButton as MUIToggleButton,
+  ToggleButtonProps,
+} from '@mui/material'
 
 export const ToggleButton: React.VFC<ToggleButtonProps> = (props) => {
   const { children, ...toggleButtonProps } = props

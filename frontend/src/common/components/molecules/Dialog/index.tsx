@@ -1,5 +1,14 @@
 import React from 'react'
-import { Dialog as MUIDialog, DialogProps, DialogActions as MUIDiaglogActions, DialogActionsProps, DialogContent as MUIDialogContent, DialogContentProps, DialogTitle as MUIDialogTitle, DialogTitleProps } from '@mui/material'
+import {
+  Dialog as MUIDialog,
+  DialogProps,
+  DialogActions as MUIDiaglogActions,
+  DialogActionsProps,
+  DialogContent as MUIDialogContent,
+  DialogContentProps,
+  DialogTitle as MUIDialogTitle,
+  DialogTitleProps,
+} from '@mui/material'
 
 export const Dialog: React.VFC<DialogProps> = (props) => {
   const { children, ...dialogProps } = props
@@ -10,7 +19,9 @@ export const Dialog: React.VFC<DialogProps> = (props) => {
 export const DialogActions: React.VFC<DialogActionsProps> = (props) => {
   const { children, ...dialogActionsProps } = props
 
-  return <MUIDiaglogActions {...dialogActionsProps}>{children}</MUIDiaglogActions>
+  return (
+    <MUIDiaglogActions {...dialogActionsProps}>{children}</MUIDiaglogActions>
+  )
 }
 
 export const DialogContent: React.VFC<DialogContentProps> = (props) => {

@@ -17,7 +17,13 @@ export const Auth0ProviderWithHistory: React.VFC<Props> = (props) => {
   }
 
   return (
-    <Auth0Provider domain={AUTO0_DOMAIN} clientId={AUTO0_CLIENT_ID} redirectUri={window.location.origin} audience={AUTH0_API_AUDIENCE} onRedirectCallback={onRedirectCallback}>
+    <Auth0Provider
+      domain={AUTO0_DOMAIN}
+      clientId={AUTO0_CLIENT_ID}
+      redirectUri={window.location.origin}
+      audience={AUTH0_API_AUDIENCE}
+      onRedirectCallback={onRedirectCallback}
+    >
       {props.children}
     </Auth0Provider>
   )

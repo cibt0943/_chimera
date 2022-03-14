@@ -1,18 +1,31 @@
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 import { Box } from '@mui/material'
 import { Button } from 'common/components/atoms/Button'
-import { Dialog, DialogActions, DialogContent, DialogTitle } from 'common/components/molecules/Dialog'
-import { Task } from '../types'
-import { TaskForm, TaskFormValues } from './TaskForm'
+import {
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+} from 'common/components/molecules/Dialog'
+import { AccessKey } from 'common/components/atoms/AccessKey'
+import { Task, TaskStatus } from '../types'
+import { TaskForm } from './TaskForm'
 
 type AddTaskProps = {
-  addTask: (data: TaskFormValues) => Promise<Task>
+  addTask: (data: Task) => Promise<Task>
+}
+
+const defaultValues: Task = {
+  id: 0,
+  title: '',
+  status: TaskStatus.NEW,
 }
 
 export const AddTask: React.VFC<AddTaskProps> = (props) => {
   const { addTask } = props
-
   const [open, setOpen] = React.useState(false)
+  const { t } = useTranslation()
 
   const handleClickOpen = () => {
     setOpen(true)
@@ -25,19 +38,24 @@ export const AddTask: React.VFC<AddTaskProps> = (props) => {
   return (
     <Box>
       <Button onClick={handleClickOpen} accessKey="i">
-        タスクを追加
+        {t('common.add')}
+        <AccessKey ml={1}>i</AccessKey>
       </Button>
       <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>タスク追加</DialogTitle>
+        <DialogTitle>{t('task.task') + t('common.add')}</DialogTitle>
         <DialogContent>
-          <TaskForm onSubmit={addTask} onClose={handleClose} />
+          <TaskForm
+            onSubmit={addTask}
+            onClose={handleClose}
+            task={defaultValues}
+          />
         </DialogContent>
         <DialogActions>
           <Button variant="text" onClick={handleClose}>
-            キャンセル
+            {t('common.cancel')}
           </Button>
-          <Button type="submit" form="addTask">
-            追加する
+          <Button type="submit" form="task">
+            {t('common.add')}
           </Button>
         </DialogActions>
       </Dialog>

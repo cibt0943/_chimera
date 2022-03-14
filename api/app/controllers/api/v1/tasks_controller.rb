@@ -22,7 +22,7 @@ module Api
         if task.update(task_params)
           render json: task, status: :ok
         else
-          render json: { errors: task.errors }, status: :bad_request
+          render json: { errors: task.errors.as_json(full_messages: true) }, status: :bad_request
         end
       end
 

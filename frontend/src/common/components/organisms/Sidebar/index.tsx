@@ -1,7 +1,20 @@
 import React from 'react'
 import { NavLink as RouterLink } from 'react-router-dom'
-import { HiOutlineClipboardCheck, HiOutlineDocumentText, HiOutlineFolder, HiOutlineExclamationCircle } from 'react-icons/hi'
-import { Box, Typography, List, ListItem, ListItemButton, ListItemIcon, ListItemText } from '@mui/material'
+import {
+  HiOutlineClipboardCheck,
+  HiOutlineDocumentText,
+  HiOutlineFolder,
+  HiOutlineExclamationCircle,
+} from 'react-icons/hi'
+import {
+  Box,
+  Typography,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+} from '@mui/material'
 import { useThemeUtil } from 'common/hooks/useThemeUtil'
 import { MyselfMenu } from 'common/components/organisms/MyselfMenu'
 
@@ -10,8 +23,23 @@ export const Sidebar: React.VFC = () => {
   const bgColor = modeValue(palette.grey[800], 'black')
 
   return (
-    <Box bgcolor={bgColor} minHeight="100%" display="flex" flexDirection="column">
-      <Box bgcolor={bgColor} color="white" height="3.5rem" display="flex" alignItems="center" justifyContent="center" position="sticky" top="0" zIndex="1">
+    <Box
+      bgcolor={bgColor}
+      minHeight="100%"
+      display="flex"
+      flexDirection="column"
+    >
+      <Box
+        bgcolor={bgColor}
+        color="white"
+        height="3.5rem"
+        display="flex"
+        alignItems="center"
+        justifyContent="center"
+        position="sticky"
+        top="0"
+        zIndex="1"
+      >
         <Typography variant="h6" fontWeight="bold">
           Kobushi
         </Typography>
@@ -54,8 +82,9 @@ const MenuItem: React.VFC<MenuItemProps> = (props) => {
 
   const { palette, modeValue } = useThemeUtil()
   const baseColor = modeValue(palette.grey[400], palette.grey[400])
+  const bgColor = modeValue(palette.grey[800], 'black')
   const activeColor = modeValue('black', 'white')
-  const bgColor = modeValue('white', palette.grey[700])
+  const activeBgColor = modeValue('white', palette.grey[700])
 
   return (
     <ListItem disablePadding>
@@ -67,10 +96,11 @@ const MenuItem: React.VFC<MenuItemProps> = (props) => {
           color: baseColor,
           '&:hover': {
             color: 'white',
+            backgroundColor: bgColor,
           },
           '&.active': {
             color: activeColor,
-            backgroundColor: bgColor,
+            backgroundColor: activeBgColor,
           },
         }}
       >

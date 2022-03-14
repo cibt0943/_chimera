@@ -35,6 +35,9 @@ export const AppThemeProvider: React.VFC<AppThemeProviderProps> = (props) => {
             paper: mode === 'light' ? '#FFF' : '#2D3748',
           },
         },
+        typography: {
+          button: { textTransform: 'none' },
+        },
         components: {
           MuiButtonBase: {
             defaultProps: {
