@@ -7,7 +7,7 @@ type HeaderProps = {
 
 export const Header: React.VFC<HeaderProps> = (props) => {
   return (
-    <Box display="flex" alignItems="center" height="3.5rem" pl="1rem">
+    <Box display="flex" alignItems="center" height="3.5rem" pl={3}>
       {props.children}
     </Box>
   )
