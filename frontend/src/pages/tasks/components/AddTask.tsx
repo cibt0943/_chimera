@@ -10,11 +10,8 @@ import {
 } from 'common/components/molecules/Dialog'
 import { AccessKey } from 'common/components/atoms/AccessKey'
 import { Task, TaskStatus } from '../types'
+import { useMutateTask } from '../hooks/useFetchTasks'
 import { TaskForm } from './TaskForm'
-
-type AddTaskProps = {
-  addTask: (data: Task) => Promise<Task>
-}
 
 const defaultValues: Task = {
   id: 0,
@@ -22,10 +19,10 @@ const defaultValues: Task = {
   status: TaskStatus.NEW,
 }
 
-export const AddTask: React.VFC<AddTaskProps> = (props) => {
-  const { addTask } = props
-  const [open, setOpen] = React.useState(false)
+export const AddTask: React.VFC = () => {
   const { t } = useTranslation()
+  const { useAddTaskMutation } = useMutateTask()
+  const [open, setOpen] = React.useState(false)
 
   const handleClickOpen = () => {
     setOpen(true)
@@ -33,6 +30,12 @@ export const AddTask: React.VFC<AddTaskProps> = (props) => {
 
   const handleClose = () => {
     setOpen(false)
+  }
+
+  const addTask = (data: Task) => {
+    return useAddTaskMutation.mutateAsync(data, {
+      onSuccess: handleClose,
+    })
   }
 
   return (
@@ -44,11 +47,7 @@ export const AddTask: React.VFC<AddTaskProps> = (props) => {
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>{t('task.task') + t('common.add')}</DialogTitle>
         <DialogContent>
-          <TaskForm
-            onSubmit={addTask}
-            onClose={handleClose}
-            task={defaultValues}
-          />
+          <TaskForm task={defaultValues} onSubmit={addTask} />
         </DialogContent>
         <DialogActions>
           <Button variant="text" onClick={handleClose}>

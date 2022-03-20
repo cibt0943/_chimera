@@ -11,13 +11,13 @@ type TaskFilterProps = {
 export const TaskFilter: React.VFC<TaskFilterProps> = (props) => {
   const { taskStatusFilter, setTaskStatusFilter } = props
 
-  const handleChange = (
-    event: React.MouseEvent<HTMLElement>,
-    filter: TaskStatusFilter,
-  ) => {
-    if (filter === null) return
-    setTaskStatusFilter(filter)
-  }
+  const handleChange = React.useCallback(
+    (event: React.MouseEvent<HTMLElement>, filter: TaskStatusFilter) => {
+      if (filter === null) return
+      setTaskStatusFilter(filter)
+    },
+    [setTaskStatusFilter],
+  )
 
   return (
     <ToggleButtonGroup

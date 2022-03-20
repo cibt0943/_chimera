@@ -1,6 +1,6 @@
 import React from 'react'
 import { Tasks, Task, TaskStatus, TaskStatusFilter } from '../types'
-import { useGetTasks, useTaskFetcher } from '../hooks/useFetchTasks'
+import { useGetTasks, useMutateTask } from '../hooks/useFetchTasks'
 import { TaskList, TaskListPlaceholder } from '../components/TaskList'
 
 type TaskListProps = {
@@ -10,7 +10,7 @@ type TaskListProps = {
 export const TaskListContainer: React.VFC<TaskListProps> = (props) => {
   const { taskStatusFilter } = props
   const { data: tasks } = useGetTasks()
-  const { updateFetcher, deleteFetcher } = useTaskFetcher()
+  const { useUpdateTaskMutation, useDeleteTaskMutation } = useMutateTask()
 
   const filter = React.useCallback(
     (tasks: Tasks): Tasks => {
@@ -32,24 +32,28 @@ export const TaskListContainer: React.VFC<TaskListProps> = (props) => {
 
   const updateTask = React.useCallback(
     (task: Task) => {
-      return updateFetcher(task)
+      return useUpdateTaskMutation.mutateAsync(task)
     },
-    [updateFetcher],
+    [useUpdateTaskMutation],
   )
 
   const deleteTask = React.useCallback(
     (task: Task) => {
-      return deleteFetcher(task)
+      return useDeleteTaskMutation.mutateAsync(task)
     },
-    [deleteFetcher],
+    [useDeleteTaskMutation],
   )
+
+  const filteredTasks = React.useMemo(() => {
+    return filter(tasks || [])
+  }, [filter, tasks])
 
   if (!tasks) {
     return <TaskListPlaceholder />
   }
 
   const taskListProps = {
-    tasks: filter(tasks),
+    tasks: filteredTasks,
     updateTask,
     deleteTask,
   }

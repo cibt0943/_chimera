@@ -17,7 +17,6 @@ type TaskFormErrorMessages = {
 type TaskFormProps = {
   task: Task
   onSubmit: (data: Task) => Promise<Task>
-  onClose: () => void
 }
 
 const getTaskFormSchema = (t: TFunction) => {
@@ -27,7 +26,7 @@ const getTaskFormSchema = (t: TFunction) => {
 }
 
 export const TaskForm: React.VFC<TaskFormProps> = (props) => {
-  const { task, onSubmit, onClose } = props
+  const { task, onSubmit } = props
   const { t } = useTranslation()
 
   const {
@@ -41,14 +40,10 @@ export const TaskForm: React.VFC<TaskFormProps> = (props) => {
   })
 
   const onSubmitHandler: SubmitHandler<Task> = (data) => {
-    onSubmit(data)
-      .then(() => {
-        onClose()
-      })
-      .catch(async (error: HTTPError) => {
-        const invalidError = await apiErrorHandler<TaskFormErrorMessages>(error)
-        return setError('title', { message: invalidError.title })
-      })
+    onSubmit(data).catch(async (error: HTTPError) => {
+      const invalidError = await apiErrorHandler<TaskFormErrorMessages>(error)
+      return setError('title', { message: invalidError.title })
+    })
   }
 
   return (
