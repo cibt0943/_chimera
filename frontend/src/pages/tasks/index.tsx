@@ -5,11 +5,13 @@ import { Header } from 'common/components/organisms/Header'
 import { AddTask } from './components/AddTask'
 import { TaskFilter } from './components/TaskFilter'
 import { TaskListContainer } from './containers/TaskList'
-import { TaskStatusFilter } from './types'
+import { TaskStatus, TaskStatuses } from './types'
 
 export const Tasks: React.VFC = () => {
-  const [taskStatusFilter, setTaskStatusFilter] =
-    React.useState<TaskStatusFilter>(TaskStatusFilter.SHOW_ALL)
+  const [taskStatusFilter, setTaskStatusFilter] = React.useState<TaskStatuses>([
+    TaskStatus.NEW,
+    TaskStatus.DOING,
+  ])
 
   const taskFilterProps = {
     taskStatusFilter,

@@ -1,16 +1,29 @@
 import { useQuery, useQueryClient, useMutation } from 'react-query'
 import { useAuthReqestHeaders } from 'common/hooks/useAuthFetch'
 import { apiClient } from 'common/utils/ApiClient'
-import { Tasks, Task } from '../types'
+import { Tasks, Task, TaskEdit, TaskStatuses } from '../types'
 
-export const useGetTasks = () => {
+const filterToSearchParams = (filter: TaskStatuses) => {
+  const params = filter
+    .map((e) => {
+      return 'statuses[]=' + e.toString()
+    })
+    .join('&')
+  return new URLSearchParams(params)
+}
+
+export const useGetTasks = (filter: TaskStatuses) => {
   const { getAuthReqestHeaders } = useAuthReqestHeaders()
 
   const getFetcher = async (): Promise<Tasks> => {
     const authReqestHeaders = await getAuthReqestHeaders()
-    return apiClient.get('tasks', authReqestHeaders).json()
+    const searchParams = filterToSearchParams(filter)
+    const kyOptions = {
+      ...authReqestHeaders,
+      searchParams,
+    }
+    return await apiClient.get('tasks', kyOptions).json()
   }
-
   return useQuery<Tasks, Error>('tasks', getFetcher)
 }
 
@@ -19,37 +32,33 @@ export const useMutateTask = () => {
   const queryClient = useQueryClient()
 
   // データ追加API
-  const addFetcher = async (data: Task) => {
+  const addFetcher = async (data: Task): Promise<Task> => {
     const authReqestHeaders = await getAuthReqestHeaders()
-    const kyOptions = { ...authReqestHeaders, json: { ...data } }
-    const res = await apiClient.post('tasks/', kyOptions)
-    return (await res.json()) as Task
+    const kyOptions = { ...authReqestHeaders, json: { task: data } }
+    return await apiClient.post('tasks/', kyOptions).json()
   }
 
   const useAddTaskMutation = useMutation(addFetcher, {
     onSuccess: (data: Task) => {
-      //現在のキャッシュ取得
-      const tasks = queryClient.getQueryData<Tasks>('tasks') || []
       //キャッシュに1タスク追加
-      queryClient.setQueryData<Tasks>('tasks', [data, ...tasks])
+      queryClient.setQueryData<Tasks>('tasks', (tasks = []) => {
+        return [data, ...tasks]
+      })
     },
   })
 
   // データ更新API
-  const updateFetcher = async (task: Task) => {
+  const updateFetcher = async (task: TaskEdit): Promise<Task> => {
     const authReqestHeaders = await getAuthReqestHeaders()
-    const kyOptions = { ...authReqestHeaders, json: { ...task } }
-    const res = await apiClient.patch(`tasks/${task.id}`, kyOptions)
-    return (await res.json()) as Task
+    const kyOptions = { ...authReqestHeaders, json: { task } }
+    return await apiClient.patch(`tasks/${task.id}`, kyOptions).json()
   }
 
   const useUpdateTaskMutation = useMutation(updateFetcher, {
     onSuccess: (data: Task) => {
-      //現在のキャッシュ取得
-      const tasks = queryClient.getQueryData<Tasks>('tasks') || []
       // キャッシュの1タスク更新
-      queryClient.setQueryData<Tasks>('tasks', () => {
-        return tasks.map((e) => (e.id !== data.id ? e : data))
+      queryClient.setQueryData<Tasks>('tasks', (tasks = []) => {
+        return tasks.map((task) => (task.id === data.id ? data : task))
       })
     },
   })
@@ -58,17 +67,14 @@ export const useMutateTask = () => {
   const deleteFetcher = async (task: Task): Promise<Task> => {
     const authReqestHeaders = await getAuthReqestHeaders()
     const kyOptions = { ...authReqestHeaders }
-    await apiClient.delete(`tasks/${task.id}`, kyOptions)
-    return task
+    return await apiClient.delete(`tasks/${task.id}`, kyOptions).json()
   }
 
   const useDeleteTaskMutation = useMutation(deleteFetcher, {
     onSuccess: (data: Task) => {
-      //現在のキャッシュ取得
-      const tasks = queryClient.getQueryData<Tasks>('tasks') || []
-      //キャッシュから1タスク削除
-      queryClient.setQueryData<Tasks>('tasks', () => {
-        return tasks.filter((e) => e.id !== data.id)
+      //キャッシュの1タスク削除
+      queryClient.setQueryData<Tasks>('tasks', (tasks = []) => {
+        return tasks.filter((task) => task.id !== data.id)
       })
     },
   })

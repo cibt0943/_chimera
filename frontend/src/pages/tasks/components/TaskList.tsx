@@ -22,18 +22,19 @@ import {
   GridPreProcessEditCellProps,
   jaJP,
 } from '@mui/x-data-grid'
-import { Tasks, Task, TaskStatus } from '../types'
+import { Tasks, Task, TaskStatus, TaskEdit } from '../types'
 import { EditTask } from './EditTask'
 
 type TaskListProps = {
   tasks: Tasks
-  updateTask: (task: Task) => Promise<Task>
+  updateTask: (task: TaskEdit) => Promise<Task>
   deleteTask: (task: Task) => Promise<Task>
+  isFetching: boolean
 }
 
 export const TaskList: React.VFC<TaskListProps> = (props) => {
   const { t } = useTranslation()
-  const { tasks, updateTask, deleteTask } = props
+  const { tasks, updateTask, deleteTask, isFetching } = props
   const [rows, setRows] = React.useState<Tasks>(tasks)
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
   const [selectedCellParams, setSelectedCellParams] =
@@ -72,7 +73,7 @@ export const TaskList: React.VFC<TaskListProps> = (props) => {
       const target = tasks.find((e) => e.id === params.id) //ここどうにかしたい。cellからrowの値取れないの？
       if (!target) return
 
-      const nextTask = { ...target, [params.field]: params.value }
+      const nextTask: TaskEdit = { id: target.id, [params.field]: params.value }
       updateTask(nextTask)
         .then((value: Task) => {
           setRows((prev) =>
@@ -138,6 +139,7 @@ export const TaskList: React.VFC<TaskListProps> = (props) => {
           { value: TaskStatus.DONE, label: 'Done' },
         ],
         editable: true,
+        filterable: false,
       },
       {
         field: 'actions',
@@ -173,6 +175,7 @@ export const TaskList: React.VFC<TaskListProps> = (props) => {
         onCellKeyDown={handleCellKeyDown}
         onCellEditCommit={handleCellEditCommit}
         localeText={jaJP.components.MuiDataGrid.defaultProps.localeText}
+        loading={isFetching}
       />
       <Menu
         anchorEl={anchorEl}
