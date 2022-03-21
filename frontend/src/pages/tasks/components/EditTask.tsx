@@ -8,11 +8,11 @@ import {
   DialogTitle,
 } from 'common/components/molecules/Dialog'
 import { Task } from '../types'
+import { useMutateTask } from '../hooks/useFetchTasks'
 import { TaskForm } from './TaskForm'
 
 type EditTaskProps = {
   task?: Task
-  updateTask: (data: Task) => Promise<Task>
   stateOpen: {
     value: boolean
     setValue: React.Dispatch<React.SetStateAction<boolean>>
@@ -20,11 +20,18 @@ type EditTaskProps = {
 }
 
 export const EditTask: React.VFC<EditTaskProps> = (props) => {
-  const { task, updateTask, stateOpen } = props
   const { t } = useTranslation()
+  const { useUpdateTaskMutation } = useMutateTask()
+  const { task, stateOpen } = props
 
   if (!task) {
     return <></>
+  }
+
+  const updateTask = (data: Task) => {
+    return useUpdateTaskMutation.mutateAsync(data, {
+      onSuccess: handleClose,
+    })
   }
 
   const handleClose = () => {
@@ -35,7 +42,7 @@ export const EditTask: React.VFC<EditTaskProps> = (props) => {
     <Dialog open={stateOpen.value} onClose={handleClose}>
       <DialogTitle>{t('task.task') + t('common.edit')}</DialogTitle>
       <DialogContent>
-        <TaskForm task={task} onSubmit={updateTask} onClose={handleClose} />
+        <TaskForm task={task} onSubmit={updateTask} />
       </DialogContent>
       <DialogActions>
         <Button variant="text" onClick={handleClose}>

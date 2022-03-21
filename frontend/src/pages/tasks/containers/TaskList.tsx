@@ -1,57 +1,36 @@
 import React from 'react'
-import { Tasks, Task, TaskStatus, TaskStatusFilter } from '../types'
-import { useGetTasks, useTaskFetcher } from '../hooks/useFetchTasks'
-import { TaskList, TaskListPlaceholder } from '../components/TaskList'
+import { useGetTasks, useMutateTask } from '../hooks/useFetchTasks'
+import { TaskList } from '../components/TaskList'
+import { Task, TaskEdit, TaskStatuses } from '../types'
 
 type TaskListProps = {
-  taskStatusFilter: TaskStatusFilter
+  taskStatusFilter: TaskStatuses
 }
 
 export const TaskListContainer: React.VFC<TaskListProps> = (props) => {
   const { taskStatusFilter } = props
-  const { data: tasks } = useGetTasks()
-  const { updateFetcher, deleteFetcher } = useTaskFetcher()
-
-  const filter = React.useCallback(
-    (tasks: Tasks): Tasks => {
-      switch (taskStatusFilter) {
-        case TaskStatusFilter.SHOW_ALL:
-          return tasks
-        case TaskStatusFilter.SHOW_NEW:
-          return tasks.filter((e) => e.status === TaskStatus.NEW)
-        case TaskStatusFilter.SHOW_DONE:
-          return tasks.filter((e) => e.status === TaskStatus.DONE)
-        case TaskStatusFilter.SHOW_DOING:
-          return tasks.filter((e) => e.status === TaskStatus.DOING)
-        default:
-          throw new Error('Unknown filter.')
-      }
-    },
-    [taskStatusFilter],
-  )
+  const { data: tasks, isFetching } = useGetTasks(taskStatusFilter)
+  const { useUpdateTaskMutation, useDeleteTaskMutation } = useMutateTask()
 
   const updateTask = React.useCallback(
-    (task: Task) => {
-      return updateFetcher(task)
+    (task: TaskEdit) => {
+      return useUpdateTaskMutation.mutateAsync(task)
     },
-    [updateFetcher],
+    [useUpdateTaskMutation],
   )
 
   const deleteTask = React.useCallback(
     (task: Task) => {
-      return deleteFetcher(task)
+      return useDeleteTaskMutation.mutateAsync(task)
     },
-    [deleteFetcher],
+    [useDeleteTaskMutation],
   )
 
-  if (!tasks) {
-    return <TaskListPlaceholder />
-  }
-
   const taskListProps = {
-    tasks: filter(tasks),
+    tasks: tasks || [],
     updateTask,
     deleteTask,
+    isFetching,
   }
 
   return <TaskList {...taskListProps} />

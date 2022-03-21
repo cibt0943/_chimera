@@ -2,22 +2,16 @@ import React from 'react'
 import { Box, Typography } from '@mui/material'
 import Layout from 'common/components/templates/Main'
 import { Header } from 'common/components/organisms/Header'
-import { useTaskFetcher } from './hooks/useFetchTasks'
 import { AddTask } from './components/AddTask'
 import { TaskFilter } from './components/TaskFilter'
 import { TaskListContainer } from './containers/TaskList'
-import { Task, TaskStatusFilter } from './types'
+import { TaskStatus, TaskStatuses } from './types'
 
 export const Tasks: React.VFC = () => {
-  const { addFetcher } = useTaskFetcher()
-  const [taskStatusFilter, setTaskStatusFilter] =
-    React.useState<TaskStatusFilter>(TaskStatusFilter.SHOW_ALL)
-
-  const addTaskProps = {
-    addTask: (data: Task) => {
-      return addFetcher(data)
-    },
-  }
+  const [taskStatusFilter, setTaskStatusFilter] = React.useState<TaskStatuses>([
+    TaskStatus.NEW,
+    TaskStatus.DOING,
+  ])
 
   const taskFilterProps = {
     taskStatusFilter,
@@ -45,7 +39,7 @@ export const Tasks: React.VFC = () => {
           className="bg-color"
           zIndex={1}
         >
-          <AddTask {...addTaskProps} />
+          <AddTask />
           <TaskFilter {...taskFilterProps} />
         </Box>
         <Box my={2}>

@@ -4,7 +4,7 @@ module Api
     class TasksController < PrivateController
       def index
         # p @auth_payload
-        tasks = Task.all.order(id: :desc)
+        tasks = Task.where(status: params[:statuses]).order(id: :desc)
         render json: tasks, status: :ok, each_serializer: TaskSerializer
       end
 
@@ -36,6 +36,10 @@ module Api
       end
 
       private
+
+      # def search_params
+      #   params.permit(:statuses)
+      # end
 
       def task_params
         params.require(:task).permit(:title, :status)

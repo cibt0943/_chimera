@@ -1,5 +1,6 @@
 import React from 'react'
-import { SWRConfig } from 'swr'
+import { QueryClient, QueryClientProvider } from 'react-query'
+import { ReactQueryDevtools } from 'react-query/devtools'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { withAuthenticationRequired } from '@auth0/auth0-react'
 import { CssBaseline } from '@mui/material'
@@ -15,11 +16,15 @@ import { Notes } from 'pages/notes'
 import { Files } from 'pages/files'
 import { Settings } from 'pages/settings'
 
-const swrOptions = {
-  // suspense: true,
-  revalidateOnFocus: false,
-  dedupingInterval: 0,
-}
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      // retry: false,
+      refetchOnWindowFocus: false,
+      // staleTime: Infinity,
+    },
+  },
+})
 
 const ProtectedTasksApp = withAuthenticationRequired(Tasks)
 const ProtectedNotes = withAuthenticationRequired(Notes)
@@ -27,7 +32,7 @@ const ProtectedFiles = withAuthenticationRequired(Files)
 const ProtectedSettings = withAuthenticationRequired(Settings)
 
 export const App: React.VFC = () => (
-  <SWRConfig value={swrOptions}>
+  <QueryClientProvider client={queryClient}>
     <BrowserRouter>
       <Auth0ProviderWithHistory>
         <CssBaseline />
@@ -44,5 +49,6 @@ export const App: React.VFC = () => (
         </ColorModeContextProvider>
       </Auth0ProviderWithHistory>
     </BrowserRouter>
-  </SWRConfig>
+    <ReactQueryDevtools initialIsOpen={false} />
+  </QueryClientProvider>
 )

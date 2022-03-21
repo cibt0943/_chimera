@@ -1,14 +1,3 @@
-export const TaskStatusFilter = {
-  SHOW_ALL: 'SHOW_ALL',
-  SHOW_NEW: 'SHOW_NEW',
-  SHOW_DONE: 'SHOW_DONE',
-  SHOW_DOING: 'SHOW_DOING',
-  SHOW_CANCELED: 'SHOW_CANCELED',
-  SHOW_PENDING: 'SHOW_PENDING',
-} as const
-export type TaskStatusFilter =
-  typeof TaskStatusFilter[keyof typeof TaskStatusFilter]
-
 export const TaskStatus = {
   NEW: 0,
   DONE: 1,
@@ -18,6 +7,8 @@ export const TaskStatus = {
 } as const
 export type TaskStatus = typeof TaskStatus[keyof typeof TaskStatus]
 
+export type TaskStatuses = TaskStatus[]
+
 export type Task = {
   id: number
   title: string
@@ -26,8 +17,14 @@ export type Task = {
 
 export type Tasks = Task[]
 
+export type TaskEdit = {
+  id: number
+  title?: string
+  status?: TaskStatus
+}
+
 /* stateの型を定義する。 */
 export type TasksState = {
   tasks: Tasks
-  taskStatusFilter: TaskStatusFilter
+  taskStatusFilter: TaskStatuses
 }

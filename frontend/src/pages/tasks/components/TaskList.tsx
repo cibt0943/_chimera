@@ -22,18 +22,19 @@ import {
   GridPreProcessEditCellProps,
   jaJP,
 } from '@mui/x-data-grid'
-import { Tasks, Task, TaskStatus } from '../types'
+import { Tasks, Task, TaskStatus, TaskEdit } from '../types'
 import { EditTask } from './EditTask'
 
 type TaskListProps = {
   tasks: Tasks
-  updateTask: (task: Task) => Promise<Task>
-  deleteTask: (task: Task) => Promise<void>
+  updateTask: (task: TaskEdit) => Promise<Task>
+  deleteTask: (task: Task) => Promise<Task>
+  isFetching: boolean
 }
 
 export const TaskList: React.VFC<TaskListProps> = (props) => {
   const { t } = useTranslation()
-  const { tasks, updateTask, deleteTask } = props
+  const { tasks, updateTask, deleteTask, isFetching } = props
   const [rows, setRows] = React.useState<Tasks>(tasks)
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
   const [selectedCellParams, setSelectedCellParams] =
@@ -49,30 +50,30 @@ export const TaskList: React.VFC<TaskListProps> = (props) => {
     [],
   )
 
-  const handleCloseMenu = () => {
+  const handleCloseMenu = React.useCallback(() => {
     setAnchorEl(null)
-  }
+  }, [])
 
   const handleClickEdit = React.useCallback(() => {
     if (selectedCellParams) {
       setOpenEditDialog(true)
     }
     handleCloseMenu()
-  }, [selectedCellParams])
+  }, [handleCloseMenu, selectedCellParams])
 
   const handleClickDelete = React.useCallback(() => {
     if (selectedCellParams) {
       void deleteTask(selectedCellParams.row)
     }
     handleCloseMenu()
-  }, [selectedCellParams, deleteTask])
+  }, [handleCloseMenu, selectedCellParams, deleteTask])
 
   const handleCellEditCommit = React.useCallback(
     (params: GridCellEditCommitParams) => {
       const target = tasks.find((e) => e.id === params.id) //ここどうにかしたい。cellからrowの値取れないの？
       if (!target) return
 
-      const nextTask = { ...target, [params.field]: params.value }
+      const nextTask: TaskEdit = { id: target.id, [params.field]: params.value }
       updateTask(nextTask)
         .then((value: Task) => {
           setRows((prev) =>
@@ -96,67 +97,70 @@ export const TaskList: React.VFC<TaskListProps> = (props) => {
     [],
   )
 
-  const columns: GridColumns = [
-    { field: 'id', headerName: 'id', type: 'number', width: 80 },
-    {
-      field: 'title',
-      headerName: t('task.model.title'),
-      flex: 1,
-      editable: true,
-      preProcessEditCellProps: (params: GridPreProcessEditCellProps) => {
-        const isValid = yup
-          .string()
-          .required(t('validation.required'))
-          .isValidSync(params.props.value)
-        return { ...params.props, error: !isValid }
+  const columns: GridColumns = React.useMemo(() => {
+    return [
+      { field: 'id', headerName: 'id', type: 'number', width: 80 },
+      {
+        field: 'title',
+        headerName: t('task.model.title'),
+        flex: 1,
+        editable: true,
+        preProcessEditCellProps: (params: GridPreProcessEditCellProps) => {
+          const isValid = yup
+            .string()
+            .required(t('validation.required'))
+            .isValidSync(params.props.value)
+          return { ...params.props, error: !isValid }
+        },
       },
-    },
-    {
-      field: 'status',
-      type: 'singleSelect',
-      headerName: t('task.model.status'),
-      width: 100,
-      renderCell: (params: GridRenderCellParams<TaskStatus, TaskStatus>) => {
-        let result
-        switch (params.value) {
-          case TaskStatus.NEW:
-            result = <Chip label="New" color="primary" size="small" />
-            break
-          case TaskStatus.DONE:
-            result = <Chip label="Done" color="success" size="small" />
-            break
-          case TaskStatus.DOING:
-            result = <Chip label="Doing" color="secondary" size="small" />
-            break
-        }
-        return result
+      {
+        field: 'status',
+        type: 'singleSelect',
+        headerName: t('task.model.status'),
+        width: 100,
+        renderCell: (params: GridRenderCellParams<TaskStatus, TaskStatus>) => {
+          let result
+          switch (params.value) {
+            case TaskStatus.NEW:
+              result = <Chip label="New" color="primary" size="small" />
+              break
+            case TaskStatus.DONE:
+              result = <Chip label="Done" color="success" size="small" />
+              break
+            case TaskStatus.DOING:
+              result = <Chip label="Doing" color="secondary" size="small" />
+              break
+          }
+          return result
+        },
+        valueOptions: [
+          { value: TaskStatus.NEW, label: 'New' },
+          { value: TaskStatus.DOING, label: 'Doing' },
+          { value: TaskStatus.DONE, label: 'Done' },
+        ],
+        editable: true,
+        filterable: false,
       },
-      valueOptions: [
-        { value: TaskStatus.NEW, label: 'New' },
-        { value: TaskStatus.DOING, label: 'Doing' },
-        { value: TaskStatus.DONE, label: 'Done' },
-      ],
-      editable: true,
-    },
-    {
-      field: 'actions',
-      type: 'actions',
-      width: 80,
-      renderCell: (params: GridRenderCellParams<Task, Task>) => {
-        return (
-          <Box>
-            <IconButton
-              aria-label="more"
-              size="small"
-              onClick={handleClickMenu(params)}
-            >
-              <BiDotsVerticalRounded />
-            </IconButton>
-          </Box>
-        )
+      {
+        field: 'actions',
+        type: 'actions',
+        width: 80,
+        renderCell: (params: GridRenderCellParams<Task, Task>) => {
+          return (
+            <Box>
+              <IconButton
+                aria-label="more"
+                size="small"
+                onClick={handleClickMenu(params)}
+              >
+                <BiDotsVerticalRounded />
+              </IconButton>
+            </Box>
+          )
+        },
       },
-    },
-  ]
+    ]
+  }, [handleClickMenu, t])
 
   // tasksが更新された時のみ設定
   React.useEffect(() => {
@@ -171,6 +175,7 @@ export const TaskList: React.VFC<TaskListProps> = (props) => {
         onCellKeyDown={handleCellKeyDown}
         onCellEditCommit={handleCellEditCommit}
         localeText={jaJP.components.MuiDataGrid.defaultProps.localeText}
+        loading={isFetching}
       />
       <Menu
         anchorEl={anchorEl}
@@ -191,7 +196,6 @@ export const TaskList: React.VFC<TaskListProps> = (props) => {
         </MenuItem>
       </Menu>
       <EditTask
-        updateTask={updateTask}
         task={selectedCellParams?.row}
         stateOpen={{ value: openEditDialog, setValue: setOpenEditDialog }}
       />
