@@ -34,7 +34,10 @@ export const useMutateTask = () => {
   // データ追加API
   const addFetcher = async (data: Task): Promise<Task> => {
     const authReqestHeaders = await getAuthReqestHeaders()
-    const kyOptions = { ...authReqestHeaders, json: { task: data } }
+    const kyOptions = {
+      ...authReqestHeaders,
+      json: { task: data },
+    }
     return await apiClient.post('tasks/', kyOptions).json()
   }
 
@@ -50,7 +53,10 @@ export const useMutateTask = () => {
   // データ更新API
   const updateFetcher = async (task: TaskEdit): Promise<Task> => {
     const authReqestHeaders = await getAuthReqestHeaders()
-    const kyOptions = { ...authReqestHeaders, json: { task } }
+    const kyOptions = {
+      ...authReqestHeaders,
+      json: { task },
+    }
     return await apiClient.patch(`tasks/${task.id}`, kyOptions).json()
   }
 

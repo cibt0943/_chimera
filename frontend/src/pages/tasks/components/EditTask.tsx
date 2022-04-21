@@ -39,7 +39,12 @@ export const EditTask: React.VFC<EditTaskProps> = (props) => {
   }
 
   return (
-    <Dialog open={stateOpen.value} onClose={handleClose}>
+    <Dialog
+      open={stateOpen.value}
+      onClose={handleClose}
+      fullWidth={true}
+      maxWidth={'sm'}
+    >
       <DialogTitle>{t('task.task') + t('common.edit')}</DialogTitle>
       <DialogContent>
         <TaskForm task={task} onSubmit={updateTask} />

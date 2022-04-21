@@ -13,6 +13,8 @@ export type Task = {
   id: number
   title: string
   status: TaskStatus
+  memo: string
+  dueDate: Date | null
 }
 
 export type Tasks = Task[]
@@ -21,6 +23,15 @@ export type TaskEdit = {
   id: number
   title?: string
   status?: TaskStatus
+  memo?: string
+  dueDate?: Date | null
+}
+
+export type TaskFormErrorMessages = {
+  title?: string
+  status?: string
+  memo?: string
+  dueDate?: string
 }
 
 /* stateの型を定義する。 */

@@ -1,9 +1,11 @@
 ja:
   activerecord:
     models:
-      task: タスク  #g
+      task: タスク #g
 
     attributes:
       task:
-        status: 状態  #g
-        title: タイトル  #g
+        status: 状態 #g
+        title: タイトル #g
+        memo: メモ #g
+        due_date: 期限 #g

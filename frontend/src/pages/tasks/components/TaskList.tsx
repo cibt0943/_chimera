@@ -118,7 +118,7 @@ export const TaskList: React.VFC<TaskListProps> = (props) => {
         type: 'singleSelect',
         headerName: t('task.model.status'),
         width: 100,
-        renderCell: (params: GridRenderCellParams<TaskStatus, TaskStatus>) => {
+        renderCell: (params: GridRenderCellParams<TaskStatus>) => {
           let result
           switch (params.value) {
             case TaskStatus.NEW:
