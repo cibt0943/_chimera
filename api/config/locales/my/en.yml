@@ -1,9 +1,11 @@
 en:
   activerecord:
     models:
-      task: Task  #g
+      task: Task #g
 
     attributes:
       task:
-        status: Status  #g
-        title: Title  #g
+        status: Status #g
+        title: Title #g
+        memo: Memo #g
+        due_date: Due Date #g

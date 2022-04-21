@@ -4,7 +4,7 @@ type InvalidErrors<T> = {
   errors: T
 }
 
-export const isInvalidError = (error: HTTPError) => {
+const isInvalidError = (error: HTTPError) => {
   return error && error.response && error.response.status === 400
 }
 

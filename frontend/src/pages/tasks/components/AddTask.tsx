@@ -17,6 +17,8 @@ const defaultValues: Task = {
   id: 0,
   title: '',
   status: TaskStatus.NEW,
+  memo: '',
+  dueDate: null,
 }
 
 export const AddTask: React.VFC = () => {
@@ -44,7 +46,12 @@ export const AddTask: React.VFC = () => {
         {t('common.add')}
         <AccessKey ml={1}>i</AccessKey>
       </Button>
-      <Dialog open={open} onClose={handleClose}>
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        fullWidth={true}
+        maxWidth={'sm'}
+      >
         <DialogTitle>{t('task.task') + t('common.add')}</DialogTitle>
         <DialogContent>
           <TaskForm task={defaultValues} onSubmit={addTask} />

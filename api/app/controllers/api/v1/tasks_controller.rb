@@ -4,12 +4,12 @@ module Api
     class TasksController < PrivateController
       def index
         # p @auth_payload
-        tasks = Task.where(status: params[:statuses]).order(id: :desc)
+        tasks = Task.where(user_id: current_user, status: params[:statuses]).order(id: :desc)
         render json: tasks, status: :ok, each_serializer: TaskSerializer
       end
 
       def create
-        task = Task.new(task_params)
+        task = current_user.tasks.build(task_params)
         if task.save
           render json: task, status: :ok
         else
@@ -18,7 +18,7 @@ module Api
       end
 
       def update
-        task = Task.find(params[:id])
+        task = find_task(params[:id])
         if task.update(task_params)
           render json: task, status: :ok
         else
@@ -27,7 +27,7 @@ module Api
       end
 
       def destroy
-        task = Task.find(params[:id])
+        task = find_task(params[:id])
         if task.destroy
           render json: task, status: :ok
         else
@@ -42,7 +42,11 @@ module Api
       # end
 
       def task_params
-        params.require(:task).permit(:title, :status)
+        params.require(:task).permit(:title, :status, :memo, :due_date)
+      end
+
+      def find_task(id)
+        Task.find_by(id: id, user_id: current_user)
       end
     end
   end

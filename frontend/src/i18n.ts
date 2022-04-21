@@ -4,28 +4,38 @@ import { initReactI18next } from 'react-i18next'
 const resources = {
   en: {
     translation: {
+      dateFormat: 'yyyy/MM/dd HH:mm:ss',
+      dateMask: '____/__/__ __:__:__',
       'common.add': 'add',
       'common.edit': 'edit',
       'common.save': 'save',
       'common.delete': 'delete',
       'common.cancel': 'cancel',
       'validation.required': 'This field is a required',
+      'validation.date': 'Please enter the correct date',
       'task.task': 'task',
       'task.model.title': 'title',
       'task.model.status': 'status',
+      'task.model.memo': 'memo',
+      'task.model.dueDate': 'dueDate',
     },
   },
   ja: {
     translation: {
+      dateFormat: 'yyyy年MM月dd日 HH:mm:ss',
+      dateMask: '____年__月__日 __:__:__',
       'common.add': '追加',
       'common.edit': '編集',
       'common.delete': '削除',
       'common.save': '保存',
       'common.cancel': 'キャンセル',
       'validation.required': '必須項目です',
+      'validation.date': '正しい日付を入力してください',
       'task.task': 'タスク',
       'task.model.title': 'タイトル',
       'task.model.status': '状態',
+      'task.model.memo': 'メモ',
+      'task.model.dueDate': '期限',
     },
   },
 }
