@@ -12,7 +12,7 @@ const AUTH0_API_AUDIENCE = process.env.AUTH0_API_AUDIENCE || ''
 
 export const Auth0ProviderWithHistory: React.VFC<Props> = (props) => {
   const navigate = useNavigate()
-  const onRedirectCallback = (appState: AppState) => {
+  const onRedirectCallback = (appState?: AppState) => {
     navigate(appState?.returnTo || window.location.pathname)
   }
 
