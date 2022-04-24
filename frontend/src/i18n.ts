@@ -22,8 +22,12 @@ const resources = {
   },
   ja: {
     translation: {
-      dateFormat: 'yyyy年MM月dd日 HH:mm:ss',
-      dateMask: '____年__月__日 __:__:__',
+      dateTimeFormat: 'yyyy年MM月dd日 HH:mm',
+      dateFormat: 'yyyy年MM月dd日',
+      timeFormat: 'HH:mm',
+      dateTimeMask: '____年__月__日 __:__',
+      dateMask: '____年__月__日',
+      timeMask: '__:__',
       'common.add': '追加',
       'common.edit': '編集',
       'common.delete': '削除',

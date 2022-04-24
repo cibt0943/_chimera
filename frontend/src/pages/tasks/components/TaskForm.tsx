@@ -6,6 +6,7 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
 import { Box } from '@mui/material'
 import { TextField } from 'common/components/atoms/TextField'
+// import { DatePicker, TimePicker } from 'common/components/atoms/DateTimePicker'
 import { DateTimePicker } from 'common/components/atoms/DateTimePicker'
 import { apiErrorHandler } from 'common/utils/ErrorHandler'
 import { Task, TaskFormErrorMessages } from '../types'
@@ -18,7 +19,7 @@ type TaskFormProps = {
 const getTaskFormSchema = (t: TFunction) => {
   return yup.object({
     title: yup.string().required(t('validation.required')),
-    dueDate: yup.date().typeError(t('validation.date')),
+    dueDate: yup.date().nullable().typeError(t('validation.date')),
   })
 }
 
@@ -51,7 +52,6 @@ export const TaskForm: React.VFC<TaskFormProps> = (props) => {
       <Box>
         <TextField
           autoFocus
-          id="taskTitle"
           label={t('task.model.title')}
           register={register('title')}
           error={Boolean(errors.title)}
@@ -61,7 +61,6 @@ export const TaskForm: React.VFC<TaskFormProps> = (props) => {
       </Box>
       <Box>
         <TextField
-          id="taskMemo"
           label={t('task.model.memo')}
           register={register('memo')}
           error={Boolean(errors.memo)}
@@ -80,14 +79,12 @@ export const TaskForm: React.VFC<TaskFormProps> = (props) => {
               <DateTimePicker
                 {...field}
                 label={t('task.model.dueDate')}
-                mask={t('dateMask')}
+                mask={t('dateTimeMask')}
                 inputFormat={t('dateFormat')}
-                renderInput={(props) => (
+                renderInput={(params) => (
                   <TextField
-                    {...props}
-                    id="taskDueDate"
+                    {...params}
                     label={t('task.model.dueDate')}
-                    register={register('dueDate')}
                     error={Boolean(errors.dueDate)}
                     helperText={errors.dueDate?.message}
                     fullWidth

@@ -6,7 +6,7 @@ import {
 } from '@mui/material'
 
 type TextFieldProps = MUITextFieldProps & {
-  register: UseFormRegisterReturn
+  register?: UseFormRegisterReturn
 }
 
 export const TextField: React.VFC<TextFieldProps> = (props) => {
@@ -22,7 +22,6 @@ export const TextField: React.VFC<TextFieldProps> = (props) => {
     <MUITextField
       size={size}
       variant={variant}
-      id={register.name}
       margin={margin}
       {...register}
       {...inputProps}
