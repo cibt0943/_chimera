@@ -20,8 +20,8 @@ import {
   GridCellParams,
   MuiEvent,
   GridPreProcessEditCellProps,
-  jaJP,
 } from '@mui/x-data-grid'
+import { utcStrToZonedTime } from 'common/utils/libs/date'
 import { Tasks, Task, TaskStatus, TaskEdit } from '../types'
 import { EditTask } from './EditTask'
 
@@ -40,6 +40,7 @@ export const TaskList: React.VFC<TaskListProps> = (props) => {
   const [selectedCellParams, setSelectedCellParams] =
     React.useState<GridCellParams<Task, Task>>()
   const [openEditDialog, setOpenEditDialog] = React.useState(false)
+  // const [snackbar, setSnackbar] = React.useState<Pick<AlertProps, 'children' | 'severity'> | null>(null)
 
   const handleClickMenu = React.useCallback(
     (params: GridRenderCellParams<Task, Task>) =>
@@ -97,6 +98,10 @@ export const TaskList: React.VFC<TaskListProps> = (props) => {
     [],
   )
 
+  // const handleProcessRowUpdateError = React.useCallback((error: Error) => {
+  //   alert('error')
+  // }, [])
+
   const columns: GridColumns = React.useMemo(() => {
     return [
       { field: 'id', headerName: 'id', type: 'number', width: 80 },
@@ -111,6 +116,24 @@ export const TaskList: React.VFC<TaskListProps> = (props) => {
             .required(t('validation.required'))
             .isValidSync(params.props.value)
           return { ...params.props, error: !isValid }
+        },
+      },
+      {
+        field: 'dueDate',
+        headerName: t('task.model.dueDate'),
+        type: 'dateTime',
+        width: 200,
+        editable: true,
+        preProcessEditCellProps: (params: GridPreProcessEditCellProps) => {
+          const isValid = yup
+            .date()
+            .nullable()
+            .typeError(t('validation.date'))
+            .isValidSync(params.props.value)
+          return { ...params.props, error: !isValid }
+        },
+        valueFormatter: (params) => {
+          return utcStrToZonedTime(params.value)
         },
       },
       {
@@ -174,7 +197,7 @@ export const TaskList: React.VFC<TaskListProps> = (props) => {
         columns={columns}
         onCellKeyDown={handleCellKeyDown}
         onCellEditCommit={handleCellEditCommit}
-        localeText={jaJP.components.MuiDataGrid.defaultProps.localeText}
+        // onProcessRowUpdateError={handleProcessRowUpdateError}
         loading={isFetching}
       />
       <Menu

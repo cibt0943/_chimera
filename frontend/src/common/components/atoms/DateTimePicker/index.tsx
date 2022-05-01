@@ -9,7 +9,6 @@ import {
   DateTimePickerProps as MUIDateTimePickerProps,
 } from '@mui/lab'
 import AdapterDateFns from '@mui/lab/AdapterDateFns'
-import ja from 'date-fns/locale/ja'
 
 type LocalizationProviderProps = {
   children: React.ReactNode
@@ -21,7 +20,7 @@ export const LocalizationProvider: React.VFC<LocalizationProviderProps> = (
   const { children } = props
 
   return (
-    <MUILocalizationProvider dateAdapter={AdapterDateFns} locale={ja}>
+    <MUILocalizationProvider dateAdapter={AdapterDateFns}>
       {children}
     </MUILocalizationProvider>
   )

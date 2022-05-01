@@ -6,7 +6,6 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
 import { Box } from '@mui/material'
 import { TextField } from 'common/components/atoms/TextField'
-// import { DatePicker, TimePicker } from 'common/components/atoms/DateTimePicker'
 import { DateTimePicker } from 'common/components/atoms/DateTimePicker'
 import { apiErrorHandler } from 'common/utils/ErrorHandler'
 import { Task, TaskFormErrorMessages } from '../types'
@@ -80,7 +79,7 @@ export const TaskForm: React.VFC<TaskFormProps> = (props) => {
                 {...field}
                 label={t('task.model.dueDate')}
                 mask={t('dateTimeMask')}
-                inputFormat={t('dateFormat')}
+                inputFormat={t('dateTimeFormat')}
                 renderInput={(params) => (
                   <TextField
                     {...params}
