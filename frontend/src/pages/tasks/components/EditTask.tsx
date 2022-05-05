@@ -12,7 +12,7 @@ import { useMutateTask } from '../hooks/useFetchTasks'
 import { TaskForm } from './TaskForm'
 
 type EditTaskProps = {
-  task?: Task
+  task: Task
   stateOpen: {
     value: boolean
     setValue: React.Dispatch<React.SetStateAction<boolean>>
@@ -23,10 +23,6 @@ export const EditTask: React.VFC<EditTaskProps> = (props) => {
   const { t } = useTranslation()
   const { useUpdateTaskMutation } = useMutateTask()
   const { task, stateOpen } = props
-
-  if (!task) {
-    return <></>
-  }
 
   const updateTask = (data: Task) => {
     return useUpdateTaskMutation.mutateAsync(data, {

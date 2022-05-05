@@ -1,4 +1,6 @@
 import React from 'react'
+import { values } from 'lodash'
+import { HTTPError } from 'ky'
 import { useTranslation } from 'react-i18next'
 import { BiDotsVerticalRounded, BiTrash, BiEditAlt } from 'react-icons/bi'
 import * as yup from 'yup'
@@ -11,19 +13,31 @@ import {
   MenuItem,
   ListItemIcon,
   ListItemText,
+  Snackbar,
+  Alert,
+  AlertProps,
+  Slide,
+  SlideProps,
 } from '@mui/material'
 import {
   DataGrid,
   GridColumns,
   GridRenderCellParams,
-  GridCellEditCommitParams,
   GridCellParams,
+  GridCellEditCommitParams,
+  // GridPreProcessEditCellProps,
   MuiEvent,
-  GridPreProcessEditCellProps,
 } from '@mui/x-data-grid'
 import { utcStrToZonedTime } from 'common/utils/libs/date'
-import { Tasks, Task, TaskStatus, TaskEdit } from '../types'
+import {
+  Tasks,
+  Task,
+  TaskStatus,
+  TaskEdit,
+  TaskFormErrorMessages,
+} from '../types'
 import { EditTask } from './EditTask'
+import { apiErrorHandler } from 'common/utils/ErrorHandler'
 
 type TaskListProps = {
   tasks: Tasks
@@ -37,15 +51,17 @@ export const TaskList: React.VFC<TaskListProps> = (props) => {
   const { tasks, updateTask, deleteTask, isFetching } = props
   const [rows, setRows] = React.useState<Tasks>(tasks)
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
-  const [selectedCellParams, setSelectedCellParams] =
-    React.useState<GridCellParams<Task, Task>>()
+  const [selectedRow, setSelectedRow] = React.useState<null | Task>(null)
   const [openEditDialog, setOpenEditDialog] = React.useState(false)
-  // const [snackbar, setSnackbar] = React.useState<Pick<AlertProps, 'children' | 'severity'> | null>(null)
+  const [snackbar, setSnackbar] = React.useState<Pick<
+    AlertProps,
+    'children' | 'severity'
+  > | null>(null)
 
   const handleClickMenu = React.useCallback(
     (params: GridRenderCellParams<Task, Task>) =>
       (event: React.MouseEvent<HTMLButtonElement>) => {
-        setSelectedCellParams(params)
+        setSelectedRow(params.row)
         setAnchorEl(event.currentTarget)
       },
     [],
@@ -56,39 +72,18 @@ export const TaskList: React.VFC<TaskListProps> = (props) => {
   }, [])
 
   const handleClickEdit = React.useCallback(() => {
-    if (selectedCellParams) {
+    if (selectedRow) {
       setOpenEditDialog(true)
     }
     handleCloseMenu()
-  }, [handleCloseMenu, selectedCellParams])
+  }, [handleCloseMenu, selectedRow])
 
   const handleClickDelete = React.useCallback(() => {
-    if (selectedCellParams) {
-      void deleteTask(selectedCellParams.row)
+    if (selectedRow) {
+      void deleteTask(selectedRow)
     }
     handleCloseMenu()
-  }, [handleCloseMenu, selectedCellParams, deleteTask])
-
-  const handleCellEditCommit = React.useCallback(
-    (params: GridCellEditCommitParams) => {
-      const target = tasks.find((e) => e.id === params.id) //ここどうにかしたい。cellからrowの値取れないの？
-      if (!target) return
-
-      const nextTask: TaskEdit = { id: target.id, [params.field]: params.value }
-      updateTask(nextTask)
-        .then((value: Task) => {
-          setRows((prev) =>
-            prev.map((row) =>
-              row.id === value.id ? { ...row, ...value } : row,
-            ),
-          )
-        })
-        .catch(() => {
-          setRows((prev) => [...prev])
-        })
-    },
-    [tasks, updateTask],
-  )
+  }, [handleCloseMenu, selectedRow, deleteTask])
 
   const handleCellKeyDown = React.useCallback(
     (params: GridCellParams, event: MuiEvent<React.KeyboardEvent>) => {
@@ -98,9 +93,36 @@ export const TaskList: React.VFC<TaskListProps> = (props) => {
     [],
   )
 
-  // const handleProcessRowUpdateError = React.useCallback((error: Error) => {
-  //   alert('error')
-  // }, [])
+  const handleCellEditCommit = React.useCallback(
+    (params: GridCellEditCommitParams) => {
+      setSnackbar(null)
+      const target = tasks.find((e) => e.id === params.id) //ここどうにかしたい。cellからrowの値取れないの？
+      if (!target) return
+      // @ts-ignore
+      if (target[params.field] === params.value) return // 値が変わっていない場合は何もしない
+      const newTask: TaskEdit = { id: target.id, [params.field]: params.value }
+      updateTask(newTask).catch((error: HTTPError) => {
+        apiErrorHandler<TaskFormErrorMessages>(error)
+          .then((invalidError) => {
+            setSnackbar({
+              children: values(invalidError).join('\n'),
+              severity: 'error',
+            })
+          })
+          .catch((error: Error) => {
+            setSnackbar({ children: error.message, severity: 'error' })
+          })
+        setRows((prev) => [...prev])
+      })
+    },
+    [tasks, updateTask],
+  )
+
+  const slideTransition = (props: SlideProps) => {
+    return <Slide {...props} direction="up" />
+  }
+
+  const handleCloseSnackbar = () => setSnackbar(null)
 
   const columns: GridColumns = React.useMemo(() => {
     return [
@@ -110,13 +132,28 @@ export const TaskList: React.VFC<TaskListProps> = (props) => {
         headerName: t('task.model.title'),
         flex: 1,
         editable: true,
-        preProcessEditCellProps: (params: GridPreProcessEditCellProps) => {
-          const isValid = yup
-            .string()
-            .required(t('validation.required'))
-            .isValidSync(params.props.value)
-          return { ...params.props, error: !isValid }
-        },
+        // preProcessEditCellProps: (params: GridPreProcessEditCellProps) => {
+        //   try {
+        //     yup
+        //       .string()
+        //       .required(t('validation.required'))
+        //       .validateSync(params.props.value)
+        //     setSnackbar(null)
+        //     return { ...params.props, error: false }
+        //   } catch (error) {
+        //     if (error instanceof yup.ValidationError) {
+        //       setSnackbar({ children: error.errors[0], severity: 'error' })
+        //     }
+        //     return { ...params.props, error: true }
+        //   }
+        // },
+        // preProcessEditCellProps: (params: GridPreProcessEditCellProps) => {
+        //   const isValid = yup
+        //     .string()
+        //     .required(t('validation.required'))
+        //     .isValidSync(params.props.value)
+        //   return { ...params.props, error: !isValid }
+        // },
       },
       {
         field: 'dueDate',
@@ -124,14 +161,14 @@ export const TaskList: React.VFC<TaskListProps> = (props) => {
         type: 'dateTime',
         width: 200,
         editable: true,
-        preProcessEditCellProps: (params: GridPreProcessEditCellProps) => {
-          const isValid = yup
-            .date()
-            .nullable()
-            .typeError(t('validation.date'))
-            .isValidSync(params.props.value)
-          return { ...params.props, error: !isValid }
-        },
+        // preProcessEditCellProps: (params: GridPreProcessEditCellProps) => {
+        //   const isValid = yup
+        //     .date()
+        //     .nullable()
+        //     .typeError(t('validation.date'))
+        //     .isValidSync(params.props.value)
+        //   return { ...params.props, error: !isValid }
+        // },
         valueFormatter: (params) => {
           return utcStrToZonedTime(params.value)
         },
@@ -140,21 +177,18 @@ export const TaskList: React.VFC<TaskListProps> = (props) => {
         field: 'status',
         type: 'singleSelect',
         headerName: t('task.model.status'),
+        headerAlign: 'center',
         width: 100,
         renderCell: (params: GridRenderCellParams<TaskStatus>) => {
-          let result
+          params.colDef.align = 'center'
           switch (params.value) {
             case TaskStatus.NEW:
-              result = <Chip label="New" color="primary" size="small" />
-              break
+              return <Chip label="New" color="primary" size="small" />
             case TaskStatus.DONE:
-              result = <Chip label="Done" color="success" size="small" />
-              break
+              return <Chip label="Done" color="success" size="small" />
             case TaskStatus.DOING:
-              result = <Chip label="Doing" color="secondary" size="small" />
-              break
+              return <Chip label="Doing" color="secondary" size="small" />
           }
-          return result
         },
         valueOptions: [
           { value: TaskStatus.NEW, label: 'New' },
@@ -197,7 +231,6 @@ export const TaskList: React.VFC<TaskListProps> = (props) => {
         columns={columns}
         onCellKeyDown={handleCellKeyDown}
         onCellEditCommit={handleCellEditCommit}
-        // onProcessRowUpdateError={handleProcessRowUpdateError}
         loading={isFetching}
       />
       <Menu
@@ -218,10 +251,23 @@ export const TaskList: React.VFC<TaskListProps> = (props) => {
           <ListItemText>{t('common.delete')}</ListItemText>
         </MenuItem>
       </Menu>
-      <EditTask
-        task={selectedCellParams?.row}
-        stateOpen={{ value: openEditDialog, setValue: setOpenEditDialog }}
-      />
+      {!!selectedRow && (
+        <EditTask
+          task={selectedRow}
+          stateOpen={{ value: openEditDialog, setValue: setOpenEditDialog }}
+        />
+      )}
+      {!!snackbar && (
+        <Snackbar
+          open
+          anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+          onClose={handleCloseSnackbar}
+          autoHideDuration={3000}
+          TransitionComponent={slideTransition}
+        >
+          <Alert {...snackbar} onClose={handleCloseSnackbar} />
+        </Snackbar>
+      )}
     </Box>
   )
 }

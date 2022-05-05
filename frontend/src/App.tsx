@@ -1,6 +1,6 @@
 import React from 'react'
 import { QueryClient, QueryClientProvider } from 'react-query'
-// import { ReactQueryDevtools } from 'react-query/devtools'
+import { ReactQueryDevtools } from 'react-query/devtools'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { withAuthenticationRequired } from '@auth0/auth0-react'
 import { CssBaseline } from '@mui/material'
@@ -55,6 +55,6 @@ export const App: React.VFC = () => (
         </ColorModeContextProvider>
       </Auth0ProviderWithHistory>
     </BrowserRouter>
-    {/* <ReactQueryDevtools initialIsOpen={false} /> */}
+    <ReactQueryDevtools initialIsOpen={false} />
   </QueryClientProvider>
 )
