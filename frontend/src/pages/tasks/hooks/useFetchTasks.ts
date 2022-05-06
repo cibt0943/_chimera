@@ -22,7 +22,7 @@ export const useGetTasks = (filter: TaskStatuses) => {
       ...authReqestHeaders,
       searchParams,
     }
-    return await apiClient.get('tasks', kyOptions).json()
+    return apiClient.get('tasks', kyOptions).json()
   }
   return useQuery<Tasks, Error>('tasks', getFetcher)
 }
@@ -38,7 +38,7 @@ export const useMutateTask = () => {
       ...authReqestHeaders,
       json: { task: data },
     }
-    return await apiClient.post('tasks/', kyOptions).json()
+    return apiClient.post('tasks/', kyOptions).json()
   }
 
   const useAddTaskMutation = useMutation(addFetcher, {
@@ -57,7 +57,7 @@ export const useMutateTask = () => {
       ...authReqestHeaders,
       json: { task },
     }
-    return await apiClient.patch(`tasks/${task.id}`, kyOptions).json()
+    return apiClient.patch(`tasks/${task.id}`, kyOptions).json()
   }
 
   const useUpdateTaskMutation = useMutation(updateFetcher, {
@@ -73,7 +73,7 @@ export const useMutateTask = () => {
   const deleteFetcher = async (task: Task): Promise<Task> => {
     const authReqestHeaders = await getAuthReqestHeaders()
     const kyOptions = { ...authReqestHeaders }
-    return await apiClient.delete(`tasks/${task.id}`, kyOptions).json()
+    return apiClient.delete(`tasks/${task.id}`, kyOptions).json()
   }
 
   const useDeleteTaskMutation = useMutation(deleteFetcher, {

@@ -3,7 +3,7 @@ import { values } from 'lodash'
 import { HTTPError } from 'ky'
 import { useTranslation } from 'react-i18next'
 import { BiDotsVerticalRounded, BiTrash, BiEditAlt } from 'react-icons/bi'
-import * as yup from 'yup'
+// import * as yup from 'yup'
 import {
   Box,
   Chip,
@@ -101,17 +101,19 @@ export const TaskList: React.VFC<TaskListProps> = (props) => {
       // @ts-ignore
       if (target[params.field] === params.value) return // 値が変わっていない場合は何もしない
       const newTask: TaskEdit = { id: target.id, [params.field]: params.value }
-      updateTask(newTask).catch((error: HTTPError) => {
-        apiErrorHandler<TaskFormErrorMessages>(error)
+      updateTask(newTask).catch(async (error: HTTPError) => {
+        const errorMessage = await apiErrorHandler<TaskFormErrorMessages>(error)
           .then((invalidError) => {
-            setSnackbar({
-              children: values(invalidError).join('\n'),
-              severity: 'error',
-            })
+            return values(invalidError).join('\n')
           })
           .catch((error: Error) => {
-            setSnackbar({ children: error.message, severity: 'error' })
+            return error.message
           })
+
+        setSnackbar({
+          children: errorMessage,
+          severity: 'error',
+        })
         setRows((prev) => [...prev])
       })
     },
