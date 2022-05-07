@@ -18,7 +18,7 @@ type TaskFormProps = {
 const getTaskFormSchema = (t: TFunction) => {
   return yup.object({
     title: yup.string().required(t('validation.required')),
-    dueDate: yup.date().typeError(t('validation.date')),
+    dueDate: yup.date().nullable().typeError(t('validation.date')),
   })
 }
 
@@ -51,7 +51,6 @@ export const TaskForm: React.VFC<TaskFormProps> = (props) => {
       <Box>
         <TextField
           autoFocus
-          id="taskTitle"
           label={t('task.model.title')}
           register={register('title')}
           error={Boolean(errors.title)}
@@ -61,7 +60,6 @@ export const TaskForm: React.VFC<TaskFormProps> = (props) => {
       </Box>
       <Box>
         <TextField
-          id="taskMemo"
           label={t('task.model.memo')}
           register={register('memo')}
           error={Boolean(errors.memo)}
@@ -80,14 +78,12 @@ export const TaskForm: React.VFC<TaskFormProps> = (props) => {
               <DateTimePicker
                 {...field}
                 label={t('task.model.dueDate')}
-                mask={t('dateMask')}
-                inputFormat={t('dateFormat')}
-                renderInput={(props) => (
+                mask={t('dateTimeMask')}
+                inputFormat={t('dateTimeFormat')}
+                renderInput={(params) => (
                   <TextField
-                    {...props}
-                    id="taskDueDate"
+                    {...params}
                     label={t('task.model.dueDate')}
-                    register={register('dueDate')}
                     error={Boolean(errors.dueDate)}
                     helperText={errors.dueDate?.message}
                     fullWidth

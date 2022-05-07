@@ -33,9 +33,3 @@ export type TaskFormErrorMessages = {
   memo?: string
   dueDate?: string
 }
-
-/* stateの型を定義する。 */
-export type TasksState = {
-  tasks: Tasks
-  taskStatusFilter: TaskStatuses
-}

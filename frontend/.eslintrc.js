@@ -56,6 +56,18 @@ module.exports = {
     ],
     'react/react-in-jsx-scope': 'off',
     'import/no-unresolved': 'off', //なぜか[Unable to resolve path to module 'ky']って言われるのでとりあえずチェックしない
+    '@typescript-eslint/no-misused-promises': [
+      'error',
+      {
+        checksVoidReturn: {
+          // returns: false,
+          // arguments: false,
+          attributes: false,
+          // properties: false,
+          // variables: false,
+        },
+      },
+    ],
   },
   overrides: [
     {
